@@ -51,6 +51,10 @@
 
         <module>dist</module>
 
+        <!-- Jakarta EE 9.1 (Faces 3.0) transformed artifacts. Must come after
+             core/components so their javax jars exist to transform. -->
+        <module>jakarta-bridge</module>
+
 		<!-- 
         <module>examples/photoalbum</module>
         <module>examples/showcase</module>

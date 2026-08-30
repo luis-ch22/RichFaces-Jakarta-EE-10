@@ -20,6 +20,9 @@ nb*.xml
 .factorypath
 .checkstyle
 
+# Temp dir left by CDK jar inspection (may be locked by a running JVM)
+cdk_jar_extract/
+
 # Selenium 
 log.txt
 chromedriver.log

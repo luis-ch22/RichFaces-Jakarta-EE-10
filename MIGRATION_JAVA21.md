@@ -226,6 +226,77 @@ Este es el núcleo del trabajo. Se hace por sub-pasos.
       eliminado del JDK.
 - [ ] Actualizar el `bom/pom.xml` del proyecto en consecuencia.
 
+### 6.1.b DECISIÓN DE ENFOQUE (Fase 2 = Opción B: Jakarta EE 9.1 / Faces 3.0)
+
+Se eligió **Jakarta EE 9.1 (Faces 3.0)**: solo el renombrado `javax.* → jakarta.*`
+SIN los cambios de API de Faces 4.0 (los managed beans `@ManagedBean`/scopes
+siguen existiendo en Faces 3.0). Herramienta: **Eclipse Transformer**.
+
+Hallazgo clave de la investigación: **el CDK 4.5.1-SNAPSHOT genera `javax.*` de
+forma incondicional** (plantillas `.ftl` y serializador de taglib con imports
+`javax` hardcodeados; su código fuente no está en el workspace, solo el jar en
+`.m2`). Esto condiciona cómo aplicar el Transformer. Dos estrategias:
+
+- **Estrategia 1 (reescritura de fuente):** reescribir `src/main/java`, XML y
+  `.template.xml` a `jakarta.*` de forma permanente + parchear el CDK para que
+  genere `jakarta.*`. Es "jakarta nativo" pero invasiva (toca 1000+ archivos y
+  el generador).
+- **Estrategia 2 (post-transformación de artefactos) — ELEGIDA AHORA:** el
+  proyecto sigue compilando en `javax` (estado de la Fase 1); se añade un paso
+  que transforma los **JARs compilados** (`richfaces-core`, `richfaces-a4j`,
+  `richfaces`) de `javax` → `jakarta` con el `transformer-maven-plugin`. No toca
+  código fuente ni el CDK. Es el uso canónico de Eclipse Transformer y el de
+  menor riesgo.
+
+> **PENDIENTE PARA EL FUTURO (EE 10 nativo):** cuando migremos a Jakarta EE 10
+> nativo (Faces 4.0), habrá que ejecutar la **Estrategia 1**: reescribir el
+> código fuente a `jakarta.*`, **parchear el CDK** (plantillas `.ftl` +
+> serializador de taglib) para que genere `jakarta.*`, migrar los managed beans
+> JSF a CDI, subir `faces-config`/taglibs a esquema 4.0, y sustituir las
+> dependencias de test `com.github.albfernandez.test-jsf` por variantes jakarta.
+> La Estrategia 2 (post-transformación) es un paso intermedio; NO sustituye ese
+> trabajo de reescritura nativa.
+
+Paquetes `javax.*` que el Transformer NO debe tocar (siguen en el JDK):
+`javax.xml.parsers`, `javax.xml.transform`, `javax.xml.xpath`, `javax.imageio`,
+`javax.swing`, `javax.naming`, `javax.crypto`, `javax.security`, `javax.net`,
+`javax.sql`. Caso especial: `javax.xml.rpc` (JAX-RPC, en
+`core/.../InitializationListener.java`) no tiene equivalente Jakarta EE 9.1 Web
+Profile → requiere revisión manual.
+
+### 6.1.c Resultados de la Fase 2 (Estrategia 2 ejecutada) — artefactos jakarta OK
+
+Se añadió el módulo agregador **`jakarta-bridge`** con 3 submódulos
+(`core`, `a4j`, `rich`). Cada submódulo:
+1. `maven-dependency-plugin:unpack` descomprime el jar `javax` correspondiente
+   (`richfaces-core` / `richfaces-a4j` / `richfaces`) en `target/classes`;
+2. `transformer-maven-plugin:transform` (goal `transform`, fase `process-classes`,
+   `jakartaDefaults=true`) reescribe `javax.* → jakarta.*` in situ;
+3. `maven-jar-plugin` reempaqueta usando el `MANIFEST.MF` transformado.
+
+Artefactos producidos e instalados en `.m2`:
+- `richfaces-core-jakarta-4.6.2.ayg.jar`
+- `richfaces-a4j-jakarta-4.6.2.ayg.jar`
+- `richfaces-jakarta-4.6.2.ayg.jar` (rich)
+
+Verificación de bytecode (con `javap`):
+- `org.richfaces.renderkit.RendererBase` (a4j-jakarta) ahora `extends
+  jakarta.faces.render.Renderer`; sus métodos usan
+  `jakarta.faces.context.FacesContext` / `jakarta.faces.component.UIComponent`.
+- `org.richfaces.webapp.ResourceServlet` (core-jakarta) usa exclusivamente
+  `jakarta.faces.webapp.FacesServlet` y `jakarta.servlet.http.*`; CERO
+  referencias a `javax.faces`/`javax.servlet`.
+
+El reactor completo (17 módulos) construye con `mvn -DskipTests -Dgpg.skip=true
+clean install`. El `jakarta-bridge` va después de `dist` para que los jars
+`javax` ya existan al transformarse.
+
+Nota (fragilidad conocida): un `clean install` completo mostró de forma
+intermitente un fallo de `testCompile` en `richfaces-a4j` (no encontraba clases
+generadas por el CDK como `UIDataAdaptor`). Al reanudar el build se resolvió.
+Es un problema de orden/estado del flujo CDK, no de la transformación jakarta;
+queda anotado para endurecer en Fase 3/4.
+
 ### 6.2 Renombrado automático de namespaces `javax.*` → `jakarta.*`
 - [ ] Ejecutar una herramienta de transformación sobre el código fuente:
   - **Opción A – Eclipse Transformer** (recomendada para el renombrado masivo).
