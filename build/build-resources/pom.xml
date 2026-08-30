@@ -24,9 +24,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.albfernandez.richfaces</groupId>
+    <groupId>com.github.luisch22.richfaces</groupId>
     <artifactId>richfaces-build-resources</artifactId>
-    <version>4.6.2.ayg</version>
+    <version>5.0.0</version>
     <name>RichFaces Build Resources</name>
 
     <description>
@@ -58,7 +58,7 @@
 		<url>https://github.com/albfernandez/richfaces/issues</url>
 	</issueManagement>
     <properties>
-        <version.richfaces>4.6.2.ayg</version.richfaces>
+        <version.richfaces>5.0.0</version.richfaces>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -75,7 +75,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.github.albfernandez.richfaces</groupId>
+                <groupId>com.github.luisch22.richfaces</groupId>
                 <artifactId>richfaces-build</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>

@@ -27,7 +27,7 @@
     <artifactId>components-demo</artifactId>
     <groupId>org.richfaces.examples</groupId>
     <name>RichFaces Example - Component </name>
-    <version>4.6.2.ayg</version>
+    <version>5.0.0</version>
     <packaging>war</packaging>
 
     <description>
@@ -60,7 +60,7 @@
 	</issueManagement>
 	
     <properties>
-        <version.richfaces>4.6.2.ayg</version.richfaces>
+        <version.richfaces>5.0.0</version.richfaces>
         <version.hibernate-validator>4.3.2.Final</version.hibernate-validator>
         <version.jboss-spec>3.0.3.Final</version.jboss-spec>
         <version.junit>4.12</version.junit>
@@ -87,7 +87,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
+            <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces</artifactId>
             <version>${version.richfaces}</version>
         </dependency>

@@ -32,9 +32,9 @@ To use the RichFaces framework in your JSF maven application, simply add the fol
 [source, xml]
 ----
 <dependency>
-    <groupId>com.github.albfernandez.richfaces</groupId>
+    <groupId>com.github.luisch22.richfaces</groupId>
     <artifactId>richfaces</artifactId>
-    <version>4.6.2.ayg</version>
+    <version>5.0.0</version>
 </dependency>
 ----
 

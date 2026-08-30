@@ -10,9 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.albfernandez.richfaces</groupId>
+        <groupId>com.github.luisch22.richfaces</groupId>
         <artifactId>richfaces-jakarta-bridge</artifactId>
-        <version>4.6.2.ayg</version>
+        <version>5.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -30,7 +30,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
+            <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>${source.artifactId}</artifactId>
             <version>${version.richfaces}</version>
         </dependency>
@@ -51,7 +51,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>com.github.albfernandez.richfaces</groupId>
+                                    <groupId>com.github.luisch22.richfaces</groupId>
                                     <artifactId>${source.artifactId}</artifactId>
                                     <version>${version.richfaces}</version>
                                     <outputDirectory>${project.build.outputDirectory}</outputDirectory>

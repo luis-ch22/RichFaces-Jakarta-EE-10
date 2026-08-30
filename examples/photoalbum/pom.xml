@@ -27,7 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-photoalbum</artifactId>
-    <version>4.6.2.ayg</version>
+    <version>5.0.0</version>
     <packaging>war</packaging>
 
     <name>RichFaces Photoalbum</name>
@@ -63,7 +63,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	</issueManagement>
 
     <properties>
-        <version.richfaces>4.6.2.ayg</version.richfaces>
+        <version.richfaces>5.0.0</version.richfaces>
         <version.metadata-extractor>2.6.2</version.metadata-extractor>
         <version.jackson>1.9.12</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
@@ -120,7 +120,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 Reference usage of RichFaces BOM dependency version management
             -->
             <dependency>
-                <groupId>com.github.albfernandez.richfaces</groupId>
+                <groupId>com.github.luisch22.richfaces</groupId>
                 <artifactId>richfaces-cache-bom</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
@@ -131,7 +131,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                (not intented to be used by other projects projects)
             -->
             <dependency>
-                <groupId>com.github.albfernandez.richfaces</groupId>
+                <groupId>com.github.luisch22.richfaces</groupId>
                 <artifactId>richfaces-build</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
@@ -171,7 +171,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
         <!-- RichFaces dependency -->
         <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
+            <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces</artifactId>
         </dependency>
 
@@ -219,14 +219,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
+            <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces-page-fragments</artifactId>
             <scope>test</scope>
             <optional>true</optional>
             <version>${version.richfaces}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
+            <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces-build-resources</artifactId>
             <scope>test</scope>
         </dependency>
@@ -310,7 +310,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </plugin>
 
             <plugin>
-                <groupId>com.github.albfernandez.richfaces</groupId>
+                <groupId>com.github.luisch22.richfaces</groupId>
                 <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
                 <version>${version.richfaces}</version>
                 <configuration>
@@ -464,7 +464,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <version>2.10.1</version>
                 </plugin>
                 <plugin>
-                    <groupId>com.github.albfernandez.richfaces</groupId>
+                    <groupId>com.github.luisch22.richfaces</groupId>
                     <artifactId>ichfaces-resources-maven-plugin</artifactId>
                     <version>${version.richfaces}</version>
                 </plugin>
@@ -507,7 +507,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                 </pluginExecution>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>com.github.albfernandez.richfaces</groupId>
+                                        <groupId>com.github.luisch22.richfaces</groupId>
                                         <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
                                         <versionRange>[4.5.2-Final,)</versionRange>
                                         <goals>
@@ -617,7 +617,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>com.github.albfernandez.richfaces</groupId>
+                    <groupId>com.github.luisch22.richfaces</groupId>
                     <artifactId>richfaces-build-resources</artifactId>
                     <scope>test</scope>
                 </dependency>
@@ -742,7 +742,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>com.github.albfernandez.richfaces</groupId>
+                                <groupId>com.github.luisch22.richfaces</groupId>
                                 <artifactId>richfaces-build-resources</artifactId>
                                 <version>${version.richfaces}</version>
                             </dependency>
@@ -761,7 +761,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>com.github.albfernandez.richfaces</groupId>
+                                            <groupId>com.github.luisch22.richfaces</groupId>
                                             <artifactId>richfaces-build-resources</artifactId>
                                             <version>${version.richfaces}</version>
                                             <type>jar</type>

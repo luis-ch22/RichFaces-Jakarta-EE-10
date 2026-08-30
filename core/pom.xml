@@ -25,9 +25,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.albfernandez.richfaces</groupId>
+        <groupId>com.github.luisch22.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>4.6.2.ayg</version>
+        <version>5.0.0</version>
     </parent>
 
     <artifactId>richfaces-core</artifactId>
@@ -46,7 +46,7 @@
     
 
     <properties>
-        <version.richfaces>4.6.2.ayg</version.richfaces>
+        <version.richfaces>5.0.0</version.richfaces>
     </properties>
 
     <dependencies>
@@ -210,7 +210,7 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
+            <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces-build-resources</artifactId>
             <scope>compile</scope>
             <optional>true</optional>
@@ -358,7 +358,7 @@
                                 </exclusions>
                             </dependency>
                             <dependency>
-                                <groupId>com.github.albfernandez.richfaces</groupId>
+                                <groupId>com.github.luisch22.richfaces</groupId>
                                 <artifactId>richfaces-build-resources</artifactId>
                                 <version>${version.richfaces}</version>
                             </dependency>

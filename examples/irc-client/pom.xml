@@ -27,7 +27,7 @@
     <artifactId>irc-client</artifactId>
     <groupId>org.richfaces.examples</groupId>
     <name>RichFaces Example - IRC Client</name>
-    <version>4.6.2.ayg</version>
+    <version>5.0.0</version>
     <packaging>war</packaging>
 
     <description>
@@ -61,7 +61,7 @@
 	</issueManagement>
 
     <properties>
-        <version.richfaces>4.6.2.ayg</version.richfaces>
+        <version.richfaces>5.0.0</version.richfaces>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>     
@@ -72,14 +72,14 @@
         <dependencies>
             <!-- RichFaces BOM Import -->
             <dependency>
-                <groupId>com.github.albfernandez.richfaces</groupId>
+                <groupId>com.github.luisch22.richfaces</groupId>
                 <artifactId>richfaces-cache-bom</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>com.github.albfernandez.richfaces</groupId>
+                <groupId>com.github.luisch22.richfaces</groupId>
                 <artifactId>richfaces-build</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
@@ -104,12 +104,12 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
+            <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
+            <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces-push-depchain</artifactId>
             <type>pom</type>
         </dependency>

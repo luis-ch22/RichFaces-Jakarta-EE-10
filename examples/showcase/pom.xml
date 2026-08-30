@@ -26,7 +26,7 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-showcase</artifactId>
-    <version>4.6.2.ayg</version>
+    <version>5.0.0</version>
     <packaging>war</packaging>
     <name>RichFaces Showcase</name>
 
@@ -61,7 +61,7 @@
 	</issueManagement>
 	
     <properties>
-        <version.richfaces>4.6.2.ayg</version.richfaces>
+        <version.richfaces>5.0.0</version.richfaces>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -146,7 +146,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.github.albfernandez.richfaces</groupId>
+                <groupId>com.github.luisch22.richfaces</groupId>
                 <artifactId>richfaces-cache-bom</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
@@ -154,7 +154,7 @@
             </dependency>
 
             <dependency>
-                <groupId>com.github.albfernandez.richfaces</groupId>
+                <groupId>com.github.luisch22.richfaces</groupId>
                 <artifactId>richfaces-build</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
@@ -165,16 +165,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
+            <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
+            <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces-build-resources</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
+            <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces-page-fragments</artifactId>
             <scope>test</scope>
             <optional>true</optional>
@@ -238,7 +238,7 @@
 
         <!-- Dependencies for Push -->
         <dependency>
-            <groupId>com.github.albfernandez.richfaces</groupId>
+            <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces-push-depchain</artifactId>
             <type>pom</type>
             <version>${version.richfaces}</version>
@@ -805,12 +805,12 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>com.github.albfernandez.richfaces</groupId>
+                    <groupId>com.github.luisch22.richfaces</groupId>
                     <artifactId>richfaces-build-resources</artifactId>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
-                    <groupId>com.github.albfernandez.richfaces</groupId>
+                    <groupId>com.github.luisch22.richfaces</groupId>
                     <artifactId>richfaces-build-resources</artifactId>
                     <type>zip</type>
                     <scope>test</scope>
@@ -818,7 +818,7 @@
                     <classifier>configuration-wildfly82-https</classifier>
                 </dependency>
                 <dependency>
-                    <groupId>com.github.albfernandez.richfaces</groupId>
+                    <groupId>com.github.luisch22.richfaces</groupId>
                     <artifactId>richfaces-build-resources</artifactId>
                     <type>zip</type>
                     <scope>test</scope>
@@ -881,7 +881,7 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>com.github.albfernandez.richfaces</groupId>
+                                            <groupId>com.github.luisch22.richfaces</groupId>
                                             <artifactId>richfaces-build-resources</artifactId>
                                             <version>${version.richfaces}</version>
                                             <type>jar</type>
@@ -936,7 +936,7 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>com.github.albfernandez.richfaces</groupId>
+                                <groupId>com.github.luisch22.richfaces</groupId>
                                 <artifactId>richfaces-build-resources</artifactId>
                                 <version>${version.richfaces}</version>
                             </dependency>
