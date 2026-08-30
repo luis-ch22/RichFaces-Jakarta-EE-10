@@ -101,14 +101,14 @@ Se apoya en el **CDK 10.0.1 jakarta ya publicado**:
 
 ## 1. Fase A — Preparación
 
-- [ ] Crear rama dedicada desde el estado actual:
+- [x] Crear rama dedicada desde el estado actual:
       `git checkout -b migration/jakarta-ee10`.
-- [ ] Confirmar build base verde (el estado heredado de la Fase 21):
+- [x] Confirmar build base verde (el estado heredado de la Fase 21):
       ```
       cmd /v:on /c "set JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-21.0.4.7-hotspot&& mvn.cmd -Dmaven.test.skip=true -Dgpg.skip=true clean install"
       ```
       Anotar qué se instala en `.m2`. Este es el "antes".
-- [ ] Congelar con commit inicial de la rama.
+- [x] Congelar con commit inicial de la rama.
 - [ ] Definir propiedades nuevas en `pom.xml` raíz y `build/pom.xml`:
   - `version.jakarta.bom=10.0.0` (jakarta.platform:jakarta.jakartaee-bom).
   - `version.mojarra=4.0.x` (org.glassfish:jakarta.faces).
@@ -116,6 +116,40 @@ Se apoya en el **CDK 10.0.1 jakarta ya publicado**:
   - Mantener temporalmente `version.jboss-javaee` hasta migrar cada módulo.
 
 > Objetivo: base reproducible y variables listas para intercambiar plataforma.
+
+### Resultados de la Fase A (ejecutada)
+
+- El trabajo de Java 21 (Fases 0–5 de `MIGRATION_JAVA21.md`) está commiteado
+  directamente en `main` (no hubo rama `migration/java21` separada). El HEAD de
+  `main` es `d657824` (docs de plan + skinning). El proyecto ya está rebrandeado
+  a `com.github.luisch22.richfaces:*:5.0.0`.
+- Rama creada: **`migration/jakarta-ee10`** desde `main`.
+- **Build base VERDE en JDK 21** (`mvn -B -Dmaven.test.skip=true -Dgpg.skip=true
+  clean install`): los **17 módulos SUCCESS** en ~2:24 min. Se instalan en `.m2`
+  los 6 artefactos usables: `richfaces-core`, `richfaces-a4j`, `richfaces`
+  (javax) y `richfaces-core-jakarta`, `richfaces-a4j-jakarta`,
+  `richfaces-jakarta` (bridge), todos en versión `5.0.0`.
+- **CDK en uso hoy:** `org.richfaces.cdk:...:4.5.1-SNAPSHOT` (javax), resuelto
+  desde `.m2`. Genera componentes con `javax.faces` (esperado en la base).
+- **Ruido no fatal confirmado (deuda conocida):** el `richfaces-resource-optimizer`
+  con Reflections 0.9.8 imprime stack traces `ReflectionsException: could not
+  create class file from ...class` al escanear bytecode Java 21 (p. ej.
+  `RendererUtils.class`, `XML.class`), y muchos `null resource for resource key
+  org.richfaces.images:*` — NINGUNO corta el build (rich = SUCCESS en 1:19 min).
+- **CDK 10.0.1 jakarta clonado como referencia/respaldo** en
+  `C:\Users\luis-\Workspace\richfaces-cdk`, en el tag `v.10.0.1` (detached HEAD).
+  Verificado que su `component.ftl` ya genera `jakarta.faces.*`/`jakarta.el.*`.
+  El `master`/`main` del repo NO es jakarta (es `4.6.2-SNAPSHOT` javax); la
+  versión jakarta vive en la rama `jakarta` y los tags `v.10.0.0`/`v.10.0.1`.
+
+Patrón de build confirmado (JDK 21 real, evita el JDK del terminal de Kiro):
+```
+cmd /v:on /c "set JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-21.0.4.7-hotspot&& mvn.cmd -B -Dmaven.test.skip=true -Dgpg.skip=true clean install"
+```
+
+> Pendiente de la Fase A: solo falta declarar las propiedades de versión jakarta
+> (`version.jakarta.bom`, etc.). Se hará al inicio de la Fase B junto con el
+> cambio del BOM, para no dejar propiedades sin usar.
 
 ---
 
