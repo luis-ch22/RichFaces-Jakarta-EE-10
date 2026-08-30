@@ -91,11 +91,12 @@
             <scope>provided</scope>
         </dependency>
         <!-- Faces 4.0 API (Mojarra) for RichFaces5Validator / BaseDeployment,
-             which reference jakarta.faces.* directly. -->
+             which reference jakarta.faces.* directly. build-resources has no
+             parent, so the version is inlined (cannot use ${version.mojarra}). -->
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>jakarta.faces</artifactId>
-            <version>${version.mojarra}</version>
+            <version>4.0.24</version>
             <scope>provided</scope>
         </dependency>
 

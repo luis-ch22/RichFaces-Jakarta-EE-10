@@ -161,6 +161,23 @@ public class PartialStateHolderHelper implements StateHelper {
         return (retVal != null) ? retVal : defaultValue;
     }
 
+    /**
+     * Faces 4.0 added StateHelper#eval(Serializable, Supplier). The default value
+     * is now produced lazily by a Supplier.
+     *
+     * @see StateHelper#eval(java.io.Serializable, java.util.function.Supplier)
+     */
+    public Object eval(Serializable key, java.util.function.Supplier<Object> defaultValueSupplier) {
+        Object retVal = get(key);
+        if (retVal == null) {
+            retVal = getValueExpressionValue(key.toString());
+        }
+        if (retVal != null) {
+            return retVal;
+        }
+        return (defaultValueSupplier != null) ? defaultValueSupplier.get() : null;
+    }
+
     protected Object getValueExpressionValue(String name) {
         return null;
     }

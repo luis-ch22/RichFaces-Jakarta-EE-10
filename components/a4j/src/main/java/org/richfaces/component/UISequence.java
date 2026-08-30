@@ -35,10 +35,11 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.model.ArrayDataModel;
 import jakarta.faces.model.DataModel;
 import jakarta.faces.model.ListDataModel;
-import jakarta.faces.model.ResultDataModel;
 import jakarta.faces.model.ResultSetDataModel;
 import jakarta.faces.model.ScalarDataModel;
-import jakarta.servlet.jsp.jstl.sql.Result;
+// NOTE: ResultDataModel and javax/jakarta.servlet.jsp.jstl.sql.Result were
+// removed in Faces 4.0 (JSTL-SQL integration dropped). The corresponding
+// createDataModel() branch is removed below.
 
 import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.ExtendedDataModel;
@@ -94,8 +95,6 @@ public class UISequence extends UIDataAdaptor {
             model = new ArrayDataModel((Object[]) value);
         } else if (value instanceof ResultSet) {
             model = new ResultSetDataModel((ResultSet) value);
-        } else if (value instanceof Result) {
-            model = new ResultDataModel((Result) value);
         } else if (value instanceof Collection) {
             model = new CollectionDataModel((Collection) value);
         } else {
@@ -262,17 +261,8 @@ public class UISequence extends UIDataAdaptor {
         }
     }
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public void setValueBinding(String name, jakarta.faces.el.ValueBinding binding) {
-        if ("value".equals(name)) {
-            resetDataModel();
-        } else if ("first".equals(name) || "rows".equals(name)) {
-            updateState();
-        }
-
-        super.setValueBinding(name, binding);
-    }
+    // NOTE: setValueBinding(ValueBinding) was deprecated JSF 1.x API removed in
+    // Faces 4.0; the setValueExpression override below carries the same logic.
 
     @Override
     public void setValueExpression(String name, ValueExpression binding) {

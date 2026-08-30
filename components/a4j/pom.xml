@@ -60,6 +60,14 @@
             <artifactId>jakarta.annotation-api</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- JSTL API (jakarta) for ForEachLoop's LoopTagStatus. Provided by the
+             container at runtime. -->
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>3.0.2</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>com.github.luisch22.richfaces</groupId>
