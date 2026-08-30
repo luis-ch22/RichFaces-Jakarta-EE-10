@@ -150,6 +150,64 @@ temporalmente a un target antiguo.
 - [ ] Compilar. Anotar errores. En esta fase son esperables errores por APIs
       del JDK eliminadas (JAXB `javax.xml.bind`), que se resuelven en la Fase 2.
 
+### Resultados de la Fase 1 (ejecutada) — BUILD SUCCESS con JDK 21
+
+Todos los módulos del reactor (BOM → build/* → core → components → dist)
+compilan e instalan con JDK 21 (`mvn -DskipTests -Dgpg.skip=true clean install`).
+Cambios aplicados y el porqué:
+
+1. **pom.xml raíz**: `source/target 1.7` → `maven.compiler.release=21`. Subida de
+   plugins: compiler 3.13.0, surefire 3.2.5, jar/source/javadoc/assembly/resources
+   modernos, jacoco 0.8.12, release 3.1.1, scm 2.1.0, install 3.1.2. Añadido
+   `version.javadoc.plugin=3.6.3`. Quitado `-XX:MaxPermSize` del vmargs de Arquillian.
+2. **Conflicto `--source` con `--release`**: el `jboss-parent:11` inyecta
+   `<compilerArguments><source/><target/></compilerArguments>` en el compiler-plugin,
+   incompatible con `<release>`. Solucionado en el `pluginManagement` raíz con
+   `<configuration combine.self="override">` + `<compilerArguments combine.self="override"/>`.
+3. **build/build-resources/pom.xml**: quitado `source/target 1.7` local, compiler
+   a 3.13.0 con `release`, assembly 3.7.1; quitadas versiones antiguas fijas de
+   source/javadoc para heredar del raíz.
+4. **build/page-fragments/pom.xml**: quitadas versiones fijas de source/javadoc.
+   Eliminada la ejecución local `attach-sources` (goal jar) que duplicaba la del
+   jboss-parent (goal jar-no-fork) → error "duplicated artifacts". Javadoc de JDK 21
+   fallaba por HTML5/doclint (tags `<tt>`): resuelto globalmente con
+   `<doclint>none</doclint>` + `<failOnError>false</failOnError>` en el javadoc-plugin raíz.
+5. **.mvn/jvm.config** (nuevo): `--add-opens` para `java.base/java.lang` (y otros).
+   El CDK usa Guice/cglib con reflexión profunda sobre `ClassLoader.defineClass`,
+   bloqueada por JPMS en JDK 16+ ("module java.base does not opens java.lang").
+6. **build/resource-optimizer-plugin/pom.xml**: `maven-plugin-plugin` y
+   `maven-plugin-annotations` 3.4 → 3.13.1 (el 3.4 no lee bytecode 21 en helpmojo).
+7. **components/pom.xml**: la ejecución `precompile-sources-for-cdk` ahora compila a
+   `target/cdk-precompile-classes` (directorio separado). Compartir `target/classes`
+   con el `default-compile` hacía que javac de JDK 21 fallara al reescribir clases
+   anónimas de enum (`PanelIcons$State$1`): "error while writing".
+8. **components/a4j/.../RendererBase.java**: quitado `final` de `encodeBegin`,
+   `encodeChildren`, `encodeEnd`. El CDK genera renderers que sobreescriben esos
+   métodos públicos; con `final` no compilan (fallaría en cualquier JDK — el CDK
+   binario 4.5.1-SNAPSHOT y este RendererBase estaban desincronizados). Los renderers
+   generados NO están versionados en git (se generan en cada build).
+9. **components/rich/.../SwingTreeNodeImpl.java**: `Enumeration<?> children()` →
+   `Enumeration<? extends TreeNode> children()`. `javax.swing.tree.TreeNode` cambió
+   su firma a genérica en JDK 9+ (cambio real de API del JDK).
+10. **core/.../resource-optimizer/.../ReflectionsExt.java**: bloque estático que
+    inicializa `Reflections.log` (campo `public static`) si es null. Reflections 0.9.8
+    dejaba el logger null y lanzaba NPE al loguear un warning durante el escaneo en
+    JDK 21. Se mantiene reflections en 0.9.8 (subir a 0.9.12 rompe la API del scanner
+    custom `MarkerResourcesScanner extends AbstractScanner`).
+
+Notas / deuda para fases siguientes:
+- El optimizador de recursos usa YUI Compressor 2.4.8 + Rhino antiguo, que emite
+  "syntax errors" al minificar `jquery.js` y otros JS modernos. Son NO fatales
+  (el build tiene éxito), pero conviene actualizar el minificador más adelante.
+- Persisten warnings de deprecación (`new Integer(int)`) y el warning de
+  `com.sun:tools:jar` (tools.jar) del jboss-parent; ninguno bloquea.
+- Todo el código sigue en `javax.*`: la migración a `jakarta.*` es la Fase 2.
+- Los ejemplos (`examples/*`) siguen con `source/target 1.7` y `MaxPermSize`;
+  se tratarán en Fase 3/4 cuando se activen en el reactor.
+
+Patrón de build usado (JDK 21 real, evitando el JDK 25 del terminal de Kiro):
+`cmd /v:on /c "set JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-21.0.4.7-hotspot&& mvn.cmd -DskipTests -Dgpg.skip=true clean install"`
+
 ---
 
 ## 6. Fase 2 — Migración de plataforma: Java EE 6 → Jakarta EE 10 (cambio B)

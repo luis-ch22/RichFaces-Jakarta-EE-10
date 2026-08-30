@@ -61,6 +61,14 @@
                             <goals>
                                 <goal>compile</goal>
                             </goals>
+                            <configuration>
+                                <!-- Compile the CDK input classes into a separate
+                                     directory. Sharing target/classes with the later
+                                     default-compile makes javac on JDK 21 fail to
+                                     rewrite enum anonymous classes (PanelIcons$State$1),
+                                     giving "error while writing". -->
+                                <outputDirectory>${project.build.directory}/cdk-precompile-classes</outputDirectory>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
@@ -344,4 +352,3 @@
         </profile>
     </profiles>
 </project>
-

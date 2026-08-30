@@ -28,6 +28,7 @@ import java.util.Map;
 import org.reflections.Configuration;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanner;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
@@ -39,6 +40,16 @@ import com.google.common.collect.Multimap;
  *
  */
 public class ReflectionsExt extends Reflections {
+
+    static {
+        // Reflections 0.9.8 leaves its public static "log" field null when it
+        // cannot auto-detect an SLF4J binding. On JDK 21 the scanner hits
+        // classes/files it cannot read and tries to log a warning, causing a
+        // NullPointerException (Reflections.log is null). Initialise it here.
+        if (Reflections.log == null) {
+            Reflections.log = LoggerFactory.getLogger(Reflections.class);
+        }
+    }
     private static final Function<String, Class<?>> CLASS_FOR_NAME = new Function<String, Class<?>>() {
         public java.lang.Class<?> apply(String from) {
             try {

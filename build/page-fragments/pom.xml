@@ -76,23 +76,12 @@
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
             </plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>3.0.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			<!-- Source jar is attached by jboss-parent's attach-sources
+			     execution (goal jar-no-fork). Do not declare a second
+			     source execution here or artifacts get duplicated. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
