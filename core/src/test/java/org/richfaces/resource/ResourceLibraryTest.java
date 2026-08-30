@@ -26,8 +26,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponentBase;
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.component.UIComponentBase;
 
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;

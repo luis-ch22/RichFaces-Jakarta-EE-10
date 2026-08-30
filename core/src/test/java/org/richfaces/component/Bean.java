@@ -24,9 +24,9 @@ package org.richfaces.component;
 
 import java.util.Collections;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.RequestScoped;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;

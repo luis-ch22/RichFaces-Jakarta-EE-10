@@ -30,9 +30,9 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.FacesContext;
 
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;

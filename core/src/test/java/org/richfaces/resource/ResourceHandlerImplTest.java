@@ -35,9 +35,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.easymock.classextension.EasyMock;
 import org.jboss.test.faces.AbstractFacesTest;
@@ -190,7 +190,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
     public void testDefaultMojarraResource() throws Exception {
         WebRequest mojarraWebRequest = new WebRequest(new URL(
-            "http://localhost/javax.faces.resource/defaultResourceHandlerResource.js.jsf"));
+            "http://localhost/jakarta.faces.resource/defaultResourceHandlerResource.js.jsf"));
         WebResponse mojarraResourceNameResponse = webClient.loadWebResponse(mojarraWebRequest);
 
         assertEquals(HttpServletResponse.SC_OK, mojarraResourceNameResponse.getStatusCode());

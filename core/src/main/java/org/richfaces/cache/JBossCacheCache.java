@@ -29,6 +29,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+// NOTE: these stay on javax.transaction (NOT jakarta) on purpose. jbosscache-core
+// is a legacy, optional dependency (~2010) that has no jakarta variant and whose
+// API (Cache.getInvocationContext().getTransaction()) returns a
+// javax.transaction.Transaction. The transaction types here are dictated by that
+// library, not by the Jakarta EE platform.
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.RollbackException;

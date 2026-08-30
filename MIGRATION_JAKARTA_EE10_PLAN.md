@@ -278,10 +278,66 @@ librería. Herramienta recomendada: **Eclipse Transformer** en modo fuente, o
       `jakarta.faces.*`.
 
 ### 3.4 Compilar y estabilizar
-- [ ] `mvn -pl core -am -Dmaven.test.skip=true -Dgpg.skip=true clean install`.
-- [ ] Corregir errores residuales de API (métodos renombrados/eliminados en
+- [x] `mvn -pl core -am -Dmaven.test.skip=true -Dgpg.skip=true clean compile`.
+- [x] Corregir errores residuales de API (métodos renombrados/eliminados en
       Faces 4.0 respecto a 2.x). El `core` NO usa managed beans, así que el
-      grueso debería ser renombrado mecánico.
+      grueso fue renombrado mecánico.
+
+### Resultados de la Fase C — CORE (ejecutada) — BUILD SUCCESS jakarta nativo
+
+Herramienta: se descartó Eclipse Transformer CLI (con `jakartaDefaults` NO
+transforma texto `.java`, solo bytecode: dejó 337 archivos "Unchanged"). Se usó
+un **script PowerShell propio** (`build/jakarta-transform/rename-javax-to-jakarta.ps1`)
+con una **allow-list explícita** de prefijos que migran (faces, servlet, el,
+enterprise, inject, validation, persistence, jms, activation, mail, transaction,
+interceptor, ejb, websocket, batch, json, + annotation excepto
+`annotation.processing`). Esto NO toca los `javax.*` del JDK (swing, imageio,
+naming, crypto, xml.parsers, etc.). Dry-run previo: 227 archivos, 875 tokens.
+
+Incidencias resueltas durante la migración del core:
+1. **BOM UTF-8**: `Set-Content -Encoding UTF8` de PowerShell añade BOM que javac
+   rechaza (`illegal character: '\ufeff'`). Se corrigió escribiendo UTF-8 sin BOM
+   (`System.IO.File]::WriteAllText` + `UTF8Encoding($false)`) y un
+   `strip-bom.ps1` para los 227 ya escritos.
+2. **`javax.xml.rpc.ServiceFactory`** (InitializationListener): era un import
+   HUÉRFANO usado solo por un `{@link}` de javadoc (el código usa `ServicesFactory`).
+   Eliminado el import y corregido el `@link`. (JAX-RPC no existe en Jakarta EE 10.)
+3. **`jakarta.faces.el.ValueBinding`** (UITransient): API JSF 1.x ELIMINADA en
+   Faces 4.0. Se borraron los métodos `getValueBinding/setValueBinding` (sus
+   reemplazos `get/setValueExpression` ya existían).
+4. **Dependencias jakarta faltantes** en `core/pom.xml`: añadidas
+   `jakarta.inject-api`, `jakarta.jms-api` (optional), `jakarta.transaction-api`
+   (optional), `jakarta.activation-api`. En el modelo javax venían del
+   `jboss-javaee-6.0` full profile.
+5. **Atmosphere 2.4.3 (javax) → 3.0.15 (jakarta.servlet)** en `build/pom.xml`.
+   El módulo push extiende clases de Atmosphere; la 2.4.x era `javax.servlet` y
+   chocaba con el código ya migrado. La 3.x es la línea jakarta.
+6. **CDI 4.0 API**: `BeforeBeanDiscovery.addAnnotatedType(AnnotatedType)` fue
+   eliminado; ahora requiere `(AnnotatedType, String id)`. Corregido en
+   `PushCDIDependencyRegistrationExtension`.
+7. **`JBossCacheCache`**: se REVIRTIÓ a `javax.transaction` (NO jakarta) a
+   propósito: jbosscache-core es una lib legacy optional (~2010) sin variante
+   jakarta cuya API devuelve `javax.transaction.Transaction`.
+8. **Mocks del resource-optimizer** (ApplicationImpl, ExternalContextImpl,
+   FacesContextImpl): implementaban APIs JSF 1.x eliminadas en Faces 4.0
+   (`PropertyResolver`, `VariableResolver`, `ValueBinding`, `MethodBinding`,
+   `createValueBinding`, `createMethodBinding`, `createComponent(ValueBinding)`)
+   → eliminados. Añadidos los métodos abstractos NUEVOS de Faces 4.0:
+   `ExternalContext.release()`, `ExternalContext.encodeWebsocketURL(String)`,
+   `FacesContext.getLifecycle()`.
+
+Verificación: `mvn -pl core clean compile` (JDK 21) → **BUILD SUCCESS** en ~13 s.
+El `core` compila NATIVO en `jakarta.*` (Faces 4.0), incluyendo el source root
+`resource-optimizer`. El CDK 4.5.1 (javax) generó las fuentes del core sin
+conflicto (el core casi no usa clases generadas); el CDK jakarta será necesario
+para `components` (Fase D).
+
+PENDIENTE de la Fase C tras el core:
+- Strings literales `"javax.faces"` (librería de recursos JS) en
+  `ResourceConstants.java`/`ResourceGenerator.java`: en Faces 4.0 la librería de
+  recursos pasa a `jakarta.faces`. Revisar al integrar con el contenedor.
+- Descriptores `faces-config.xml`/`*.taglib.xml` al esquema 4.0 (sección 3.3).
+- Renombrado de `components` (a4j/rich) + tests del core — tras el CDK (Fase D).
 
 ---
 

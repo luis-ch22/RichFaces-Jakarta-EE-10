@@ -1,0 +1,4 @@
+# Migration Phase C tooling — transient artifacts (do not version)
+lib/
+out-*/
+*.log

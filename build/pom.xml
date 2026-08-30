@@ -87,7 +87,10 @@
         <version.myfaces>2.2.7</version.myfaces>
 
         <!-- Push Dependencies -->
-        <version.atmosphere>2.4.3</version.atmosphere>
+        <!-- Atmosphere 3.x is the jakarta.servlet line (2.4.x was javax.servlet).
+             Required for the RichFaces push module to compile against Faces 4.0
+             / Servlet 6.0. -->
+        <version.atmosphere>3.0.15</version.atmosphere>
 
         <!-- Example Dependency Libraries Versions -->
         <version.slf4j>1.6.1</version.slf4j>

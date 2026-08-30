@@ -29,7 +29,7 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 

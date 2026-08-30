@@ -28,11 +28,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewDeclarationLanguage;
 
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;

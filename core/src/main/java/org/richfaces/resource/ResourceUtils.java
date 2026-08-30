@@ -75,12 +75,12 @@ import java.util.regex.Pattern;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
-import javax.faces.FacesException;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.StateHolder;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import org.ajax4jsf.Messages;
 import org.ajax4jsf.util.base64.Codec;

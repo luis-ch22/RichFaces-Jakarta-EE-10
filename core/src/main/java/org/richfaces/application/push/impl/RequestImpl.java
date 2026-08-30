@@ -23,7 +23,7 @@ package org.richfaces.application.push.impl;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.atmosphere.cpr.AtmosphereResourceEvent;
 import org.atmosphere.cpr.AtmosphereResourceEventListener;

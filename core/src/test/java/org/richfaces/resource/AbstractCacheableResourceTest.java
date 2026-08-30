@@ -31,7 +31,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.easymock.IAnswer;
 import org.easymock.classextension.EasyMock;
