@@ -236,9 +236,10 @@
                 </property>
             </activation>
             <dependencies>
+                <!-- Mojarra 4.0 (jakarta.faces) — Faces 4.0 reference impl -->
                 <dependency>
                     <groupId>org.glassfish</groupId>
-                    <artifactId>javax.faces</artifactId>
+                    <artifactId>jakarta.faces</artifactId>
                     <scope>compile</scope>
                     <optional>true</optional>
                 </dependency>

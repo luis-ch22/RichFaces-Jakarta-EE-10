@@ -68,6 +68,13 @@
         <version.cdk>4.5.1-SNAPSHOT</version.cdk>
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
+        <!-- Jakarta EE 10 (Faces 4.0) - migration Phase B.
+             Declared here too because richfaces-build does not inherit these
+             from the reactor root (it uses jboss-parent as its parent). -->
+        <version.jakartaee.bom>10.0.0</version.jakartaee.bom>
+        <version.mojarra>4.0.24</version.mojarra>
+        <version.jaxb>4.0.5</version.jaxb>
+
         <!-- Project Versions -->
         <version.google-guava>19.0</version.google-guava>
         <version.cssparser>0.9.25</version.cssparser>
@@ -145,24 +152,24 @@
     <!-- Runtime dependency management -->
     <dependencyManagement>
         <dependencies>
+            <!-- Jakarta EE 10 platform BOM (replaces jboss-javaee-6.0 / -web-6.0).
+                 See root pom for rationale. -->
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
-                <version>${version.jboss-javaee}</version>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-bom</artifactId>
+                <version>${version.jakartaee.bom}</version>
                 <type>pom</type>
+                <scope>import</scope>
             </dependency>
-
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-web-6.0</artifactId>
-                <version>${version.jboss-javaee}</version>
-                <type>pom</type>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>xalan</artifactId>
-                        <groupId>xalan</groupId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.glassfish</groupId>
+                <artifactId>jakarta.faces</artifactId>
+                <version>${version.mojarra}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>${version.jaxb}</version>
             </dependency>
 
             <dependency>

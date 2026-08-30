@@ -114,16 +114,17 @@
             </exclusions>
         </dependency>
 
+        <!-- Faces 4.0 (Mojarra, jakarta.faces) + Servlet API. Replaces
+             jboss-javaee-6.0. The resource optimizer scans RichFaces resource
+             classes which reference the jakarta.faces API. -->
         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <type>pom</type>
-            <exclusions>
-                <exclusion>
-                    <artifactId>xalan</artifactId>
-                    <groupId>xalan</groupId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.faces</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.el</groupId>

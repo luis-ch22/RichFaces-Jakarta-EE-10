@@ -109,11 +109,12 @@ Se apoya en el **CDK 10.0.1 jakarta ya publicado**:
       ```
       Anotar qué se instala en `.m2`. Este es el "antes".
 - [x] Congelar con commit inicial de la rama.
-- [ ] Definir propiedades nuevas en `pom.xml` raíz y `build/pom.xml`:
-  - `version.jakarta.bom=10.0.0` (jakarta.platform:jakarta.jakartaee-bom).
-  - `version.mojarra=4.0.x` (org.glassfish:jakarta.faces).
-  - `version.jaxb=4.0.x` (jakarta.xml.bind-api + glassfish jaxb-runtime).
+- [x] Definir propiedades nuevas en `pom.xml` raíz y `build/pom.xml`:
+  - `version.jakartaee.bom=10.0.0` (jakarta.platform:jakarta.jakartaee-bom).
+  - `version.mojarra=4.0.24` (org.glassfish:jakarta.faces).
+  - `version.jaxb=4.0.5` (jakarta.xml.bind-api + glassfish jaxb-runtime).
   - Mantener temporalmente `version.jboss-javaee` hasta migrar cada módulo.
+  - (Hecho al inicio de la Fase B.)
 
 > Objetivo: base reproducible y variables listas para intercambiar plataforma.
 
@@ -181,6 +182,60 @@ Orden del reactor: `bom` → `build` → `core` → `components` → `dist`.
 > Nota: JAXB en runtime es obligatorio (RichFaces lo usa al arrancar, ver
 > `ClientServiceConfigParser` en `rich`). En `javax` se usó `jaxb 2.3.1`; en
 > jakarta pasa a `jakarta.xml.bind 4.0` + `jaxb-runtime 4.0`.
+
+### Resultados de la Fase B (ejecutada) — dependencias jakarta OK, código aún javax
+
+Enfoque elegido: **BOM de plataforma Jakarta EE 10** (`jakarta.platform:
+jakarta.jakartaee-bom:10.0.0`) para gestionar versiones de forma coherente
+(Faces 4.0 API, Servlet 6.0, EL 5.0, CDI 4.0, Bean Validation 3.0, Annotations
+2.1, XML Binding 4.0), + **Mojarra** como implementación de Faces
+(`org.glassfish:jakarta.faces:4.0.24`) + **JAXB 4.0** runtime
+(`org.glassfish.jaxb:jaxb-runtime:4.0.5`).
+
+Cambios aplicados:
+1. **`pom.xml` raíz**: nuevas propiedades `version.jakartaee.bom=10.0.0`,
+   `version.mojarra=4.0.24`, `version.jaxb=4.0.5`. En `dependencyManagement` se
+   reemplazó `jboss-javaee-6.0` + `jboss-javaee-web-6.0` por el BOM jakarta +
+   `org.glassfish:jakarta.faces` + `org.glassfish.jaxb:jaxb-runtime`.
+2. **`build/pom.xml`**: mismas 3 propiedades (richfaces-build NO hereda del
+   reactor raíz — usa jboss-parent — así que hay que declararlas aquí también,
+   fue el primer fallo detectado: `${version.jakartaee.bom}` salía literal).
+   Mismo cambio de `jboss-javaee` → BOM jakarta en su `dependencyManagement`.
+3. **`core/pom.xml`**: la dependencia `jboss-javaee-6.0` (provided) se sustituyó
+   por APIs jakarta provided individuales (servlet, el, cdi, annotation,
+   validation). Perfil `jsf_ri` (activo por defecto): `org.glassfish:javax.faces`
+   → `org.glassfish:jakarta.faces`. (Perfiles `jsf_jboss`/`myfaces` sin tocar aún;
+   no se activan por defecto.)
+4. **`components/pom.xml`**: perfil `jsf_ri` → `org.glassfish:jakarta.faces`.
+5. **`components/a4j/pom.xml`**: `jboss-javaee-6.0` provided → servlet/el/cdi/
+   annotation jakarta provided.
+6. **`components/rich/pom.xml`**: `jboss-javaee-6.0` + `jboss-el-api_3.0_spec` +
+   `javax.validation:validation-api` → servlet/cdi/annotation/`jakarta.el-api`/
+   `jakarta.validation-api` jakarta provided. Bloque JAXB `javax.xml.bind:jaxb-api
+   2.3.1` + `jaxb-runtime 2.3.1` → `jakarta.xml.bind:jakarta.xml.bind-api` +
+   `jaxb-runtime` (versiones gestionadas por BOM/propiedad).
+7. **`build/resource-optimizer-plugin/pom.xml`**: `jboss-javaee-6.0` →
+   `org.glassfish:jakarta.faces` + `jakarta.servlet-api` (el optimizador escanea
+   clases de recursos que referencian la API de Faces).
+
+**Verificación** (`mvn -pl core -am -Dmaven.test.skip=true clean compile` con
+JDK 21): el reactor LEE los POMs sin errores (build-resources y page-fragments
+compilan OK), Maven RESUELVE las APIs jakarta desde Central, y el core llega a
+compilar sus 337 fuentes fallando SOLO con errores del tipo esperado:
+`package javax.faces.component.behavior does not exist`,
+`package javax.servlet does not exist`, `package javax.faces.context does not
+exist`, etc. Es decir: **las dependencias jakarta están bien; el código fuente
+sigue en `javax`** y se renombra en la Fase C. Resultado correcto para la Fase B.
+
+Aprendizajes/notas:
+- `richfaces-build` necesita sus propias propiedades de versión jakarta (no
+  hereda del raíz).
+- El perfil `integration-tests` del raíz aún tiene
+  `arquillian.richfaces.jsfImplementation=org.glassfish:javax.faces`; se tratará
+  en la Fase G (no se activa por defecto).
+- El perfil `precompile-sources-for-cdk` del core sigue dependiendo de
+  `jboss-javaee-6.0` con versión propia (para el CDK 4.5.1 javax); se resolverá
+  al cambiar el CDK en la Fase D.
 
 ---
 

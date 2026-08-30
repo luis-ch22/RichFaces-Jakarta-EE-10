@@ -111,6 +111,14 @@
         <version.cdk>4.5.1-SNAPSHOT</version.cdk>
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
+        <!-- Jakarta EE 10 (Faces 4.0) - migration Phase B -->
+        <!-- Platform BOM manages the API versions coherently: Faces 4.0,
+             Servlet 6.0, EL 5.0, CDI 4.0, Bean Validation 3.0, Annotations 2.1,
+             XML Binding 4.0. Mojarra is the Faces reference implementation. -->
+        <version.jakartaee.bom>10.0.0</version.jakartaee.bom>
+        <version.mojarra>4.0.24</version.mojarra>
+        <version.jaxb>4.0.5</version.jaxb>
+
         <!-- Container Versions -->
         <version.wildfly100>10.0.0.Final</version.wildfly100>
         <version.wildfly90>9.0.1.Final</version.wildfly90>
@@ -163,26 +171,29 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Java EE -->
+            <!-- Jakarta EE 10 platform BOM (replaces jboss-javaee-6.0 / -web-6.0).
+                 Manages Faces 4.0 API, Servlet 6.0, EL 5.0, CDI 4.0, Bean
+                 Validation 3.0, Annotations 2.1 and XML Binding 4.0 versions. -->
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
-                <version>${version.jboss-javaee}</version>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-bom</artifactId>
+                <version>${version.jakartaee.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- Faces (JSF) 4.0 reference implementation: Mojarra. Provides the
+                 jakarta.faces API + impl. Marked provided by consumers. -->
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-web-6.0</artifactId>
-                <version>${version.jboss-javaee}</version>
-                <type>pom</type>
-                <scope>import</scope>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>xalan</artifactId>
-                        <groupId>xalan</groupId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.glassfish</groupId>
+                <artifactId>jakarta.faces</artifactId>
+                <version>${version.mojarra}</version>
+            </dependency>
+            <!-- Jakarta XML Binding (JAXB) 4.0 runtime. JAXB was removed from the
+                 JDK in Java 11; RichFaces uses it at init (ClientServiceConfigParser). -->
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>${version.jaxb}</version>
             </dependency>
 
             <!-- RichFaces -->
