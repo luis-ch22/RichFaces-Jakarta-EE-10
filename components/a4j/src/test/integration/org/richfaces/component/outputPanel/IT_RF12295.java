@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -73,7 +73,7 @@ public class IT_RF12295 {
             public WebAppDescriptor apply(@Nullable WebAppDescriptor webXML) {
                 webXML
                     .createContextParam()
-                    .paramName("javax.faces.PARTIAL_STATE_SAVING")
+                    .paramName("jakarta.faces.PARTIAL_STATE_SAVING")
                     .paramValue("false")
                     .up();
                 return webXML;

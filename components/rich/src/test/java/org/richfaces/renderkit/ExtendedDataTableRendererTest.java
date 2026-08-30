@@ -31,9 +31,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 
-import javax.faces.application.ViewHandler;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewDeclarationLanguage;
 
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
@@ -99,7 +99,7 @@ public class ExtendedDataTableRendererTest {
 
     /**
      * Test method for
-     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#doEncodeBegin(javax.faces.context.ResponseWriter, javax.faces.context.FacesContext, javax.faces.component.UIComponent)}
+     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#doEncodeBegin(jakarta.faces.context.ResponseWriter, jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)}
      * .
      *
      * @throws IOException
@@ -114,7 +114,7 @@ public class ExtendedDataTableRendererTest {
 
     /**
      * Test method for
-     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#doEncodeChildren(javax.faces.context.ResponseWriter, javax.faces.context.FacesContext, javax.faces.component.UIComponent)}
+     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#doEncodeChildren(jakarta.faces.context.ResponseWriter, jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)}
      * .
      *
      * @throws IOException
@@ -161,7 +161,7 @@ public class ExtendedDataTableRendererTest {
 
     /**
      * Test method for
-     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#doEncodeEnd(javax.faces.context.ResponseWriter, javax.faces.context.FacesContext, javax.faces.component.UIComponent)}
+     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#doEncodeEnd(jakarta.faces.context.ResponseWriter, jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)}
      * .
      *
      * @throws IOException
@@ -197,7 +197,7 @@ public class ExtendedDataTableRendererTest {
 
     /**
      * Test method for
-     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#encodePartially(javax.faces.component.UIComponent, javax.faces.component.visit.VisitContext, javax.faces.component.visit.VisitCallback, java.util.Collection)}
+     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#encodePartially(jakarta.faces.component.UIComponent, jakarta.faces.component.visit.VisitContext, jakarta.faces.component.visit.VisitCallback, java.util.Collection)}
      * .
      */
     @Test

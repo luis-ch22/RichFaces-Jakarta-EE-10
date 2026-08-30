@@ -1,6 +1,6 @@
 package org.richfaces.component.repeat;
 
-import javax.enterprise.inject.Model;
+import jakarta.enterprise.inject.Model;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;

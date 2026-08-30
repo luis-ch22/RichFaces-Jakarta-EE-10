@@ -5,13 +5,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
-import javax.validation.ValidationException;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.validator.Validator;
+import jakarta.faces.validator.ValidatorException;
+import jakarta.validation.ValidationException;
 
 import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
 import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
@@ -91,6 +91,6 @@ public abstract class ValidatorTestBase extends MockTestBase {
     @Override
     protected void recordMocks() {
         super.recordMocks();
-        expect(facesEnvironment.getApplication().createConverter("javax.faces.Number")).andStubReturn(NUMBER_CONVERTER);
+        expect(facesEnvironment.getApplication().createConverter("jakarta.faces.Number")).andStubReturn(NUMBER_CONVERTER);
     }
 }

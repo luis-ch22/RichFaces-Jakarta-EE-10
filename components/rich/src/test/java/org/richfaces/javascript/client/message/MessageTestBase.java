@@ -52,7 +52,7 @@ public class MessageTestBase {
                     + "\">"
                     + getMessageContent()
                     + "</span>"
-                    + "      <input type=\"hidden\" name=\"javax.faces.ViewState\" id=\"javax.faces.ViewState\" value=\"4262028796446907996:-2607792463910755035\" autocomplete=\"off\"/>\n"
+                    + "      <input type=\"hidden\" name=\"jakarta.faces.ViewState\" id=\"jakarta.faces.ViewState\" value=\"4262028796446907996:-2607792463910755035\" autocomplete=\"off\"/>\n"
                     + "    </form>");
     }
 

@@ -30,41 +30,41 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Stack;
 
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.application.Application;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.component.ContextCallback;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.NamingContainer;
-import javax.faces.component.PartialStateHolder;
-import javax.faces.component.StateHelper;
-import javax.faces.component.StateHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.UIForm;
-import javax.faces.component.UINamingContainer;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.UniqueIdVendor;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.event.PostRestoreStateEvent;
-import javax.faces.event.PostValidateEvent;
-import javax.faces.event.PreRenderViewEvent;
-import javax.faces.event.PreValidateEvent;
-import javax.faces.event.SystemEvent;
-import javax.faces.event.SystemEventListener;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
+import jakarta.faces.component.ContextCallback;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.PartialStateHolder;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.UniqueIdVendor;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitHint;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ComponentSystemEventListener;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.event.PostRestoreStateEvent;
+import jakarta.faces.event.PostValidateEvent;
+import jakarta.faces.event.PreRenderViewEvent;
+import jakarta.faces.event.PreValidateEvent;
+import jakarta.faces.event.SystemEvent;
+import jakarta.faces.event.SystemEventListener;
 
 import org.ajax4jsf.component.IterationStateHolder;
 import org.ajax4jsf.model.DataComponentState;
@@ -237,7 +237,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.component.UIComponent#getFamily()
+     * @see jakarta.faces.component.UIComponent#getFamily()
      */
     @Override
     public String getFamily() {
@@ -247,7 +247,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.component.UniqueIdVendor#createUniqueId(javax.faces.context.FacesContext, java.lang.String)
+     * @see jakarta.faces.component.UniqueIdVendor#createUniqueId(jakarta.faces.context.FacesContext, java.lang.String)
      */
     public String createUniqueId(FacesContext context, String seed) {
         Integer i = (Integer) getStateHelper().get(PropertyKeys.lastId);
@@ -266,7 +266,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * Setup current row by key. Perform same functionality as {@link javax.faces.component.UIData#setRowIndex(int)}, but for
+     * Setup current row by key. Perform same functionality as {@link jakarta.faces.component.UIData#setRowIndex(int)}, but for
      * key object - it may be not only row number in sequence data, but, for example - path to current node in tree.
      *
      * @param facesContext - current FacesContext
@@ -446,7 +446,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.component.UIComponentBase#broadcast(javax.faces.event.FacesEvent)
+     * @see jakarta.faces.component.UIComponentBase#broadcast(jakarta.faces.event.FacesEvent)
      */
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
@@ -729,7 +729,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.component.UIComponent#setValueExpression(java.lang.String, javax.el.ValueExpression)
+     * @see jakarta.faces.component.UIComponent#setValueExpression(java.lang.String, jakarta.el.ValueExpression)
      */
     @Override
     public void setValueExpression(String name, ValueExpression binding) {
@@ -967,7 +967,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.component.UIComponentBase#saveState(javax.faces.context.FacesContext)
+     * @see jakarta.faces.component.UIComponentBase#saveState(jakarta.faces.context.FacesContext)
      */
     @Override
     public Object saveState(FacesContext context) {
@@ -1013,7 +1013,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.component.UIComponentBase#restoreState(javax.faces.context.FacesContext, java.lang.Object)
+     * @see jakarta.faces.component.UIComponentBase#restoreState(jakarta.faces.context.FacesContext, java.lang.Object)
      */
     @Override
     public void restoreState(FacesContext context, Object stateObject) {
@@ -1396,7 +1396,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     private boolean requiresRowIteration(VisitContext context) {
         // The VisitHint.SKIP_ITERATION enum is only available as of JSF 2.1.
         if (JsfVersion.getCurrent() == JsfVersion.JSF_2_0) {
-            return ! Boolean.TRUE.equals(context.getFacesContext().getAttributes().get("javax.faces.visit.SKIP_ITERATION"));
+            return ! Boolean.TRUE.equals(context.getFacesContext().getAttributes().get("jakarta.faces.visit.SKIP_ITERATION"));
         }
 
         return !context.getHints().contains(VisitHint.SKIP_ITERATION);

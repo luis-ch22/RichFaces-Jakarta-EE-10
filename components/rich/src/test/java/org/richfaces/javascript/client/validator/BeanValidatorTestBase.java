@@ -4,9 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
-import javax.validation.Validation;
-import javax.validation.ValidationException;
-import javax.validation.Validator;
+import jakarta.validation.Validation;
+import jakarta.validation.ValidationException;
+import jakarta.validation.Validator;
 
 import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
 

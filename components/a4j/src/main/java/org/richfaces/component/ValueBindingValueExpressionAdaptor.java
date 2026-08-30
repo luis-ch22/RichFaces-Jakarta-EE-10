@@ -20,17 +20,17 @@
  */
 package org.richfaces.component;
 
-import javax.el.ELException;
-import javax.el.PropertyNotFoundException;
-import javax.el.ValueExpression;
-import javax.faces.component.StateHolder;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELException;
+import jakarta.el.PropertyNotFoundException;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author Maksim Kaszynski
  */
 @SuppressWarnings("deprecation")
-public class ValueBindingValueExpressionAdaptor extends javax.faces.el.ValueBinding implements StateHolder {
+public class ValueBindingValueExpressionAdaptor extends jakarta.faces.el.ValueBinding implements StateHolder {
     private ValueExpression expression;
     private boolean tranzient;
 
@@ -47,13 +47,13 @@ public class ValueBindingValueExpressionAdaptor extends javax.faces.el.ValueBind
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.el.ValueBinding#getType(javax.faces.context.FacesContext)
+     * @see jakarta.faces.el.ValueBinding#getType(jakarta.faces.context.FacesContext)
      */
     @Override
     public Class<?> getType(FacesContext context) throws ELException {
         try {
             return expression.getType(context.getELContext());
-        } catch (javax.el.PropertyNotFoundException e) {
+        } catch (jakarta.el.PropertyNotFoundException e) {
             throw new PropertyNotFoundException(e);
         } catch (ELException e) {
             throw new ELException(e);
@@ -63,13 +63,13 @@ public class ValueBindingValueExpressionAdaptor extends javax.faces.el.ValueBind
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.el.ValueBinding#getValue(javax.faces.context.FacesContext)
+     * @see jakarta.faces.el.ValueBinding#getValue(jakarta.faces.context.FacesContext)
      */
     @Override
     public Object getValue(FacesContext context) throws ELException {
         try {
             return expression.getValue(context.getELContext());
-        } catch (javax.el.PropertyNotFoundException e) {
+        } catch (jakarta.el.PropertyNotFoundException e) {
             throw new PropertyNotFoundException(e);
         } catch (ELException e) {
             throw new ELException(e);
@@ -79,13 +79,13 @@ public class ValueBindingValueExpressionAdaptor extends javax.faces.el.ValueBind
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.el.ValueBinding#isReadOnly(javax.faces.context.FacesContext)
+     * @see jakarta.faces.el.ValueBinding#isReadOnly(jakarta.faces.context.FacesContext)
      */
     @Override
     public boolean isReadOnly(FacesContext context) throws ELException {
         try {
             return expression.isReadOnly(context.getELContext());
-        } catch (javax.el.PropertyNotFoundException e) {
+        } catch (jakarta.el.PropertyNotFoundException e) {
             throw new PropertyNotFoundException(e);
         } catch (ELException e) {
             throw new ELException(e);
@@ -95,13 +95,13 @@ public class ValueBindingValueExpressionAdaptor extends javax.faces.el.ValueBind
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.el.ValueBinding#setValue(javax.faces.context.FacesContext, java.lang.Object)
+     * @see jakarta.faces.el.ValueBinding#setValue(jakarta.faces.context.FacesContext, java.lang.Object)
      */
     @Override
     public void setValue(FacesContext context, Object value) throws ELException {
         try {
             expression.setValue(context.getELContext(), value);
-        } catch (javax.el.PropertyNotFoundException e) {
+        } catch (jakarta.el.PropertyNotFoundException e) {
             throw new PropertyNotFoundException(e);
         } catch (ELException e) {
             throw new ELException(e);

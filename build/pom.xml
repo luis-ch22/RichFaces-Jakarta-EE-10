@@ -65,7 +65,11 @@
     <properties>
         <!-- Base Dependencies Versions -->
         <version.richfaces>5.0.0</version.richfaces>
-        <version.cdk>4.5.1-SNAPSHOT</version.cdk>
+        <!-- Jakarta CDK (albfernandez). groupId changed from org.richfaces.cdk.
+             Declared here too because richfaces-build does not inherit from the
+             reactor root. -->
+        <groupId.cdk>com.github.albfernandez.richfaces.cdk</groupId.cdk>
+        <version.cdk>10.0.1</version.cdk>
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
         <!-- Jakarta EE 10 (Faces 4.0) - migration Phase B.
@@ -217,12 +221,12 @@
                 <version>${version.richfaces}</version>
             </dependency>
             <dependency>
-                <groupId>org.richfaces.cdk</groupId>
+                <groupId>${groupId.cdk}</groupId>
                 <artifactId>annotations</artifactId>
                 <version>${version.cdk}</version>
             </dependency>
             <dependency>
-                <groupId>org.richfaces.cdk</groupId>
+                <groupId>${groupId.cdk}</groupId>
                 <artifactId>generator</artifactId>
                 <version>${version.cdk}</version>
             </dependency>

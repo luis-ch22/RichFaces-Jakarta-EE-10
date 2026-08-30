@@ -1,6 +1,6 @@
 package org.richfaces.component.fileUpload;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;

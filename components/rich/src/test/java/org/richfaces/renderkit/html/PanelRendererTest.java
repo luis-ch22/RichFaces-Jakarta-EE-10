@@ -28,9 +28,9 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
-import javax.faces.application.ViewHandler;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewDeclarationLanguage;
 
 import com.gargoylesoftware.htmlunit.html.DomElement;
 
@@ -94,7 +94,7 @@ public class PanelRendererTest {
 
     /**
      * Test method for
-     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#doEncodeBegin(javax.faces.context.ResponseWriter, javax.faces.context.FacesContext, javax.faces.component.UIComponent)}
+     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#doEncodeBegin(jakarta.faces.context.ResponseWriter, jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)}
      * .
      *
      * @throws IOException

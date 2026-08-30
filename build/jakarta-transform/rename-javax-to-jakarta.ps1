@@ -48,7 +48,11 @@ $prefixes = @(
 # Generated, Resource, ...) move to jakarta.annotation, BUT javax.annotation.processing
 # stays in the JDK. Handle javax.annotation.* EXCEPT javax.annotation.processing.
 
-$files = Get-ChildItem -Path $Root -Recurse -File | Where-Object { $Extensions -contains $_.Extension }
+$files = Get-ChildItem -Path $Root -Recurse -File |
+    Where-Object { $Extensions -contains $_.Extension } |
+    # Never touch build output: target/ holds CDK-generated sources (regenerated
+    # each build) and compiled copies. Migrating them by hand is pointless/harmful.
+    Where-Object { $_.FullName -notmatch '\\target\\' }
 
 # UTF-8 WITHOUT BOM. Set-Content -Encoding UTF8 writes a BOM that javac rejects
 # ("illegal character: '\ufeff'"), so we write bytes ourselves.

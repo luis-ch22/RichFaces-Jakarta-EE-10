@@ -84,7 +84,7 @@ public class ITFocusSubmissionMethods {
     /**
      * Won't work with f:ajax since it does not support {@link ExtendedPartialViewContext} with oncomplete, which is used by
      * {@link JavaScriptService} in method
-     * {@link FocusRendererBase#renderOncompleteScript(javax.faces.context.FacesContext, String)}.
+     * {@link FocusRendererBase#renderOncompleteScript(jakarta.faces.context.FacesContext, String)}.
      */
     @Test
     @Category(Failing.class)

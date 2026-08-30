@@ -164,8 +164,8 @@ public abstract class AbstractQueueComponentTest {
     }
 
     @SuppressWarnings("deprecation") // deprecated in JSF 2.2
-    protected javax.faces.view.facelets.ResourceResolver createResourceResolver() {
-        return new javax.faces.view.facelets.ResourceResolver() {
+    protected jakarta.faces.view.facelets.ResourceResolver createResourceResolver() {
+        return new jakarta.faces.view.facelets.ResourceResolver() {
             public URL resolveUrl(String path) {
                 return Thread.currentThread().getContextClassLoader().getResource(getRootContextPath() + path);
             }

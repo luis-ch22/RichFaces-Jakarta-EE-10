@@ -21,13 +21,13 @@
  */
 package org.richfaces.view.facelets.html;
 
-import javax.faces.FacesWrapper;
-import javax.faces.view.facelets.BehaviorHandler;
-import javax.faces.view.facelets.ComponentHandler;
-import javax.faces.view.facelets.ConverterHandler;
-import javax.faces.view.facelets.TagHandlerDelegate;
-import javax.faces.view.facelets.TagHandlerDelegateFactory;
-import javax.faces.view.facelets.ValidatorHandler;
+import jakarta.faces.FacesWrapper;
+import jakarta.faces.view.facelets.BehaviorHandler;
+import jakarta.faces.view.facelets.ComponentHandler;
+import jakarta.faces.view.facelets.ConverterHandler;
+import jakarta.faces.view.facelets.TagHandlerDelegate;
+import jakarta.faces.view.facelets.TagHandlerDelegateFactory;
+import jakarta.faces.view.facelets.ValidatorHandler;
 
 /**
  * @author Nick Belaevski
@@ -44,7 +44,7 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
      * (non-Javadoc)
      *
      * @see
-     * javax.faces.view.facelets.TagHandlerDelegateFactory#createBehaviorHandlerDelegate(javax.faces.view.facelets.BehaviorHandler
+     * jakarta.faces.view.facelets.TagHandlerDelegateFactory#createBehaviorHandlerDelegate(jakarta.faces.view.facelets.BehaviorHandler
      * )
      */
     @Override
@@ -56,7 +56,7 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
      * (non-Javadoc)
      *
      * @see
-     * javax.faces.view.facelets.TagHandlerDelegateFactory#createComponentHandlerDelegate(javax.faces.view.facelets.ComponentHandler
+     * jakarta.faces.view.facelets.TagHandlerDelegateFactory#createComponentHandlerDelegate(jakarta.faces.view.facelets.ComponentHandler
      * )
      */
     @Override
@@ -79,7 +79,7 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
      * (non-Javadoc)
      *
      * @see
-     * javax.faces.view.facelets.TagHandlerDelegateFactory#createConverterHandlerDelegate(javax.faces.view.facelets.ConverterHandler
+     * jakarta.faces.view.facelets.TagHandlerDelegateFactory#createConverterHandlerDelegate(jakarta.faces.view.facelets.ConverterHandler
      * )
      */
     @Override
@@ -91,7 +91,7 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
      * (non-Javadoc)
      *
      * @see
-     * javax.faces.view.facelets.TagHandlerDelegateFactory#createValidatorHandlerDelegate(javax.faces.view.facelets.ValidatorHandler
+     * jakarta.faces.view.facelets.TagHandlerDelegateFactory#createValidatorHandlerDelegate(jakarta.faces.view.facelets.ValidatorHandler
      * )
      */
     @Override

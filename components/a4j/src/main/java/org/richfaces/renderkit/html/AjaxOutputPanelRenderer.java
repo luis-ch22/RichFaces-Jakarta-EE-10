@@ -23,9 +23,9 @@ package org.richfaces.renderkit.html;
 import java.io.IOException;
 import java.util.Iterator;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractOutputPanel;
@@ -49,7 +49,7 @@ public class AjaxOutputPanelRenderer extends RendererBase {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.render.Renderer#encodeChildren(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     * @see jakarta.faces.render.Renderer#encodeChildren(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)
      */
     @Override
     public void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
@@ -60,7 +60,7 @@ public class AjaxOutputPanelRenderer extends RendererBase {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.render.Renderer#getRendersChildren()
+     * @see jakarta.faces.render.Renderer#getRendersChildren()
      */
     @Override
     public boolean getRendersChildren() {
@@ -80,8 +80,8 @@ public class AjaxOutputPanelRenderer extends RendererBase {
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeBegin(javax.faces.context.ResponseWriter,
-     * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeBegin(jakarta.faces.context.ResponseWriter,
+     * jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)
      */
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
@@ -107,8 +107,8 @@ public class AjaxOutputPanelRenderer extends RendererBase {
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeEnd(javax.faces.context.ResponseWriter,
-     * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeEnd(jakarta.faces.context.ResponseWriter,
+     * jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)
      */
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {

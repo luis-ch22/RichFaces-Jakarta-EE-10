@@ -22,11 +22,11 @@ package org.ajax4jsf.component;
 
 import java.util.ArrayList;
 
-import javax.faces.component.UIColumn;
-import javax.faces.component.UIData;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UIData;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.model.DataComponentState;
 import org.richfaces.model.ExtendedDataModel;
@@ -268,7 +268,7 @@ public class DataAdaptorTestCase extends AbstractAjax4JsfTestCase {
     }
 
     /**
-     * Test method for {@link org.ajax4jsf.component.UIDataAdaptor#iterate(javax.faces.context.FacesContext, org.ajax4jsf.ajax.repeat.RepeaterInvoker)}.
+     * Test method for {@link org.ajax4jsf.component.UIDataAdaptor#iterate(jakarta.faces.context.FacesContext, org.ajax4jsf.ajax.repeat.RepeaterInvoker)}.
      */
     public void testProcess() {
         createTree();
@@ -282,7 +282,7 @@ public class DataAdaptorTestCase extends AbstractAjax4JsfTestCase {
     }
 
     /**
-     * Test method for {@link org.ajax4jsf.component.UIDataAdaptor#iterate(javax.faces.context.FacesContext, org.ajax4jsf.ajax.repeat.RepeaterInvoker)}.
+     * Test method for {@link org.ajax4jsf.component.UIDataAdaptor#iterate(jakarta.faces.context.FacesContext, org.ajax4jsf.ajax.repeat.RepeaterInvoker)}.
      */
     public void testProcessMore() {
         createTree();
@@ -296,7 +296,7 @@ public class DataAdaptorTestCase extends AbstractAjax4JsfTestCase {
     }
 
     /**
-     * Test method for {@link org.ajax4jsf.component.UIDataAdaptor#restoreState(javax.faces.context.FacesContext, java.lang.Object)}.
+     * Test method for {@link org.ajax4jsf.component.UIDataAdaptor#restoreState(jakarta.faces.context.FacesContext, java.lang.Object)}.
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
@@ -320,7 +320,7 @@ public class DataAdaptorTestCase extends AbstractAjax4JsfTestCase {
     }
 
     /**
-     * Test method for {@link org.ajax4jsf.component.UIDataAdaptor#saveState(javax.faces.context.FacesContext)}.
+     * Test method for {@link org.ajax4jsf.component.UIDataAdaptor#saveState(jakarta.faces.context.FacesContext)}.
      */
     public void testSaveStateFacesContext() throws Exception {
         createDataTree();

@@ -347,8 +347,46 @@ Sin esto, `components` (a4j/rich) volvería a generar renderers/componentes con
 imports `javax.faces` y no compilaría contra Faces 4.0. Ya NO es el punto de
 mayor riesgo: existe un **CDK jakarta publicado** (`10.0.1`, ver sección 0).
 
+### Resultados de la Fase D (en curso) — CDK 10.0.1 jakarta adoptado
+
+Ejecutado hasta ahora:
+1. **CDK 10.0.1 descargado** de Maven Central a `.m2`
+   (`com.github.albfernandez.richfaces.cdk:richfaces-cdk-maven-plugin:10.0.1`
+   + generator/annotations/etc). No hizo falta compilar el repo clonado.
+2. **Coordenadas del CDK actualizadas** (groupId `org.richfaces.cdk` →
+   `com.github.albfernandez.richfaces.cdk`, version `4.5.1-SNAPSHOT` → `10.0.1`)
+   en: `pom.xml` raíz (propiedad `groupId.cdk` + pluginManagement + m2e filter),
+   `build/pom.xml` (propiedades + depMgmt annotations/generator),
+   `core/pom.xml` (dep annotations + plugin + dep del plugin de perfil
+   precompile: jboss-javaee-6.0 → `org.glassfish:jakarta.faces`),
+   `components/pom.xml` (plugin + `unCheckedPluginList` del enforcer + dep
+   annotations), `components/a4j/pom.xml`, `components/rich/pom.xml`,
+   `build/build-resources/pom.xml` (dep generator).
+3. **`components` renombrado** javax→jakarta con el script (534 archivos,
+   excluyendo `target/` que contiene fuentes generadas por el CDK). Se añadió al
+   script la exclusión de `\target\`.
+4. **`build/build-resources` migrado**: `RichFaces5Validator` y `BaseDeployment`
+   usaban `javax.faces` (son clases de soporte que se pasan AL CDK como plugin
+   `CdkExtension`). Migradas a `jakarta.faces` + añadida dep `org.glassfish:
+   jakarta.faces` (provided) a `build/build-resources/pom.xml` para compilarlas.
+
+Hallazgo clave: el CDK 10.0.1 en runtime necesita la API Faces y valida contra
+`RichFaces5Validator` de NUESTRO `build-resources` (no del CDK). Un primer
+intento falló con `NoClassDefFoundError: javax/faces/view/facelets/ComponentHandler`
+porque ese validator seguía en javax; tras migrarlo, el siguiente fallo fue de
+compilación de `build-resources` (`package jakarta.faces.component does not
+exist`) hasta añadir la dep Mojarra.
+
+> **BLOQUEO OPERATIVO (no de código):** el shell de la sesión se degradó tras
+> acumular ~25 procesos Maven de fondo; los builds dejaron de escribir logs de
+> forma fiable. Se mataron los `java.exe` residuales. **PENDIENTE: reejecutar en
+> shell limpio** `mvn -pl core,components/a4j -am -Dmaven.test.skip=true
+> -Dgpg.skip=true clean install` para VERIFICAR que el CDK 10.0.1 genera
+> `jakarta.faces` y que a4j compila. Luego rich, y los flecos del core
+> (strings `"javax.faces"`, faces-config/taglib 4.0) + tests.
+
 ### 4.1 Vía D-1 — Adoptar el CDK 10.0.1 jakarta de albfernandez (preferente)
-- [ ] Cambiar en `pom.xml` raíz y `build/pom.xml` las coordenadas del CDK:
+- [x] Cambiar en `pom.xml` raíz y `build/pom.xml` las coordenadas del CDK:
   - groupId `org.richfaces.cdk` → `com.github.albfernandez.richfaces.cdk`.
   - `version.cdk` `4.5.1-SNAPSHOT` → `10.0.1`.
   - Ajustar las dependencias del CDK usadas en `build/pom.xml`

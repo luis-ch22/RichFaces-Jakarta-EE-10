@@ -1,10 +1,10 @@
 package org.richfaces.component;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @SessionScoped
 @ManagedBean(name="graphBean")

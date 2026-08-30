@@ -27,7 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.servlet.jsp.jstl.core.LoopTagStatus;
+import jakarta.servlet.jsp.jstl.core.LoopTagStatus;
 
 /**
  * <p>

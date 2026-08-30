@@ -25,9 +25,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.event.ActionEvent;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.event.ActionEvent;
+import jakarta.inject.Named;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

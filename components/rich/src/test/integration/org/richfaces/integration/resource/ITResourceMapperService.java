@@ -110,6 +110,6 @@ public class ITResourceMapperService {
         WebElement element = elements.get(0);
         String href = element.getAttribute("href");
 
-        assertThat(href, containsString("/javax.faces.resource/mapped.library/stylesheet.css"));
+        assertThat(href, containsString("/jakarta.faces.resource/mapped.library/stylesheet.css"));
     }
 }

@@ -108,7 +108,10 @@
 
         <!-- Base Dependencies Versions -->
         <version.richfaces>5.0.0</version.richfaces>
-        <version.cdk>4.5.1-SNAPSHOT</version.cdk>
+        <!-- Jakarta CDK (albfernandez): generates jakarta.faces.* code. groupId
+             changed from org.richfaces.cdk to com.github.albfernandez.richfaces.cdk. -->
+        <groupId.cdk>com.github.albfernandez.richfaces.cdk</groupId.cdk>
+        <version.cdk>10.0.1</version.cdk>
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
         <!-- Jakarta EE 10 (Faces 4.0) - migration Phase B -->
@@ -321,7 +324,7 @@
                     <version>${version.jacoco.plugin}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.richfaces.cdk</groupId>
+                    <groupId>${groupId.cdk}</groupId>
                     <artifactId>richfaces-cdk-maven-plugin</artifactId>
                     <version>${version.cdk}</version>
                 </plugin>
@@ -346,9 +349,9 @@
                             <pluginExecutions>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>org.richfaces.cdk</groupId>
+                                        <groupId>${groupId.cdk}</groupId>
                                         <artifactId>richfaces-cdk-maven-plugin</artifactId>
-                                        <versionRange>[4.5.2.Final,)</versionRange>
+                                        <versionRange>[10.0.0,)</versionRange>
                                         <goals>
                                             <goal>generate</goal>
                                         </goals>

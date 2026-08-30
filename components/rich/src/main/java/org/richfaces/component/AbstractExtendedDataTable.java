@@ -25,12 +25,12 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -231,7 +231,7 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     }
 
     @SuppressWarnings("deprecation")
-    public void setValueBinding(String name, javax.faces.el.ValueBinding binding) {
+    public void setValueBinding(String name, jakarta.faces.el.ValueBinding binding) {
         super.setValueBinding(name, binding);
 
         // TODO nick - clientFirst?

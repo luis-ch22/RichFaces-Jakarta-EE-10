@@ -23,7 +23,7 @@ package org.ajax4jsf.taglib.html;
 import java.util.Map;
 import java.util.Random;
 
-import javax.servlet.jsp.tagext.TagSupport;
+import jakarta.servlet.jsp.tagext.TagSupport;
 
 import org.ajax4jsf.event.AjaxPhaseListener;
 import org.ajax4jsf.taglib.html.facelets.KeepAliveHandler;

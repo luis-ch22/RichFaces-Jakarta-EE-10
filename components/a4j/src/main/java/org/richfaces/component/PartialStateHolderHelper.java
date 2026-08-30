@@ -21,8 +21,8 @@
  */
 package org.richfaces.component;
 
-import static javax.faces.component.UIComponentBase.restoreAttachedState;
-import static javax.faces.component.UIComponentBase.saveAttachedState;
+import static jakarta.faces.component.UIComponentBase.restoreAttachedState;
+import static jakarta.faces.component.UIComponentBase.saveAttachedState;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,10 +31,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.component.PartialStateHolder;
-import javax.faces.component.StateHelper;
-import javax.faces.component.StateHolder;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.PartialStateHolder;
+import jakarta.faces.component.StateHelper;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.context.FacesContext;
 
 /**
  * @author akolonitsky
@@ -276,14 +276,14 @@ public class PartialStateHolderHelper implements StateHelper {
     }
 
     /**
-     * @see javax.faces.component.StateHolder#isTransient()
+     * @see jakarta.faces.component.StateHolder#isTransient()
      */
     public boolean isTransient() {
         return isTransient;
     }
 
     /**
-     * @see javax.faces.component.StateHolder#setTransient(boolean)
+     * @see jakarta.faces.component.StateHolder#setTransient(boolean)
      */
     public void setTransient(boolean newTransientValue) {
         isTransient = newTransientValue;

@@ -24,8 +24,8 @@ package org.richfaces.renderkit;
 import java.net.URL;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.FacesException;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.FacesException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;

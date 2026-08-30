@@ -20,17 +20,17 @@
  */
 package org.ajax4jsf.component;
 
-import javax.el.ELContext;
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.UIParameter;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ActionListener;
+import jakarta.el.ELContext;
+import jakarta.el.MethodExpression;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ActionListener;
 
 import org.ajax4jsf.Messages;
 
@@ -110,7 +110,7 @@ public class UIActionParameter extends UIParameter implements ActionListener, Ja
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.component.UIParameter#getName()
+     * @see jakarta.faces.component.UIParameter#getName()
      */
     public String getName() {
         String name = super.getName();
@@ -145,7 +145,7 @@ public class UIActionParameter extends UIParameter implements ActionListener, Ja
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.event.ActionListener#processAction(javax.faces.event.ActionEvent)
+     * @see jakarta.faces.event.ActionListener#processAction(jakarta.faces.event.ActionEvent)
      */
     public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
         FacesContext context = getFacesContext();
@@ -199,7 +199,7 @@ public class UIActionParameter extends UIParameter implements ActionListener, Ja
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.component.UIComponentBase#restoreState(javax.faces.context.FacesContext)
+     * @see jakarta.faces.component.UIComponentBase#restoreState(jakarta.faces.context.FacesContext)
      */
     @Override
     public void restoreState(FacesContext context, Object state) {
@@ -217,7 +217,7 @@ public class UIActionParameter extends UIParameter implements ActionListener, Ja
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.component.UIComponentBase#saveState(javax.faces.context.FacesContext)
+     * @see jakarta.faces.component.UIComponentBase#saveState(jakarta.faces.context.FacesContext)
      */
     @Override
     public Object saveState(FacesContext context) {

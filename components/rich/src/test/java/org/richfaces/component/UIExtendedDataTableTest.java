@@ -21,7 +21,7 @@
  */
 package org.richfaces.component;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
@@ -60,7 +60,7 @@ public class UIExtendedDataTableTest extends AbstractFacesTest {
 
     /**
      * Test method for
-     * {@link org.richfaces.component.UIExtendedDataTable#visitDataChildren(javax .faces.component.visit.VisitContext, javax.faces.component.visit.VisitCallback, boolean)}
+     * {@link org.richfaces.component.UIExtendedDataTable#visitDataChildren(javax .faces.component.visit.VisitContext, jakarta.faces.component.visit.VisitCallback, boolean)}
      * .
      */
     @Test
@@ -106,7 +106,7 @@ public class UIExtendedDataTableTest extends AbstractFacesTest {
 
     /**
      * Test method for
-     * {@link org.richfaces.component.UIExtendedDataTable#walk(javax.faces.context.FacesContext, org.richfaces.model.DataVisitor, org.richfaces.model.Range, java.lang.Object)}
+     * {@link org.richfaces.component.UIExtendedDataTable#walk(jakarta.faces.context.FacesContext, org.richfaces.model.DataVisitor, org.richfaces.model.Range, java.lang.Object)}
      * .
      */
     @Test

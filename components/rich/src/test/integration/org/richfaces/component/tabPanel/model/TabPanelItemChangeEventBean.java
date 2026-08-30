@@ -2,7 +2,7 @@ package org.richfaces.component.tabPanel.model;
 
 import java.io.Serializable;
 
-import javax.enterprise.inject.Model;
+import jakarta.enterprise.inject.Model;
 
 import org.richfaces.component.AbstractTabPanel;
 import org.richfaces.event.ItemChangeEvent;
