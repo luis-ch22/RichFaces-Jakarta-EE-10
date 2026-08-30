@@ -230,15 +230,8 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
         updateState();
     }
 
-    @SuppressWarnings("deprecation")
-    public void setValueBinding(String name, jakarta.faces.el.ValueBinding binding) {
-        super.setValueBinding(name, binding);
-
-        // TODO nick - clientFirst?
-        if ("clientRows".equals(name)) {
-            updateState();
-        }
-    }
+    // NOTE: setValueBinding(ValueBinding) was deprecated JSF 1.x API removed in
+    // Faces 4.0; the setValueExpression override below carries the same logic.
 
     public void setValueExpression(String name, ValueExpression binding) {
         super.setValueExpression(name, binding);

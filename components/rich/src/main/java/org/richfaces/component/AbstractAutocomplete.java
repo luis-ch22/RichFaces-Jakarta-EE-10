@@ -40,9 +40,9 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.ArrayDataModel;
 import jakarta.faces.model.DataModel;
 import jakarta.faces.model.ListDataModel;
-import jakarta.faces.model.ResultDataModel;
 import jakarta.faces.model.ResultSetDataModel;
-import jakarta.servlet.jsp.jstl.sql.Result;
+// NOTE: ResultDataModel and jakarta.servlet.jsp.jstl.sql.Result were removed in
+// Faces 4.0 (JSTL-SQL integration dropped); the corresponding branch is removed.
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -286,8 +286,6 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
             result = new ArrayDataModel((Object[]) itemsObject);
         } else if (itemsObject instanceof List) {
             result = new ListDataModel((List<Object>) itemsObject);
-        } else if (itemsObject instanceof Result) {
-            result = new ResultDataModel((Result) itemsObject);
         } else if (itemsObject instanceof ResultSet) {
             result = new ResultSetDataModel((ResultSet) itemsObject);
         } else if (itemsObject != null) {

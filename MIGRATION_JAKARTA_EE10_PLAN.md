@@ -377,13 +377,39 @@ porque ese validator seguía en javax; tras migrarlo, el siguiente fallo fue de
 compilación de `build-resources` (`package jakarta.faces.component does not
 exist`) hasta añadir la dep Mojarra.
 
-> **BLOQUEO OPERATIVO (no de código):** el shell de la sesión se degradó tras
-> acumular ~25 procesos Maven de fondo; los builds dejaron de escribir logs de
-> forma fiable. Se mataron los `java.exe` residuales. **PENDIENTE: reejecutar en
-> shell limpio** `mvn -pl core,components/a4j -am -Dmaven.test.skip=true
-> -Dgpg.skip=true clean install` para VERIFICAR que el CDK 10.0.1 genera
-> `jakarta.faces` y que a4j compila. Luego rich, y los flecos del core
-> (strings `"javax.faces"`, faces-config/taglib 4.0) + tests.
+### Verificación de la Fase D (shell limpio) — CDK jakarta OK, core+a4j+rich compilan
+
+Tras reiniciar la máquina (shell limpio), verificado con builds de UN módulo a
+la vez (regla nueva: NO acumular procesos Maven de fondo):
+
+- **core**: genera con CDK 10.0.1 e instala → OK.
+- **a4j**: `mvn -pl components/a4j clean install` → **BUILD SUCCESS**. Confirma
+  que el CDK 10.0.1 emite `jakarta.faces` (a4j enlaza contra el core jakarta).
+  Fixes Faces 4.0 en a4j (commit): build-resources jakarta.faces 4.0.24 inline;
+  JSTL API jakarta 3.0.2 (LoopTagStatus); UISequence (quita ResultDataModel/
+  Result JSTL-SQL + setValueBinding); PartialStateHolderHelper.eval(Supplier);
+  borrado ValueBindingValueExpressionAdaptor.
+- **resource-optimizer-plugin**: `ProcessMojo` migrado a `jakarta.faces` → compila.
+- **rich**: **compila e instala el JAR** — precompile (448 fuentes) + CDK
+  genera los ~70 componentes + default-compile, todo `[release 21]` jakarta.
+  Fixes Faces 4.0 en rich (10 errores): AbstractAutocomplete (ResultDataModel/
+  Result), AbstractExtendedDataTable (setValueBinding), CapturingELContext
+  (`<T> convertToType(...Class<T>)` EL 5.0), ProgressServletInputStream
+  (isFinished/isReady/setReadListener Servlet 3.1+), RichFacesBeanValidatorFactory
+  (Context.unwrap(Class<T>) Bean Validation 1.1+).
+
+> **DEUDA — resource-optimizer (Fase I):** el goal `process` (static-resources)
+> del `richfaces-resource-optimizer-maven-plugin` falla en `generate-resources`
+> de rich con `Cannot invoke ClassToInstanceMap.values() because "this.instances"
+> is null` (inicialización de Guice; probable conflicto Guice 7 del CDK 10.0.1 vs
+> Guice/Guava del optimizer). NO es un problema de la migración jakarta: el código
+> de rich COMPILA en jakarta y el jar se empaqueta. El optimizer solo produce
+> recursos JS/CSS empaquetados (optimización). Se aborda en la Fase I.
+
+> **PENDIENTE de la Fase C/D:** strings literales `"javax.faces"` (nombre de
+> librería de recursos JS) en core, descriptores faces-config/taglib al esquema
+> 4.0, y los tests. El objetivo de la Fase D (componentes jakarta nativos con el
+> CDK jakarta) está LOGRADO.
 
 ### 4.1 Vía D-1 — Adoptar el CDK 10.0.1 jakarta de albfernandez (preferente)
 - [x] Cambiar en `pom.xml` raíz y `build/pom.xml` las coordenadas del CDK:

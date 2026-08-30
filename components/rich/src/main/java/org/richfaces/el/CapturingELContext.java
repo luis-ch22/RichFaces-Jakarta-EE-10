@@ -204,8 +204,9 @@ public class CapturingELContext extends ELContext {
             return delegate.getCommonPropertyType(context, base);
         }
 
+        // Jakarta EL 5.0 signature: <T> T convertToType(ELContext, Object, Class<T>)
         @Override
-        public Object convertToType(ELContext context, Object obj, Class<?> targetType) {
+        public <T> T convertToType(ELContext context, Object obj, Class<T> targetType) {
             return delegate.convertToType(context, obj, targetType);
         }
     }

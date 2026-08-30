@@ -87,6 +87,11 @@ public class RichFacesBeanValidatorFactory implements BeanValidatorFactory {
                 public ConstraintDescriptor<?> getConstraintDescriptor() {
                     return constrain;
                 }
+
+                // Bean Validation 1.1+ added Context.unwrap(Class<T>).
+                public <T> T unwrap(Class<T> type) {
+                    throw new jakarta.validation.ValidationException("Type " + type + " not supported");
+                }
             }, MessageFactory.getCurrentLocale(context));
             return new FacesMessage(interpolatedMessage);
         } else {

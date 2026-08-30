@@ -32,6 +32,22 @@ class ProgressServletInputStream extends ServletInputStream {
         this.wrappedStream = wrappedStream;
     }
 
+    // Servlet 3.1+ abstract methods on ServletInputStream; delegate to the wrapped stream.
+    @Override
+    public boolean isFinished() {
+        return wrappedStream.isFinished();
+    }
+
+    @Override
+    public boolean isReady() {
+        return wrappedStream.isReady();
+    }
+
+    @Override
+    public void setReadListener(jakarta.servlet.ReadListener readListener) {
+        wrappedStream.setReadListener(readListener);
+    }
+
     @Override
     public int read() throws IOException {
         int read = wrappedStream.read();
