@@ -1,0 +1,106 @@
+.rf-dg {
+    background-color: '#{a4jSkin.tableBackgroundColor}';
+    border-collapse: collapse;
+    border-left-width: '#{a4jSkin.tableBorderWidth}';
+    border-left-style: solid;
+    border-left-color: '#{a4jSkin.tableBorderColor}';
+    border-top-width: '#{a4jSkin.tableBorderWidth}';
+    border-top-style: solid;
+    border-top-color: '#{a4jSkin.tableBorderColor}';
+    empty-cells: show;
+}
+
+.rf-dg-nd-c {
+    border-bottom-width: '#{a4jSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{a4jSkin.tableBorderColor}';
+    border-right-width: '#{a4jSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{a4jSkin.tableBorderColor}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    padding: 4px;
+}
+
+.rf-dg-cap {
+    
+}
+
+.rf-dg-r {
+    
+}
+
+.rf-dg-f-r {
+    
+}
+
+.rf-dg-c {
+    border-bottom-width: '#{a4jSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{a4jSkin.tableBorderColor}';
+    border-right-width: '#{a4jSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{a4jSkin.tableBorderColor}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    padding: 4px;
+}
+
+.rf-dg-h {
+    
+}
+
+.rf-dg-h-f {
+    
+}
+
+.rf-dg-h-c {
+    border-bottom-width: '#{a4jSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{a4jSkin.tableBorderColor}';
+    border-right-width: '#{a4jSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{a4jSkin.tableBorderColor}';
+    background-color: '#{a4jSkin.tableHeaderBackgroundColor}';
+    background-image: "#{a4jSkin.imageUrl('colHdrGrad.png')}";
+    background-repeat: repeat-x;
+    background-position: top left;
+    color: '#{a4jSkin.tableHeaderTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+}
+
+.rf-dg-th {
+    border-bottom-width: '#{a4jSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{a4jSkin.tableBorderColor}';
+}
+
+.rf-dg-f {
+    
+}
+
+.rf-dg-f-f {
+    
+}
+
+.rf-dg-f-c {
+    border-bottom-width: '#{a4jSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{a4jSkin.tableBorderColor}';
+    border-right-width: '#{a4jSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{a4jSkin.tableBorderColor}';
+    color: '#{a4jSkin.generalTextColor}';
+    background-color: '#{a4jSkin.tableFooterBackgroundColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+}

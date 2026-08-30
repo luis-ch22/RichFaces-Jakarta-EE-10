@@ -1,0 +1,108 @@
+.rf-cp {
+    background-color: '#{a4jSkin.generalBackgroundColor}';
+    color: '#{a4jSkin.panelBorderColor}';
+    border-width: 1px;
+    border-style: solid;
+    border-radius: '#{a4jSkin.panelBorderRadius}';
+    padding: 1px;
+}
+
+.rf-cp-hdr {
+    cursor: pointer;
+    background-color: '#{a4jSkin.headerBackgroundColor}';
+    border-color: '#{a4jSkin.headerBackgroundColor}';
+    border-top-left-radius: '#{a4jSkin.panelBorderRadius}';
+    border-top-right-radius: '#{a4jSkin.panelBorderRadius}';
+    font-size: '#{a4jSkin.headerSizeFont}';
+    color: '#{a4jSkin.headerTextColor}';
+    font-weight: '#{a4jSkin.headerWeightFont}';
+    font-family: '#{a4jSkin.headerFamilyFont}';
+    padding: 2px;
+    border-width: 1px;
+    border-style: solid;
+    background-position: top left;
+    background-repeat: repeat-x;
+    background-image: "#{a4jSkin.imageUrl('gradientA.png')}";
+}
+
+.rf-cp-hdr-exp {
+    
+}
+
+.rf-cp-hdr-colps {
+    border-bottom-left-radius: '#{a4jSkin.panelBorderRadius}';
+    border-bottom-right-radius: '#{a4jSkin.panelBorderRadius}';
+}
+
+.rf-cp-b {
+    font-size: '#{a4jSkin.generalSizeFont}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    padding: 10px;
+}
+
+.rf-cp-gr {
+    width: 100%
+}
+
+.rf-cp-ico {
+    width: 16px;
+    height: 16px;
+}
+
+.rf-cp-exp-ico {
+    width: 16px;
+    height: 16px;
+}
+
+.rf-cp-ico-colps {
+    
+}
+
+.rf-cp-ico-exp {
+    
+}
+
+.rf-cp-lbl {
+    
+}
+
+.rf-cp-lbl-colps {
+    
+}
+
+.rf-cp-lbl-exp {
+    
+}
+
+.rf-cp-hdr-exp .rf-cp-ico-exp {
+    display: block;
+}
+
+.rf-cp-hdr-exp .rf-cp-ico-colps {
+    display: none;
+}
+
+.rf-cp-hdr-exp .rf-cp-lbl-exp {
+    display: block;
+}
+
+.rf-cp-hdr-exp .rf-cp-lbl-colps {
+    display: none;
+}
+
+.rf-cp-hdr-colps .rf-cp-ico-exp {
+    display: none;
+}
+
+.rf-cp-hdr-colps .rf-cp-ico-colps {
+    display: block;
+}
+
+.rf-cp-hdr-colps .rf-cp-lbl-exp {
+    display: none;
+}
+
+.rf-cp-hdr-colps .rf-cp-lbl-colps {
+    display: block;
+}

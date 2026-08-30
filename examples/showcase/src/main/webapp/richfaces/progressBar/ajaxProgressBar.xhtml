@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <b>rich:progressBar</b> displays a standard progress widget, and allows for additional facets such as initial, and
+        finish state customizations. In Ajax mode you simply bind the bar to a bean property that returns a value between the
+        'minValue' and 'maxValue'. This value is then polled from the browser using the specified interval.
+    </p>
+    <br />
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/progressBar/ProgressBarBean.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View ProgressBarBean Source" />
+        <ui:param name="hideLabel" value="Hide ProgressBarBean Source" />
+    </ui:include>
+</ui:composition>
+
+</html>

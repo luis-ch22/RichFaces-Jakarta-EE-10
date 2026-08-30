@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.richfaces.cdk</groupId>
+    <artifactId>richfaces-application</artifactId>
+    <name>Test component annotations</name>
+    <version>4.6.2.ayg</version>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.github.albfernandez.richfaces</groupId>
+        <artifactId>richfaces-root-parent</artifactId>
+        <version>4.6.2.ayg</version>
+        <relativePath>../../../../build/parent/pom.xml</relativePath>
+    </parent>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
+                <version>4.6.2.ayg</version>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <staticResourceMappingFile>${project.build.outputDirectory}/mapping.properties</staticResourceMappingFile>
+                    <resourcesOutputDir>${project.build.outputDirectory}/resources/</resourcesOutputDir>
+                    <compress>false</compress>
+                    <skins>
+                        <skin>classic</skin>
+                    </skins>
+                    <includedContentTypes>
+                        <include>application/javascript</include>
+                        <include>text/css</include>
+                    </includedContentTypes>
+                    <fileNameMappings>
+                        <property>
+                            <name>^\Qorg.richfaces.renderkit.html\E</name>
+                            <value>org.richfaces/images</value>
+                        </property>
+                        <property>
+                            <name>^\Qorg.richfaces.renderkit.html.images\E</name>
+                            <value>org.richfaces/images</value>
+                        </property>
+                        <property>
+                            <name>^css/</name>
+                            <value>org.richfaces/css</value>
+                        </property>
+                    </fileNameMappings>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <!-- http://maven.apache.org/plugins/maven-compiler-plugin/ -->
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

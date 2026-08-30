@@ -1,0 +1,48 @@
+.rf-ico-none,
+.rf-ico-chevron, .rf-ico-chevron-down, .rf-ico-chevron-left, .rf-ico-chevron-up,
+.rf-ico-disc,.rf-ico-grid,
+.rf-ico-transparent,
+.rf-ico-triangle,.rf-ico-triangle-down,.rf-ico-triangle-left,.rf-ico-triangle-up
+    {
+    width: 16px;
+    height: 16px;
+    background-position: 0 0;
+}
+
+.rf-ico-t-hdr {
+	background-position: 0 -16px;
+}
+
+.rf-ico-t-dis {
+	background-position: 0 -32px;
+}
+
+.rf-ico-chevron {
+    background-image: "#{a4jSkin.imageUrl('chevron.png')}";}
+
+.rf-ico-chevron-down {
+    background-image: "#{a4jSkin.imageUrl('chevronDown.png')}";}
+
+.rf-ico-chevron-left {
+    background-image: "#{a4jSkin.imageUrl('chevronLeft.png')}";}
+
+.rf-ico-chevron-up {
+    background-image: "#{a4jSkin.imageUrl('chevronUp.png')}";}
+
+.rf-ico-disc {
+    background-image: "#{a4jSkin.imageUrl('disc.png')}";}
+
+.rf-ico-grid {
+    background-image: "#{a4jSkin.imageUrl('grid.png')}";}
+
+.rf-ico-triangle {
+    background-image: "#{a4jSkin.imageUrl('triangle.png')}";}
+
+.rf-ico-triangle-down {
+    background-image: "#{a4jSkin.imageUrl('triangleDown.png')}";}
+
+.rf-ico-triangle-left {
+    background-image: "#{a4jSkin.imageUrl('triangleLeft.png')}";}
+
+.rf-ico-triangle-up {
+    background-image: "#{a4jSkin.imageUrl('triangleUp.png')}";}

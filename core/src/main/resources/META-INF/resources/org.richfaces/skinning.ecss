@@ -1,0 +1,106 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2013, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
+/* basic skinning styles */
+input,select,textarea,button,keygen,isindex,legend,a {
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    color: '#{a4jSkin.controlTextColor}';
+}
+
+fieldset {
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    border-color: '#{a4jSkin.panelBorderColor}';
+}
+
+hr {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{a4jSkin.panelBorderColor}';
+}
+
+a {
+    color: '#{a4jSkin.generalLinkColor}';
+}
+
+a:hover {
+    color: '#{a4jSkin.hoverLinkColor}';
+}
+
+a:visited {
+    color: '#{a4jSkin.visitedLinkColor}';
+}
+
+/* extended skinning styles */
+input,select,textarea,button,keygen,isindex {
+    border-width: 1px;
+    border-color: '#{a4jSkin.panelBorderColor}';
+    color: '#{a4jSkin.controlTextColor}';
+}
+
+button,input[type="reset"],input[type="submit"],input[type="button"] {
+    border-width: 1px;
+    border-color: '#{a4jSkin.panelBorderColor}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    color: '#{a4jSkin.headerTextColor}';
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{a4jSkin.headerBackgroundColor}';
+    background-image: "#{a4jSkin.imageUrl('buttonBackgroundImage.png')}";
+}
+
+button:hover,input[type="reset"]:hover,input[type="submit"]:hover,input[type="button"]:hover {
+    background-position: bottom left;
+    background-repeat: repeat-x;
+    background-image: "#{a4jSkin.imageUrl('buttonHoverBackgroundImage.png')}";
+    background-color: "#{a4jSkin.headerBackgroundColor}";
+}
+
+button[disabled],input[type="reset"][disabled],input[type="submit"][disabled],input[type="button"][disabled] {
+    color: '#{a4jSkin.tabDisabledTextColor}';
+    border-color: '#{a4jSkin.tableFooterBackgroundColor}';
+    background-color: '#{a4jSkin.tableFooterBackgroundColor}';
+    background-image: "#{a4jSkin.imageUrl('buttonDisabledBackgroundImage.png')}";
+    background-position: top left;
+}
+
+textarea,input[type="text"],input[type="password"],select {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{a4jSkin.panelBorderColor}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    color: '#{a4jSkin.controlTextColor}';
+    background-repeat: repeat-x;
+    background-position: 1px 1px;
+    background-color: '#{a4jSkin.controlBackgroundColor}';
+    background-image: "#{a4jSkin.imageUrl('inputBackgroundImage.png')}";
+}
+
+textarea[disabled],input[type="text"][disabled],input[type="password"][disabled],select[disabled] {
+    color: '#{a4jSkin.panelBorderColor}';
+    cursor: default;
+}

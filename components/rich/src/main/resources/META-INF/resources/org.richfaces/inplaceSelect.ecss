@@ -1,0 +1,234 @@
+.rf-is-fld,.rf-is-opt,.rf-is-lbl,.rf-is-opt-dis {
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+}
+
+input.rf-is-fld {
+    background: '#{a4jSkin.editBackgroundColor}';
+    padding: 0px 0px 0px 0px;
+    border: 0px;
+    margin: 0px;
+    width: 112px;
+    background-image: "url(#{resource['org.richfaces:mark_list.gif']})";
+    background-position: center right;
+    background-repeat: no-repeat;
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+}
+
+.rf-is-none {
+    display: none;
+}
+
+.rf-is-fld-cntr {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    background-color: '#{a4jSkin.editBackgroundColor}';
+}
+
+.rf-is {
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+    background-color: '#{a4jSkin.editorBackgroundColor}';
+    border-bottom-width: 1px;
+    border-bottom-style: dashed;
+    border-bottom-color: '#{a4jSkin.generalTextColor}';
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.rf-is-chng {
+    display: inline-block;
+    background-image: "url(#{resource['org.richfaces:mark_changed.gif']})";
+    background-position: top left;
+    background-repeat: no-repeat;
+}
+
+.rf-is-btn {
+    background-image: "#{a4jSkin.imageUrl('inplaceBtnGrad.png')}";
+    background-position: top;
+    background-repeat: repeat-x;
+    background-color: '#{a4jSkin.tabBackgroundColor}';
+    border-width: 1px;
+    border-style: outset;
+    border-color: '#{a4jSkin.panelBorderColor}';
+    padding: 3px;
+    margin: 0px;
+}
+
+.rf-is-btn-p {
+    background-image: "#{a4jSkin.imageUrl('inplaceBtnPressGrad.png')}";
+    background-position: top;
+    background-repeat: repeat-x;
+    background-color: '#{a4jSkin.tabBackgroundColor}';
+    border-width: 1px;
+    border-style: inset;
+    border-color: '#{a4jSkin.panelBorderColor}';
+    padding: 3px;
+    margin: 0px;
+}
+
+.rf-is-btn-set {
+    position: absolute;
+    top: 0px;
+    left: 112px;
+    white-space: nowrap;
+}
+
+.rf-is-lst-cord {
+    display: block;
+    position: absolute;
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    z-index: 10000;
+}
+
+.rf-is-lst-pos {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: -1px;
+}
+
+.rf-is-lst-dec {
+    display: block;
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{a4jSkin.panelBorderColor}';
+    padding: 0px;
+    /*width: 100%;*/
+    background-color: '#{a4jSkin.editBackgroundColor}';
+}
+
+.rf-is-lst-scrl {
+    display: block;
+    overflow: auto;
+    overflow-x: hidden;
+    /*height : 100px;*/
+}
+
+.rf-is-opt, .rf-is-opt-dis {
+    display: block;
+    padding: 2px;
+    white-space: nowrap;
+    background-color: '#{a4jSkin.editBackgroundColor}';
+    cursor: default;
+}
+
+.rf-is-opt-dis {
+    color: '#{a4jSkin.tabDisabledTextColor}';
+}
+
+.rf-is-sel {
+    display: block;
+    padding: 1px;
+    background-color: #DFE8F6; /*get from skin???*/
+    border-width: 1px;
+    border-style: dotted;
+    border-color: '#{a4jSkin.generalTextColor}';
+}
+
+.rf-is-btn-prepos {
+    display: block;
+    position: absolute;
+    top: -4px;
+    right: 0px;
+    width: 1px;
+    height: 1px;
+}
+
+.rf-is-btn-pos {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    white-space: nowrap;
+}
+
+.rf-is-btn-shdw {
+    display: block;
+    position: relative;
+    padding: 6px 6px 6px 6px;
+    top: -6px;
+    right: -6px;
+}
+
+.rf-is-shdw {
+    display: block;
+    position: relative;
+    padding: 6px 6px 6px 6px;
+    top: -6px;
+    left: -6px;
+}
+
+.rf-is-btn-cntr {
+    position: relative;
+    display: block;
+    font-size: 0px;
+}
+
+.rf-is-shdw-t {
+    display: block;
+    background-image: "url(#{resource['org.richfaces:bg_shadow.png']})";
+    background-position: top left;
+    position: absolute;
+    width: 6px;
+    top: 0px;
+    bottom: 6px;
+    left: 0px
+}
+
+.rf-is-shdw-l {
+    display: block;
+    background-image: "url(#{resource['org.richfaces:bg_shadow.png']})";
+    background-position: bottom left;
+    position: absolute;
+    height: 6px;
+    bottom: 0px;
+    left: 0px;
+    right: 6px;
+}
+
+.rf-is-shdw-r {
+    display: block;
+    background: "url(#{resource['org.richfaces:bg_shadow.png']})";
+    background-position: bottom right;
+    position: absolute;
+    width: 6px;
+    top: 6px;
+    bottom: 0px;
+    right: 0px;
+}
+
+.rf-is-shdw-b {
+    display: block;
+    background: "url(#{resource['org.richfaces:bg_shadow.png']})";
+    background-position: right top;
+    position: absolute;
+    height: 6px;
+    top: 0px;
+    left: 6px;
+    right: 0px;
+}
+
+.rf-is-dflt-lbl {
+    color: #b3b3b3;
+}
+
+.rf-is-fc {
+    padding: 0px;
+    border: 0px;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+}
+
+.rf-is-fc:focus {
+    outline: none;
+}

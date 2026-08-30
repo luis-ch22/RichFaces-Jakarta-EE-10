@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:rich="http://richfaces.org/rich">
+    <h:outputStylesheet>
+        .label {
+            font-weight: bold;
+        }
+        .rf-dg, .rf-dg-c{
+            border:none;
+        }
+        .pbody {
+            width: 180px;
+        }
+    </h:outputStylesheet>
+    <rich:panel>
+        <f:facet name="header">
+            <h:outputText value="Car Store" />
+        </f:facet>
+        <h:form id="form">
+            <rich:dataGrid value="#{carsBean.allInventoryItems}" var="car" columns="3" elements="9">
+                <rich:panel bodyClass="pbody">
+                    <f:facet name="header">
+                        <h:outputText value="#{car.vendor} #{car.model}" />
+                    </f:facet>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Price:" styleClass="label" />
+                        <h:outputText value="#{car.price}" />
+                        <h:outputText value="Mileage:" styleClass="label" />
+                        <h:outputText value="#{car.mileage}" />
+                        <h:outputText value="VIN:" styleClass="label" />
+                        <h:outputText value="#{car.vin}" />
+                        <h:outputText value="Stock:" styleClass="label" />
+                        <h:outputText value="#{car.stock}" />
+                    </h:panelGrid>
+                </rich:panel>
+                <f:facet name="footer">
+                    <rich:dataScroller fastStep="3"/>
+                </f:facet>
+            </rich:dataGrid>
+        </h:form>
+    </rich:panel>
+</ui:composition>

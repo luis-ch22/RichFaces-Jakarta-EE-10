@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:rich="http://richfaces.org/rich">
+    <h:outputScript>
+        function customFilter(subString, value) {
+            if (subString.length >= 1) {
+                if (value.indexOf(subString) != -1)
+                    return true;
+            } else
+                return false;
+        };
+    </h:outputScript>
+    <h:form id="form">
+        <rich:autocomplete mode="client" minChars="0" autofill="false" clientFilterFunction="customFilter"
+            autocompleteMethod="#{autocompleteBean.autocomplete}" />
+    </h:form>
+</ui:composition>

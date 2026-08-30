@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery Test Suite</title>
+<link type="text/css" rel="Stylesheet" media="screen" href="qunit/qunit.css" />
+<script type="text/javascript" src="../../classes/META-INF/resources/org.richfaces/jquery.js"></script>
+<script type="text/javascript" src="qunit/qunit.js"></script>
+<script type="text/javascript" src="timer-simulation.js"></script>
+<script type="text/javascript" src="richfaces-jsf-ajax-qunit.js"></script>
+<script type="text/javascript" src="../../classes/META-INF/resources/org.richfaces/richfaces.js"></script>
+<script type="text/javascript">
+	window.jsf_ajax_request = jsf.ajax.request;
+</script>
+<script type="text/javascript" src="../../classes/META-INF/resources/org.richfaces/jquery.position.js"></script>
+<script type="text/javascript">
+        // save handlers counter
+        jsf.ajax.__data = {};
+        jsf.ajax.__data.beforeEventHandlers = jsf.ajax.eventHandlerCounter;
+        jsf.ajax.__data.beforeErrorHandlers = jsf.ajax.errorHandlerCounter;
+    </script>
+<script type="text/javascript" src="../../classes/META-INF/resources/org.richfaces/richfaces-queue.js"></script>
+<script type="text/javascript">
+        // save handlers counter
+        jsf.ajax.__data.afterEventHandlers = jsf.ajax.eventHandlerCounter;
+        jsf.ajax.__data.afterErrorHandlers = jsf.ajax.errorHandlerCounter;
+    </script>
+<script type="text/javascript" src="../../classes/META-INF/resources/org.richfaces/richfaces-base-component.js"></script>
+<script type="text/javascript" src="../../classes/META-INF/resources/org.richfaces/richfaces-event.js"></script>
+<script type="text/javascript" src="richfaces-qunit.js"></script>
+
+<!-- TEST MODULES START -->
+<script type="text/javascript" src="richfaces-event-qunit.js"></script>
+<script type="text/javascript" src="jquery-position-qunit.js"></script>
+<script type="text/javascript" src="richfaces-queue-qunit-request.js"></script>
+<script type="text/javascript" src="richfaces-queue-qunit-getSize.js"></script>
+<script type="text/javascript" src="richfaces-queue-qunit-isEmpty.js"></script>
+<script type="text/javascript" src="richfaces-queue-qunit-clear.js"></script>
+<script type="text/javascript" src="richfaces-queue-qunit-submitFirst.js"></script>
+<script type="text/javascript" src="richfaces-queue-qunit-remove-stale-entries.js"></script>
+<script type="text/javascript" src="richfaces-base-component-qunit.js"></script>
+<!-- TEST MODULES END -->
+
+</head>
+<body>
+    <div id="qunit"></div>
+    
+    <div id="qunit-fixture">
+        <div id="testDiv" style="margin-top: 10px; border: 1px solid #a0a0a0">Main Test Div</div>
+    </div>
+    
+</body>
+</html>

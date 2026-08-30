@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+    <name>richfaces_core</name>
+
+    <application>
+        <system-event-listener>
+            <system-event-listener-class>org.richfaces.application.InitializationListener</system-event-listener-class>
+            <system-event-class>javax.faces.event.PreDestroyApplicationEvent</system-event-class>
+        </system-event-listener>
+        <system-event-listener>
+            <system-event-listener-class>org.richfaces.application.InitializationListener</system-event-listener-class>
+            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
+        </system-event-listener>
+        <system-event-listener>
+            <system-event-listener-class>org.richfaces.skin.SkinFactoryPreRenderViewListener</system-event-listener-class>
+            <system-event-class>javax.faces.event.PreRenderViewEvent</system-event-class>
+        </system-event-listener>
+        <system-event-listener>
+            <system-event-listener-class>org.richfaces.context.AjaxOutputTracker</system-event-listener-class>
+            <system-event-class>javax.faces.event.PreRemoveFromViewEvent</system-event-class>
+        </system-event-listener>
+        <system-event-listener>
+            <system-event-listener-class>org.richfaces.context.AjaxOutputTracker</system-event-listener-class>
+            <system-event-class>javax.faces.event.PostAddToViewEvent</system-event-class>
+        </system-event-listener>
+        <view-handler>org.richfaces.application.GlobalResourcesViewHandler</view-handler>
+        <resource-handler>org.richfaces.resource.ResourceHandlerImpl</resource-handler>
+        <el-resolver>org.richfaces.skin.SkinPropertiesELResolver</el-resolver>
+        <el-resolver>org.richfaces.resource.ResourceParameterELResolver</el-resolver>
+    </application>
+
+    <factory>
+        <external-context-factory>org.richfaces.context.SkinningExternalContextFactory</external-context-factory>
+        <partial-view-context-factory>org.richfaces.context.ExtendedPartialViewContextFactory</partial-view-context-factory>
+        <visit-context-factory>org.richfaces.context.ExtendedVisitContextFactory</visit-context-factory>
+    </factory>
+
+    <managed-bean>
+        <managed-bean-name>richfacesVersion</managed-bean-name>
+        <managed-bean-class>org.richfaces.VersionBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>a4jSkin</managed-bean-name>
+        <managed-bean-class>org.richfaces.skin.SkinBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
+    <component>
+        <component-type>org.richfaces.Scripts</component-type>
+        <component-class>org.richfaces.component.UIScripts</component-class>
+    </component>
+
+    <render-kit>
+        <renderer>
+            <component-family>org.richfaces.Script</component-family>
+            <renderer-type>org.richfaces.renderer.ScriptsRenderer</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.ScriptsRenderer</renderer-class>
+        </renderer>
+        <renderer>
+            <component-family>javax.faces.Output</component-family>
+            <renderer-type>org.richfaces.renderkit.ResourceLibraryRenderer</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.ResourceLibraryRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+
+</faces-config>

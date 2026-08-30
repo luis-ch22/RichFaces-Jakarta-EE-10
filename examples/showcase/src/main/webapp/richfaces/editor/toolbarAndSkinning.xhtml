@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"  >
+
+<ui:composition>
+    <p>
+        If basic <b>toolbar setup</b> or <b>look &amp; feel</b> of rich:editor does not suit your needs, there are Editor's
+        attributes which can help you.
+    </p>
+
+    <p>
+        At first, you can configure <b>toolbar attribute</b>, you have two built-in options: <b>'basic'</b> and <b>'full'</b>.
+    </p>
+
+    <p>
+        But if you would like to configure completely custom setup of toolbar, you can use <b>config attribute</b> and provide
+        own customizations. In this example, there is <b>'custom'</b> toolbar option configured. More about <b>advanced
+            editor configuration options</b> in next tab.
+    </p>
+
+    <hr />
+
+    <p>
+        The default skin is called 'moono-lisa' (which is bundled with RichFaces), but with the <b>skin attribute</b>, you are able to switch between <b>skins</b>. 
+    </p>
+
+    <p>However you can download any other CKEditor skin, place it to predefined location (<tt>/META-INF/resources/org.richfaces.ckeditor/skins/</tt> or <tt>WAR/resources/org.richfaces.ckeditor/skins/</tt>), and then setup <b>skin attribute</b>.
+        This way you can use a skin of your choice.</p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/org.richfaces.ckeditor/config.js" />
+        <ui:param name="sourceType" value="javascript" />
+        <ui:param name="openLabel" value="View Default Configuration" />
+        <ui:param name="hideLabel" value="Hide Default Configuration" />
+    </ui:include>
+</ui:composition>
+
+</html>

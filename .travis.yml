@@ -1,0 +1,11 @@
+language: java
+
+install: mvn clean install -B -DskipTests=true -s /home/travis/build/albfernandez/richfaces/buildhive-settings.xml
+
+jdk: 
+#  - openjdk7
+  - openjdk8
+  - oraclejdk8
+
+
+

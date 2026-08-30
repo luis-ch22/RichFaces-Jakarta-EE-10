@@ -1,0 +1,193 @@
+= Release Process
+
+This guide provides a chronological steps which goes through release tagging, staging, verification and publishing.
+
+== Prerequisites
+
+You need to make sure you have access to the JBoss nexus server, with permissions to stage, and release.  The documents above have information on this, but if you are not sure please contact JBoss helpdesk, and follow up with the project lead.
+
+=== Release settings
+
+Before beginning any of the procedures below you need to setup your maven installation.
+
+Use following template for a `release-settings.xml` and pass it to all Maven executions (just change `username`, `password` and `localRepository` settings as convenient):
+
+[source,xml]
+----
+<settings>
+    <localRepository>/tmp/richfaces-release-localRepository</localRepository>
+
+    <mirrors>
+        <mirror> 
+            <id>jboss-staging-repository-group</id> 
+            <mirrorOf>*,!jboss-qa-releases-repository</mirrorOf> 
+            <name>JBoss.org Staging Repository Group</name> 
+            <url>https://repository.jboss.org/nexus/content/groups/staging</url> 
+        </mirror>
+    </mirrors>
+
+    <servers>
+        <server>
+            <id>jboss-releases-repository</id>
+            <username>{your_email}</username>
+            <password>{your_password}</password>
+        </server>
+    </servers>
+
+</settings>
+----
+
+Using these settings you will use separated local repository which will be popullated only with artifacts from JBoss Staging repository and released artifacts. That way you can verify that the build is reproducible using JBoss Maven repositories.
+
+=== Environment
+
+|===
+| Maven | 3.0.4
+
+| JDK | OpenJDK 1.7
+
+| MAVEN_OPTS | -Xmx1024m -XX:MaxPermSize=512m
+|===
+
+=== Notify Development Team
+
+Also the person performing any of the releases below should also post a message to the RichFaces developer forum stating:
+
+____
+The release process for <4.5.0.Alpha3> is about to begin. Further commits into develop branch will not be considered in release.
+____
+
+When the release is completed be sure to post to the forums again.
+
+=== Review Issue Tracker Status and Continuous Integration
+
+Before starting any release steps, make sure the CI tests pass and that all issues scheduled to particular version are resolved.
+
+=== Finish Release Notes
+
+`dist/src/main/resources/txt/release-notes.txt` should be updated before starting with release (you can use the raw output of JIRA's Release Notes for particular version.
+
+
+== Release Tag Preparation
+
+First, you need to diverge a release branch:
+
+----
+git checkout master -b release/4.5.0.Alpha3
+----
+Bump to release versions:
+ 
+----
+$ bash components/change_version.sh -r -o <4.5.0-SNAPSHOT> -n <4.5.0.Alpha3>
+$ git add -A
+$ git commit -m 'changing version to <4.5.0.Alpha3>'
+----
+In order to verify that build pass, you should execute dry run:
+
+----
+mvn -s <release-settings.xml> -Prelease clean verify
+----
+
+Once the build pass, you can tag the release commit (but do not push the tag):
+
+----
+$ git tag -a <4.5.0.Alpha3> -m "Tagging release <4.5.0.Alpha3>"
+----
+
+
+Publish Release Branch and tag to repository
+
+----
+$ git push origin <release/4.5.0.Alpha3>
+
+$ git push origin <4.5.0.Alpha3>
+
+----
+
+== Release Staging
+
+The release is now prepared for staging to the JBoss Maven repository:
+
+---- 
+$ mvn -s <settings.xml> -P release clean deploy
+----
+
+This will build from the tag, and perform the actual uploads to the JBoss staging repo.
+For this step, you need to be properly authenticated (see `release-settings.xml`).
+
+If there are issues with staging you need to "Drop" whatever was already staged in a JBoss Nexus administration interface (see https://community.jboss.org/wiki/MavenDeployingARelease[Maven Deploying a Release] for details).
+
+If everything went fine, you can "Close" the release and make it available for release verification. Use comment "RichFaces 4.5.0.Alpha3" release in a message for closing a staging repository (see https://community.jboss.org/wiki/MavenDeployingARelease[Maven Deploying a Release] for details).
+
+If QE and development find issues, and the release needs to be dropped follow the directions above, and "drop" the staging repository.
+
+
+=== Do Not Forget to Stage Archetypes
+
+RichFaces 4.5 Archetypes have separated staging process (which ensures that archetypes can be corrected and released independently after framework release), but they follows pretty same release procedure as framework does.
+
+Archetypes needs to be released into a separated staging repository.
+
+
+== Release Verification
+
+At this point the staged release is prepared for verification by QE.
+
+Update details about the release to the RFPL JIRA for this release:
+
+----
+RichFaces version: {{4.5.0.Alpha3}}
+RichFaces tag: [{{4.5.0.Alpha3}}|https://github.com/richfaces/richfaces/commits/4.5.0.Alpha3]
+Metamer tag: {{???}}
+Shared Stage: https://repository.jboss.org/nexus/content/groups/staging/
+Private stage: https://repository.jboss.org/nexus/content/repositories/jboss_releases_staging_profile-061/
+
+
+*Release Notes:*
+
+https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310341&version=12320296
+----
+
+
+== Releasing/Dropping
+
+Once QE and development have verified and cleared the staged release following the release testing process, next step is to promote the staged bits to JBoss maven release repo.
+ 
+This is very easy. Simply log into the nexus server following https://community.jboss.org/wiki/MavenDeployingARelease[Maven Deploying a Release] and "promote" the release.
+ 
+If QE and development find issues, and the release needs to be dropped follow the directions above, and "drop" the stage.
+
+If the release was dropped the tag needs to be dropped as well:
+
+----
+$ git tag -d <4.5.0.Alpha3>
+$ git push origin :refs/tags/<4.5.0.Alpha3>
+----
+
+=== Merging Release branch with Master branch
+
+At this point, you can merge a release branch back to the master branch:
+
+----
+git fetch origin
+git checkout master
+git rebase origin/master
+git merge release/4.5.0.Alpha3
+----
+
+Since the version of `master` and `release/4.5.0.Alpha3` are now same, there should be rarely some merging conflicts.
+
+Resolve potential conflicts and verify a build:
+
+----
+mvn clean verify
+----
+
+Now you can push the merged release branch to master and then remove the release branch:
+
+----
+git push origin master
+git push origin :release/4.5.0.Alpha3
+----
+
+Don't forget to perform same steps for Archetypes repository.

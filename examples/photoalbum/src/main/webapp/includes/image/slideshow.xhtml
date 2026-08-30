@@ -1,0 +1,60 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <a4j:region>
+        <rich:popupPanel show="#{slideshow.active}" domElementAttachment="parent" id="slideShowModalPanel" autosized="true"
+            onshow="$('[id$=slideshowImage]').fadeIn(600);">
+            <f:facet name="header">Slideshow panel</f:facet>
+            <f:facet name="controls">
+                <h:panelGroup>
+                    <h:graphicImage value="resources/img/modal/close.png" style="cursor:pointer" id="hidelink">
+                        <a4j:ajax event="click" oncomplete="stopSlideshow()" />
+                    </h:graphicImage>
+                </h:panelGroup>
+            </f:facet>
+            <rich:hotKey key="esc" onkeyup="stopSlideshow()" />
+            <a4j:jsFunction name="stopSlideshow" actionListener="#{slideshow.stopSlideshow()}"
+                            render="mainArea, treePanel, slideShowModalPanel" execute="@region" />
+            <h:panelGrid styleClass="slideshow-table" columnClasses="slideshow-table-col" rowClasses="slideshow-table-row">
+                <h:panelGroup id="slideshowImage" style="display:none">
+                    <a4j:mediaOutput id="imgSlideShow" element="img" styleClass="main-image"
+                        createContent="#{imageLoader.paintImage}" rendered="#{slideshow.selectedImage.localImage}"
+                        value="#{slideshow.selectedImage != null ? fileManager.transformPath(slideshow.selectedImage.url, '_medium') : null}"
+                        mimeType="image/png">
+                        <rich:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
+                            <span style="white-space: nowrap"> #{slideshow.selectedImage.description} </span>
+                        </rich:tooltip>
+                    </a4j:mediaOutput>
+                    <h:graphicImage styleClass="main-image" rendered="#{!slideshow.selectedImage.localImage}"
+                        url="#{slideshow.selectedImage.url}" />
+                </h:panelGroup>
+            </h:panelGrid>
+            <a4j:poll id="slideShowPoll" data="#{slideshow.errorDetected}" render="slideshowImage"
+                interval="#{slideshow.interval}" enabled="#{slideshow.active}"
+                oncomplete="if(event.data)#{rich:component('slideShowModalPanel')}.hide(); $('[id$=slideshowImage]').fadeIn(600);"
+                actionListener="#{slideshow.showNextImage()}" />
+        </rich:popupPanel>
+    </a4j:region>
+</ui:composition>

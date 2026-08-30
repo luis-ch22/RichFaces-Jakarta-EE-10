@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+    <script type='text/javascript'>
+        //<![CDATA[  
+           function log(e){
+               if (e.data.item) {
+                   $('#clickInfo').text("Series index: "+e.data.seriesIndex
+                       +" DataIndex: "+e.data.dataIndex+' ['+e.data.x+','+e.data.y+']');
+               }
+           }
+           function hover(e){
+               if (e.data.item) {
+                   $("#hoverInfo").text(e.data.item.series.label+' ['+e.data.x+','+e.data.y+']');
+               }
+           }
+           function clear(){
+               $("#hoverInfo").text("");
+           }
+        //]]>
+    </script>
+     
+    <h:form id="form">
+        <rich:chart onplotclick="log(event)" onplothover="hover(event)" onmouseout="clear()" plotClickListener="#{chartBean.handler}">
+            <a4j:repeat value="#{chartBean.countries}" var="country" >
+                <rich:chartSeries label="#{country.name}" type="line">
+                    <a4j:repeat value="#{country.data}" var="record">
+                        <rich:chartPoint x="#{record.year}" y="#{record.tons}" />
+                    </a4j:repeat>
+                </rich:chartSeries>
+            </a4j:repeat>
+            <a4j:ajax event="plotclick" render="msg" execute="msg"/>
+            <rich:chartXAxis label="year"/>
+            <rich:chartYAxis label="metric tons of CO2 per capita"/>
+        </rich:chart>
+        <h3>Server-side chart event message:</h3>
+        <h:outputText id="msg" value="#{chartBean.msg}"/>
+    </h:form>
+    <h3>Client-side hover info:</h3>
+    <span id='hoverInfo' /><br/>
+    <h3>Client-side click info:</h3>
+    <span id='clickInfo' /><br/>
+</ui:composition>

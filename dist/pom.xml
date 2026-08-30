@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.albfernandez.richfaces</groupId>
+        <artifactId>richfaces-parent</artifactId>
+        <version>4.6.2.ayg</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>richfaces-distribution</artifactId>
+    <packaging>pom</packaging>
+    <name>RichFaces Distribution Assembler</name>
+
+    <properties>
+        <version.richfaces>4.6.2.ayg</version.richfaces>
+    </properties>
+
+    <profiles>
+
+        <profile>
+            <id>release</id>
+
+            <dependencies>
+                <dependency>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
+                    <artifactId>richfaces</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
+                    <artifactId>richfaces</artifactId>
+                    <classifier>sources</classifier>
+                    <version>${project.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
+                    <artifactId>richfaces</artifactId>
+                    <classifier>javadoc</classifier>
+                    <version>${project.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
+                    <artifactId>richfaces</artifactId>
+                    <classifier>vdldoc</classifier>
+                    <version>${project.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
+                    <artifactId>richfaces-a4j</artifactId>
+                    <classifier>sources</classifier>
+                    <version>${project.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
+                    <artifactId>richfaces-core</artifactId>
+                    <classifier>sources</classifier>
+                    <version>${project.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.github.albfernandez.richfaces</groupId>
+                    <artifactId>richfaces-page-fragments</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+
+                <!-- Runtime Dependencies -->
+                <dependency>
+                    <groupId>net.sourceforge.cssparser</groupId>
+                    <artifactId>cssparser</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </dependency>
+
+                <!-- Push dependencies -->
+                <dependency>
+                    <groupId>org.atmosphere</groupId>
+                    <artifactId>atmosphere-runtime</artifactId>
+                    <optional>true</optional>
+                </dependency>
+
+                <!-- Examples -->
+                <!-- 
+                <dependency>
+                    <groupId>org.richfaces.examples</groupId>
+                    <artifactId>richfaces-showcase</artifactId>
+                    <version>${version.richfaces}</version>
+                    <classifier>sources</classifier>
+                </dependency>
+ -->
+                <!-- JSF impl -->
+                <dependency>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+
+                        <!-- unpack the sources -->
+                        <executions>
+                            <execution>
+                                <id>unpack-richfaces-source</id>
+                                <goals>
+                                    <goal>unpack-dependencies</goal>
+                                </goals>
+                                <phase>prepare-package</phase>
+                                <configuration>
+                                    <stripVersion>true</stripVersion>
+                                    <classifier>sources</classifier>
+                                    <includeArtifactIds>richfaces,richfaces-a4j,richfaces-core,richfaces-page-fragments</includeArtifactIds>
+                                    <outputDirectory>${project.build.directory}/richfaces-sources</outputDirectory>
+                                </configuration>
+                            </execution>
+<!-- 
+                            <execution>
+                                <id>copy-examples</id>
+                                <goals>
+                                    <goal>unpack-dependencies</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <includeArtifactIds>richfaces-showcase</includeArtifactIds>
+                                    <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
+                                    <useSubDirectoryPerArtifact>false</useSubDirectoryPerArtifact>
+                                    <stripVersion>true</stripVersion>
+                                    <outputDirectory>${project.build.directory}/examples/richfaces-showcase</outputDirectory>
+                                </configuration>
+                            </execution>
+ -->
+                        </executions>
+                    </plugin>
+
+                    <!-- JavaDoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <sourcepath>${project.build.directory}/richfaces-sources</sourcepath>
+                                    <reportOutputDirectory>${project.reporting.outputDirectory}</reportOutputDirectory>
+                                    <destDir>javadoc</destDir>
+                                    <failOnError>false</failOnError>
+                                </configuration>
+                                <id>generate-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>javadoc</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-javadoc-plugin</artifactId>
+		<version>3.0.0</version>
+		<executions>
+			<execution>
+				<id>attach-javadocs</id>
+				<goals>
+					<goal>jar</goal>
+				</goals>
+			</execution>
+		</executions>
+	</plugin>
+
+                    <!-- VDL DOC -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.3.2</version>
+                        <executions>
+                            <execution>
+                                <id>generate-vdldoc</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-jar</argument>
+                                <argument>${settings.localRepository}/org/omnifaces/vdldoc/${version.vdldoc}/vdldoc-${version.vdldoc}.jar</argument>
+                                <argument>-d</argument>
+                                <argument>${project.build.directory}/site/vdldoc</argument>
+                                <argument>-windowtitle</argument>
+                                <argument>RichFaces ${version.richfaces} VDL Documentation</argument>
+                                <argument>-doctitle</argument>
+                                <argument>RichFaces ${version.richfaces} VDL Documentation</argument>
+                                <argument>${project.build.directory}/richfaces-sources/META-INF/a4j.taglib.xml</argument>
+                                <argument>${project.build.directory}/richfaces-sources/META-INF/rich.taglib.xml</argument>
+                            </arguments>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.omnifaces</groupId>
+                                <artifactId>vdldoc</artifactId>
+                                <version>${version.vdldoc}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+
+                    <!-- JSDoc -->
+                    <plugin>
+                        <groupId>com.phasebash.jsdoc</groupId>
+                        <artifactId>jsdoc3-maven-plugin</artifactId>
+                        <version>1.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>jsdoc</id>
+                                <configuration>
+                                    <recursive>true</recursive>
+                                    <directoryRoots>
+                                        <directoryRoot>${project.build.directory}/richfaces-sources/META-INF/resources/org.richfaces</directoryRoot>
+                                    </directoryRoots>
+                                    <lenient>true</lenient>
+                                </configuration>
+                                <goals>
+                                    <goal>jsdoc3</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>richfaces-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <descriptor>${project.basedir}/src/main/resources/xml/richfaces.xml</descriptor>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

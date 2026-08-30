@@ -1,0 +1,118 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
+    <h:panelGrid styleClass="album-header-table" cellpadding="0">
+        <ui:insert name="header" />
+        <a4j:commandButton execute="@this" onclick="setEdit(true)" value="Edit" rendered="#{controller.isProfileEditable(model.selectedUser)}"/>
+    </h:panelGrid>
+    <h:panelGroup id="userPref">
+        <table style="padding: 0; border-spacing: 0; border: 0" class="reg-table">
+            <tr>
+                <td style="vertical-align: top;">
+                    <h:outputLabel for="avatar">#{messages['user.avatar']}</h:outputLabel>
+                </td>
+                <td style="padding-left: 2px; padding-bottom: 2px">
+                    <h:panelGroup layout="block" styleClass="preview_box_photo_nav" style="margin-right : 5px">
+                        <h:graphicImage styleClass="pr_photo_bg" value="resources/img/shell/frame_photo_200.png" style="border:0" />
+                        <h:panelGrid cellpadding="0">
+                            <h:panelGroup>
+                                <ui:include src="/includes/userPrefs/avatar.xhtml" />
+                                <br />
+                            </h:panelGroup>
+                        </h:panelGrid>
+                    </h:panelGroup>
+                </td>
+                <td />
+            </tr>
+            <tr>
+                <td>
+                    <h:outputLabel for="userLoginName">#{messages['user.login']}</h:outputLabel>
+                </td>
+                <td>
+                    <h:outputText id="userLoginName" value="#{user.login}" styleClass="reg-table-output" />
+                </td>
+                <td />
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h:outputLabel for="userFirstname">#{messages['user.firstname']}</h:outputLabel>
+                </td>
+                <td>
+                    <h:outputText id="userFirstname" value="#{user.firstName}" styleClass="reg-table-output" />
+                </td>
+                <td />
+            </tr>
+            <tr>
+                <td>
+                    <h:outputLabel for="userSecondname">#{messages['user.secondname']}</h:outputLabel>
+                </td>
+                <td>
+                    <h:outputText id="userSecondname" value="#{user.secondName}" styleClass="reg-table-output" />
+                </td>
+                <td />
+            </tr>
+            <tr>
+                <td>
+                    <h:outputLabel for="userSex">#{messages['user.sex']}</h:outputLabel>
+                </td>
+                <td>
+                    <h:outputText id="userSex" value="#{user.sex.key =='1' ? messages['male'] : messages['female']}"
+                        styleClass="reg-table-output" />
+                </td>
+                <td />
+            </tr>
+            <tr>
+                <td>
+                    <h:outputLabel for="calendar">#{messages['user.birthdate']}</h:outputLabel>
+                </td>
+                <td>
+                    <h:outputText id="calendar" value="#{user.birthDate}" styleClass="reg-table-output">
+                        <f:convertDateTime />
+                    </h:outputText>
+                </td>
+                <td />
+            </tr>
+            <tr>
+                <td>
+                    <h:outputLabel for="email">#{messages['user.email']}</h:outputLabel>
+                </td>
+                <td>
+                    <h:outputText id="email" value="#{user.email}" styleClass="reg-table-output" />
+                </td>
+                <td />
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ui:insert name="controls" />
+                </td>
+            </tr>
+        </table>
+    </h:panelGroup>
+</ui:composition>

@@ -1,0 +1,48 @@
+.rf-pb {
+    width: 200px;
+}
+
+.rf-pb-rmng {
+    height: 13px;
+    white-space: nowrap;
+    min-width: 200px;
+    position: relative;
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{a4jSkin.panelBorderColor}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
+    overflow: hidden;
+    color: '#{a4jSkin.controlTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-weight: bold;
+    background-color: '#{a4jSkin.controlBackgroundColor}';
+    padding: 0px;
+}
+
+.rf-pb-prgs {
+    overflow: hidden;
+    border-color: '#{a4jSkin.panelBorderColor}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
+    background-repeat: repeat-x;
+    background-color: '#{a4jSkin.selectControlColor}';
+    height: 100%;
+    padding: 0px;
+    background-image: "#{a4jSkin.imageUrl('pbAniBg.gif')}";
+}
+
+.rf-pb-lbl {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 0px;
+    text-align: center;
+    width: 100%;
+    border-radius: '#{a4jSkin.panelBorderRadius}';
+}
+
+.rf-pb-init,.rf-pb-fin {
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+}

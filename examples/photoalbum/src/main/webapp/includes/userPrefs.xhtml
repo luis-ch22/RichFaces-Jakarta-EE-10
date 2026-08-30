@@ -1,0 +1,51 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:richx="http://richfaces.org/richx" xmlns:rich="http://richfaces.org/rich">
+    <ui:decorate
+        template="#{(controller.isProfileEditable(model.selectedUser) and userPrefsHelper.edit) ? 'userPrefs/userPrefsEdit.xhtml' : 'userPrefs/userPrefs.xhtml'}">
+        <ui:param name="user" value="#{model.selectedUser}" />
+        <ui:define name="header">
+            <h:outputText value="#{messages['user_profile_']}" styleClass="h1-style" />
+        </ui:define>
+        <ui:define name="controls">
+            <h:panelGrid columns="2" rendered="#{controller.isProfileEditable(model.selectedUser) and userPrefsHelper.edit}"
+                styleClass="user-prefs-button">
+                <h:panelGroup layout="block">
+                    <richx:commandButton actionListener="#{controller.editUser()}" value="#{messages['user.save']}"
+                        oncomplete="refreshUser(); setEdit(false);" />
+                    <a4j:jsFunction name="refreshUser" actionListener="#{controller.showCurrentUser}" render="mainArea"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block">
+                    <richx:commandButton immediate="true" actionListener="#{controller.cancelEditUser()}"
+                        value="#{messages['user.cancel']}" oncomplete="setEdit(false)" execute="@this" />
+                </h:panelGroup>
+            </h:panelGrid>
+
+            <a4j:jsFunction name="setEdit" execute="@this" render="mainArea">
+                <a4j:param name="edit" assignTo="#{userPrefsHelper.edit}" />
+            </a4j:jsFunction>
+        </ui:define>
+    </ui:decorate>
+</ui:composition>

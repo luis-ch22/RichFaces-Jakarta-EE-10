@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<scripts>
+    <component>
+        <type>javax.faces.convert.NumberConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.convertNumber</function>
+    </component>
+    <component>
+        <type>javax.faces.convert.BooleanConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.convertBoolean</function>
+    </component>
+    <component>
+        <type>javax.faces.convert.ByteConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.convertByte</function>
+    </component>
+    <component>
+        <type>javax.faces.convert.ShortConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.convertShort</function>
+    </component>
+    <component>
+        <type>javax.faces.convert.CharacterConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.convertCharacter</function>
+    </component>
+    <component>
+        <type>javax.faces.convert.IntegerConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.convertInteger</function>
+    </component>
+    <component>
+        <type>javax.faces.convert.LongConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.convertLong</function>
+    </component>
+    <component>
+        <type>javax.faces.convert.FloatConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.convertFloat</function>
+    </component>
+    <component>
+        <type>javax.faces.convert.DoubleConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.convertDouble</function>
+    </component>
+    <component>
+        <type>javax.faces.convert.DateTimeConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.convertDate</function>
+    </component>
+    <component>
+        <type>javax.faces.convert.ShortConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.convertShort</function>
+    </component>
+    <component>
+        <type>javax.faces.validator.LengthValidator</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateLength</function>
+    </component>
+    <component>
+        <type>javax.faces.validator.LongRangeValidator</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateLongRange</function>
+    </component>
+    <component>
+        <type>javax.faces.validator.DoubleRangeValidator</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateDoubleRange</function>
+    </component>
+    <component>
+        <type>javax.faces.validator.RegexValidator</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateRegex</function>
+    </component>
+    <component>
+        <type>javax.faces.validator.RequiredValidator</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateRequired</function>
+    </component>
+    <component>
+        <type>javax.validation.constraints.NotNull</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateRequired</function>
+    </component>
+    <component>
+        <type>org.hibernate.validator.constraints.NotEmpty</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateRequired</function>
+    </component>
+    <component>
+        <type>javax.validation.constraints.Size</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateSize</function>
+    </component>
+    <component>
+        <type>javax.validation.constraints.Pattern</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validatePattern</function>
+    </component>
+    <component>
+        <type>javax.validation.constraints.Min</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateMin</function>
+    </component>
+    <component>
+        <type>javax.validation.constraints.Max</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateMax</function>
+    </component>
+    <component>
+        <type>javax.validation.constraints.AssertTrue</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateTrue</function>
+    </component>
+    <component>
+        <type>javax.validation.constraints.AssertFalse</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateFalse</function>
+    </component>
+    
+    <component>
+        <type>org.richfaces.validator.SelectLabelValueValidator</type>
+        <resource>
+            <name>select.js</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateSelectLabelValue</function>
+    </component>
+</scripts>

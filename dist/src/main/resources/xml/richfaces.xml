@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.2.1 http://maven.apache.org/xsd/assembly-2.2.1.xsd">
+    <id>richfaces</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <fileSets>
+        <!-- readmes and release-notes -->
+        <fileSet>
+            <directory>src/main/resources/txt</directory>
+            <outputDirectory></outputDirectory>
+        </fileSet>
+
+        <!-- docs-->
+        <fileSet>
+            <directory>target/site</directory>
+            <outputDirectory>doc</outputDirectory>
+        </fileSet>
+
+        <!-- docs-->
+        <fileSet>
+            <directory>target/examples</directory>
+            <outputDirectory>examples</outputDirectory>
+        </fileSet>
+    </fileSets>
+
+    <dependencySets>
+        <!-- RichFaces jars -->
+        <dependencySet>
+            <includes>
+                <include>com.github.albfernandez.richfaces:richfaces:jar:${project.version}</include>
+                <include>com.github.albfernandez.richfaces:richfaces:jar:sources:${project.version}</include>
+            </includes>
+            <outputFileNameMapping>richfaces-rich-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet>
+        <dependencySet>
+            <includes>
+                <include>com.github.albfernandez.richfaces:richfaces-a4j:jar:${project.version}</include>
+                <include>com.github.albfernandez.richfaces:richfaces-a4j:jar:sources:${project.version}</include>
+            </includes>
+        </dependencySet>
+        <dependencySet>
+            <includes>
+                <include>com.github.albfernandez.richfaces:richfaces-core:jar:${project.version}</include>
+                <include>com.github.albfernandez.richfaces:richfaces-core:jar:sources:${project.version}</include>
+            </includes>
+        </dependencySet>
+
+        <!-- Dependency jars -->
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <includes>
+                <include>net.sourceforge.cssparser</include>
+                <include>org.w3c.css</include>
+                <include>com.google.guava</include>
+                <include>com.github.albfernandez.richfaces:richfaces-page-fragments</include>
+            </includes>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>lib/push</outputDirectory>
+            <includes>
+                <include>org.atmosphere</include>
+            </includes>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>lib/cache</outputDirectory>
+            <includes>
+                <include>net.sf.ehcache</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+</assembly>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:rich="http://richfaces.org/rich">
+    <h:outputStylesheet>
+        .rf-dt{
+            width:400px;
+        }
+        .acent{
+            text-align: center;
+        }
+    </h:outputStylesheet>
+    <h:form id="form">
+        <h:panelGrid columnClasses="acent">
+            <rich:dataScroller for="table" maxPages="5" fastStep="3"/>
+            <rich:dataTable value="#{carsBean.allInventoryItems}" var="car" id="table" rows="10">
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Vendor " />
+                    </f:facet>
+                    <h:outputText value="#{car.vendor}" />
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Model" />
+                    </f:facet>
+                    <h:outputText value="#{car.model}" />
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Price" />
+                    </f:facet>
+                    <h:outputText value="#{car.price}" />
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Mileage" />
+                    </f:facet>
+                    <h:outputText value="#{car.mileage}" />
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="VIN " />
+                    </f:facet>
+                    <h:outputText value="#{car.vin}" />
+                </rich:column>
+            </rich:dataTable>
+            <rich:dataScroller for="table" maxPages="5" fastStep="3"/>
+        </h:panelGrid>
+    </h:form>
+</ui:composition>
