@@ -91,6 +91,38 @@ mvn -v               # debe reportar 3.9+ y apuntar a JDK 21
 > Objetivo: tener una referencia de "qué funcionaba antes" para no confundir
 > fallos preexistentes con fallos introducidos por la migración.
 
+### Resultados de la Fase 0 (ejecutada)
+
+Entorno confirmado:
+- JDK **21.0.4** Temurin en `C:\Program Files\Eclipse Adoptium\jdk-21.0.4.7-hotspot`
+  (el terminal de Kiro inyecta un JDK 25 vía la extensión pleiades, por eso los
+  builds se lanzan forzando `JAVA_HOME` al 21 con
+  `cmd /v:on /c "set JAVA_HOME=...&& mvn.cmd ..."`).
+- Maven **3.9.16**, Git OK, Chrome **151** en `C:\Program Files\Google\Chrome\Application`.
+
+Rama creada: `migration/java21` (desde el commit `d0e4ad4`, tag `4.6.2.ayg`).
+
+Build de línea base (`mvn -B -DskipTests clean install`) con JDK 21:
+
+1. **Primer fallo:** `maven-gpg-plugin:sign` no encuentra `gpg.exe`. Es la firma
+   de artefactos para release; no es necesaria para compilar. Se evita con
+   `-Dgpg.skip=true`.
+2. **Segundo fallo (el importante):** al compilar `richfaces-build-resources`:
+   ```
+   Source option 7 is no longer supported. Use 8 or later.
+   Target option 7 is no longer supported. Use 8 or later.
+   ```
+   El JDK 21 ya NO admite `source/target = 1.7`. El pom raíz fija
+   `maven.compiler.source/target = 1.7`.
+
+**Conclusión de la línea base:** el proyecto NO compila en JDK 21 sin cambios.
+El primer bloqueo es el nivel de compilación, lo que confirma que la **Fase 1
+(subir el toolchain a `release=21`) es obligatoria y va primero**. El plugin GPG
+debe quedar desactivado por defecto durante el desarrollo.
+
+Módulos que compilan hoy antes del bloqueo: `RichFaces BOM`,
+`RichFaces Build Version Management`. El resto queda SKIPPED tras el fallo.
+
 ---
 
 ## 5. Fase 1 — Actualizar el toolchain a Java 21 (cambio A)
