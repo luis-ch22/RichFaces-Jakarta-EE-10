@@ -349,6 +349,37 @@ Para cada módulo: aplicar transformación → compilar → corregir → test �
 - [ ] **7.6 `examples`** — showcase, template, standalone-js, etc. (los que estén
       activos; hoy están comentados en el reactor raíz).
 
+### Resultados de la Fase 3 (ejecutada) — los 8 examples compilan en Java 21
+
+Alcance: subir el toolchain de compilación de cada example a Java 21
+(`maven.compiler.release=21` + plugins modernos), manteniéndose en `javax`
+(Java EE 6 Web), igual que el resto del proyecto. NO se migran a `jakarta` (eso
+es trabajo de EE 10 nativo / Estrategia 1).
+
+Cambios por example (todos son `war` standalone `org.richfaces.examples`, sin
+parent):
+- **template**: `release=21`; plugins clean/compiler/install/resources/surefire/war
+  a versiones modernas. Es dependencia de `standalone-js` (hay que `install`-arlo).
+- **standalone-js**: `release=21` en properties (no fija plugins).
+- **push-demo, components-demo, irc-client, jpa-demo**: `release=21` +
+  mismo set de plugins modernos.
+- **showcase**: `release=21` (quitado `source/target 1.7`); compiler/plugins
+  modernos en su `pluginManagement`. Compila con perfil por defecto
+  (tomcat-mojarra). `javax.persistence`/`javax.xml.bind` se resuelven vía
+  `jboss-javaee-6.0` (siguen como `javax`).
+- **photoalbum**: `release=21`; además requirió añadir la dependencia
+  `com.sun.activation:javax.activation:1.2.0` porque `javax.activation` (JAF)
+  fue eliminado del JDK en Java 11 y el código usa
+  `javax.activation.MimetypesFileTypeMap`.
+
+Todos verificados con `mvn -DskipTests -Dgpg.skip=true -f examples/<x>/pom.xml
+clean package` → BUILD SUCCESS (`javac [debug release 21]`).
+
+Decisión: los examples se dejan **comentados en el reactor raíz** (como el diseño
+original). Son apps de demostración con perfiles de contenedor (WildFly/Tomcat)
+y dependencias pesadas; se construyen bajo demanda con `-f examples/<x>/pom.xml`.
+Los tests de integración Arquillian de estos examples se abordan en la Fase 4.
+
 ---
 
 ## 8. Fase 4 — Tests e integración

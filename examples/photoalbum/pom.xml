@@ -75,8 +75,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
 
         <maven.min.version>3.0</maven.min.version>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -160,7 +159,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </exclusion>
             </exclusions>
         </dependency>
-    
+
+        <!-- javax.activation (JAF) was removed from the JDK in Java 11; this
+             example uses javax.activation.MimetypesFileTypeMap. Provide the
+             standalone implementation that keeps the javax.activation package. -->
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>javax.activation</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
         <!-- RichFaces dependency -->
         <dependency>
             <groupId>com.github.albfernandez.richfaces</groupId>
@@ -269,8 +277,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+                    <release>${maven.compiler.release}</release>
                 </configuration>
             </plugin>
 
@@ -416,15 +423,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </plugin>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.3.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.5.1</version>
+                    <version>3.13.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
+                    <version>3.1.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
