@@ -4,6 +4,18 @@ RichFaces 4.6 image:https://travis-ci.org/albfernandez/richfaces.png?branch=upgr
 
 '''
 
+[NOTE]
+====
+*RichFaces Java 21 edition (version 5.0.0)* — maintained at
+https://github.com/luis-ch22/RichFaces_Java_21[luis-ch22/RichFaces_Java_21].
+
+This is a fork of https://github.com/albfernandez/richfaces[albfernandez/richfaces]
+(itself a fork of the discontinued JBoss RichFaces 4.5), migrated to build and
+run on *Java 21*. Group id changed to `com.github.luisch22.richfaces`. See
+`MIGRATION_JAVA21.md` for the full migration log. Distributed under the same
+license (LGPL v2.1); original copyright notices are preserved.
+====
+
 = The next-generation JSF component framework by JBoss, Red Hat
 
 > The RichFaces project is an advanced UI component framework for easily integrating Ajax capabilities into business applications using JSF.
