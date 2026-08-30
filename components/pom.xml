@@ -55,6 +55,9 @@
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <executions>
+                        <!-- Precompile src/main/java into a separate directory so
+                             the CDK can read the compiled classes for annotation
+                             introspection, WITHOUT polluting target/classes. -->
                         <execution>
                             <id>precompile-sources-for-cdk</id>
                             <phase>generate-sources</phase>
@@ -62,12 +65,23 @@
                                 <goal>compile</goal>
                             </goals>
                             <configuration>
-                                <!-- Compile the CDK input classes into a separate
-                                     directory. Sharing target/classes with the later
-                                     default-compile makes javac on JDK 21 fail to
-                                     rewrite enum anonymous classes (PanelIcons$State$1),
-                                     giving "error while writing". -->
                                 <outputDirectory>${project.build.directory}/cdk-precompile-classes</outputDirectory>
+                            </configuration>
+                        </execution>
+                        <!-- default-compile must compile BOTH src/main/java and the
+                             CDK-generated sources into target/classes. Force a full
+                             (non-incremental) compile so target/classes always ends
+                             up complete for the test-compile phase; otherwise, on a
+                             clean reactor build javac only compiles the generated
+                             sources and leaves the hand-written classes out. -->
+                        <execution>
+                            <id>default-compile</id>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                            <configuration>
+                                <useIncrementalCompilation>false</useIncrementalCompilation>
                             </configuration>
                         </execution>
                     </executions>

@@ -81,6 +81,23 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- JAXB runtime. On JDK 11+ JAXB was removed from the JDK, so the
+             internal impl (com.sun.xml.internal.bind.v2.ContextFactory) no
+             longer exists. ClientServiceConfigParser uses javax.xml.bind.JAXB
+             to parse csv.xml; provide the standalone JAXB 2.3 API + runtime
+             (still the javax.xml.bind namespace). -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
         <dependency>
             <groupId>xmlunit</groupId>
             <artifactId>xmlunit</artifactId>
