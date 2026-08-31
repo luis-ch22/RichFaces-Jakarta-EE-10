@@ -398,13 +398,39 @@ la vez (regla nueva: NO acumular procesos Maven de fondo):
   (isFinished/isReady/setReadListener Servlet 3.1+), RichFacesBeanValidatorFactory
   (Context.unwrap(Class<T>) Bean Validation 1.1+).
 
-> **DEUDA — resource-optimizer (Fase I):** el goal `process` (static-resources)
-> del `richfaces-resource-optimizer-maven-plugin` falla en `generate-resources`
-> de rich con `Cannot invoke ClassToInstanceMap.values() because "this.instances"
-> is null` (inicialización de Guice; probable conflicto Guice 7 del CDK 10.0.1 vs
-> Guice/Guava del optimizer). NO es un problema de la migración jakarta: el código
-> de rich COMPILA en jakarta y el jar se empaqueta. El optimizer solo produce
-> recursos JS/CSS empaquetados (optimización). Se aborda en la Fase I.
+### Fase I — resource-optimizer en JDK 21 + jakarta (en progreso)
+
+El goal `process` del `richfaces-resource-optimizer-maven-plugin` fallaba en
+rich. Diagnóstico por capas (cada fix destapó el siguiente error, lo que indica
+progreso real):
+
+1. **Causa raíz #1 — Javassist antiguo (RESUELTO).** El stack real era
+   `java.io.IOException: invalid constant type: 18` en
+   `javassist.bytecode.ConstPool.readOne`: el Javassist de 2013 que arrastra
+   Reflections 0.9.8 no lee el constant pool del bytecode Java 21. Fix: forzar
+   **Javassist 3.33.0-GA** (propiedad `version.javassist`, gestionado en
+   `build/pom.xml` depMgmt, excluida la javassist vieja de reflections, y
+   declarado `org.javassist:javassist` en el `resource-optimizer-plugin`). Tras
+   esto: `Reflections took ... producing 251 keys and 985 values` — el scan lee
+   Java 21 OK.
+2. **Causa raíz #2 — release() no idempotente (RESUELTO).** Tras arreglar el
+   scan, saltó `NullPointerException: ...ClassToInstanceMap.values() ...
+   this.instances is null` en `ServicesFactoryImpl.release()` (llamado desde
+   `FacesImpl.stop()` en el `finally` del ProcessMojo). Fix: `release()` ahora
+   tolera `instances == null` (idempotente).
+3. **Causa raíz #3 — falta jakarta.el-api en el classpath del plugin (fix
+   aplicado, SIN verificar).** Tras lo anterior saltó `A required class was
+   missing: jakarta.el.ELContext` (el plugin tenía la vieja `javax/el/el-api 1.0`
+   pero el core jakarta referencia `jakarta.el.ELContext`). Fix: añadido
+   `jakarta.el:jakarta.el-api` al `resource-optimizer-plugin/pom.xml`.
+
+> **PENDIENTE DE VERIFICAR:** el fix #3 (jakarta.el-api) NO pudo verificarse en
+> esta sesión: el subsistema de terminales se degradó (procesos Maven cruzados,
+> logs sin escribir). Los 3 fixes están en disco y commiteados. **Siguiente paso
+> (shell limpio):** `mvn -pl build/resource-optimizer-plugin,core,components/rich
+> -Dmaven.test.skip=true -Dgpg.skip=true clean install` y confirmar rich BUILD
+> SUCCESS con el optimizer. Si aparece otra clase faltante, añadir esa API
+> jakarta al classpath del plugin (mismo patrón).
 
 > **PENDIENTE de la Fase C/D:** strings literales `"javax.faces"` (nombre de
 > librería de recursos JS) en core, descriptores faces-config/taglib al esquema

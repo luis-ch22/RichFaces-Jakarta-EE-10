@@ -74,6 +74,11 @@ public class ServicesFactoryImpl implements ServicesFactory {
      */
     @Override
     public void release() {
+        // Guard against release() being called without a successful init() (or
+        // twice): instances is null in those cases. Makes release idempotent.
+        if (instances == null) {
+            return;
+        }
         for (Object service : instances.values()) {
             if (service instanceof Initializable) {
                 Initializable initializableService = (Initializable) service;

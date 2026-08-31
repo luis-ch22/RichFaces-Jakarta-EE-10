@@ -111,7 +111,16 @@
                     <groupId>com.google.collections</groupId>
                     <artifactId>google-collections</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>javassist</groupId>
+                    <artifactId>javassist</artifactId>
+                </exclusion>
             </exclusions>
+        </dependency>
+        <!-- Modern Javassist so Reflections can read Java 21 bytecode. -->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
         </dependency>
 
         <!-- Faces 4.0 (Mojarra, jakarta.faces) + Servlet API. Replaces
@@ -125,6 +134,12 @@
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <!-- Jakarta EL API: richfaces-core (jakarta) references jakarta.el.ELContext
+             at runtime when the optimizer boots the Faces mock. -->
+        <dependency>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.el</groupId>

@@ -112,6 +112,11 @@
 
         <!-- Resource Optimizer -->
         <version.reflections>0.9.8</version.reflections>
+        <!-- Reflections 0.9.8 bundles a 2013-era Javassist that cannot read Java
+             21 bytecode (fails with "invalid constant type: 18" on the modern
+             constant pool). Force a current Javassist; its ConstPool/ClassFile
+             API is stable, so Reflections 0.9.8 keeps working. -->
+        <version.javassist>3.33.0-GA</version.javassist>
         <version.yuicompressor>2.4.8</version.yuicompressor>
         <version.jcommander>1.20</version.jcommander>
         <version.jboss-el>1.0_02.CR6</version.jboss-el>
@@ -463,9 +468,25 @@
                 <version>${version.yuicompressor}</version>
             </dependency>
             <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>${version.javassist}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.reflections</groupId>
                 <artifactId>reflections</artifactId>
                 <version>${version.reflections}</version>
+                <exclusions>
+                    <!-- Drop the stale bundled Javassist; use version.javassist. -->
+                    <exclusion>
+                        <groupId>javassist</groupId>
+                        <artifactId>javassist</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.javassist</groupId>
+                        <artifactId>javassist</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.beust</groupId>
