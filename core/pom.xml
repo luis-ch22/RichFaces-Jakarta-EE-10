@@ -116,6 +116,7 @@
         <dependency>
             <groupId>com.github.albfernandez.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
+            <version>10.0.1</version>
             <scope>provided</scope>
         </dependency>
 
@@ -204,6 +205,7 @@
         <dependency>
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se-core</artifactId>
+            <version>5.1.7.Final</version>
             <scope>test</scope>
         </dependency>
         <!-- Jakarta EL implementation (GlassFish RI, provides

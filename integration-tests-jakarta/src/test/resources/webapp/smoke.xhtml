@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+<h:head>
+    <title>RichFaces Jakarta smoke</title>
+</h:head>
+<h:body>
+    <h:form id="form">
+        <rich:panel id="panel" header="RichFaces on Jakarta EE 10">
+            <h:outputText id="count" value="Count: #{smokeBean.count}"/>
+            <br/>
+            <a4j:commandButton id="inc" value="Increment"
+                               action="#{smokeBean.increment}"
+                               render="count"/>
+        </rich:panel>
+    </h:form>
+</h:body>
+</html>
