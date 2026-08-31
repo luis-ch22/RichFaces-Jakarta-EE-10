@@ -130,10 +130,12 @@
             <groupId>org.glassfish</groupId>
             <artifactId>jakarta.faces</artifactId>
         </dependency>
+        <!-- Compile scope (NOT provided): this is a Maven plugin, so the servlet
+             API must be on its runtime classpath. richfaces-core (jakarta)
+             references jakarta.servlet.Servlet when the optimizer boots. -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <scope>provided</scope>
         </dependency>
         <!-- Jakarta EL API: richfaces-core (jakarta) references jakarta.el.ELContext
              at runtime when the optimizer boots the Faces mock. -->
@@ -141,9 +143,21 @@
             <groupId>jakarta.el</groupId>
             <artifactId>jakarta.el-api</artifactId>
         </dependency>
+        <!-- Jakarta EL implementation (RI). Replaces jboss-el, whose
+             ExpressionFactoryImpl implements the old javax.el.ExpressionFactory
+             and cannot be cast to jakarta.el.ExpressionFactory. -->
         <dependency>
-            <groupId>org.jboss.el</groupId>
-            <artifactId>jboss-el</artifactId>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <version>4.0.2</version>
+        </dependency>
+        <!-- Jakarta Activation implementation (Angus). The optimizer uses
+             MimetypesFileTypeMap; the jakarta.activation API needs a runtime
+             provider (jakarta.activation.spi.MimeTypeRegistryProvider). -->
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-activation</artifactId>
+            <version>2.0.2</version>
         </dependency>
 
         <dependency>

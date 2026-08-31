@@ -51,11 +51,10 @@ public class ApplicationImpl extends Application {
     private ExpressionFactory expressionFactory = createExpressionFactory();
 
     private ExpressionFactory createExpressionFactory() {
-        try {
-            return (ExpressionFactory) Class.forName("org.jboss.el.ExpressionFactoryImpl").newInstance();
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
+        // Use the standard Jakarta EL factory discovery (ServiceLoader) instead of
+        // hardcoding org.jboss.el.ExpressionFactoryImpl, which implements the old
+        // javax.el.ExpressionFactory and cannot be cast to jakarta.el.ExpressionFactory.
+        return ExpressionFactory.newInstance();
     }
 
     /*

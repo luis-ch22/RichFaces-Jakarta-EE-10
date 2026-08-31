@@ -424,13 +424,32 @@ progreso real):
    pero el core jakarta referencia `jakarta.el.ELContext`). Fix: añadido
    `jakarta.el:jakarta.el-api` al `resource-optimizer-plugin/pom.xml`.
 
-> **PENDIENTE DE VERIFICAR:** el fix #3 (jakarta.el-api) NO pudo verificarse en
-> esta sesión: el subsistema de terminales se degradó (procesos Maven cruzados,
-> logs sin escribir). Los 3 fixes están en disco y commiteados. **Siguiente paso
-> (shell limpio):** `mvn -pl build/resource-optimizer-plugin,core,components/rich
-> -Dmaven.test.skip=true -Dgpg.skip=true clean install` y confirmar rich BUILD
-> SUCCESS con el optimizer. Si aparece otra clase faltante, añadir esa API
-> jakarta al classpath del plugin (mismo patrón).
+Continuación (shell limpio) — más clases jakarta que faltaban en el classpath
+del plugin, resueltas en cascada (cada fix destapó la siguiente):
+
+4. **`jakarta.el.ELContext` faltante (RESUELTO):** añadido `jakarta.el:jakarta.el-api`.
+5. **`ClassCastException: org.jboss.el.ExpressionFactoryImpl -> jakarta.el.
+   ExpressionFactory` (RESUELTO):** `ApplicationImpl.createExpressionFactory()`
+   hardcodeaba la impl de jboss-el (javax). Cambiado a `ExpressionFactory.
+   newInstance()` (ServiceLoader estándar) + reemplazado `jboss-el` por la RI
+   Jakarta EL `org.glassfish:jakarta.el:4.0.2` en el plugin.
+6. **`NoClassDefFoundError: jakarta/servlet/Servlet` (RESUELTO):** el
+   `jakarta.servlet-api` estaba `provided`; un plugin Maven lo necesita en
+   runtime → scope compile.
+7. **`Provider for jakarta.activation.spi.MimeTypeRegistryProvider cannot be
+   found` (RESUELTO):** faltaba la IMPL de Jakarta Activation; añadido
+   `org.eclipse.angus:angus-activation:2.0.2`.
+
+**RESULTADO — Fase I CERRADA:** `mvn -pl build/resource-optimizer-plugin,core,
+components/rich -Dmaven.test.skip=true -Dgpg.skip=true clean install` →
+**BUILD SUCCESS** (rich en ~58 s). Las 6 ejecuciones del resource-optimizer
+completan y `richfaces-5.0.0.jar` se instala. El scan de Reflections lee Java 21
+(251 keys / 985 values). **rich construye 100% limpio con el optimizer.**
+
+> Deuda menor restante (NO bloquea, build SUCCESS): el YUI Compressor 2.4.8 +
+> Rhino antiguo emite "Compilation produced N syntax errors" al minificar JS
+> moderno (jquery.js); el recurso se sirve sin minificar. Actualizar el
+> minificador es mejora futura, no parte de la migración jakarta.
 
 > **PENDIENTE de la Fase C/D:** strings literales `"javax.faces"` (nombre de
 > librería de recursos JS) en core, descriptores faces-config/taglib al esquema
