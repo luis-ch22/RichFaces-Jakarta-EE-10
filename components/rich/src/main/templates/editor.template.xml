@@ -40,7 +40,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <cdk:object name="width" value="#{resolveUnits(component.attributes['width'])}" />
         <cdk:object name="height" value="#{resolveUnits(component.attributes['height'])}" />
         <cdk:object name="config" value="#{component.attributes['config']}" />
-        <cdk:object name="configFacet" value="#{component.facets['config']}" type="javax.faces.component.UIComponent" />
+        <cdk:object name="configFacet" value="#{component.facets['config']}" type="jakarta.faces.component.UIComponent" />
         
         <div id="#{clientId}" class="rf-ed">
 	        <textarea id="#{clientId}:inp" name="#{clientId}" cdk:passThroughWithExclusions="id readonly style styleClass"

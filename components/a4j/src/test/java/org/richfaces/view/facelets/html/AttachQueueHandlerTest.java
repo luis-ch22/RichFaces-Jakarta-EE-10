@@ -43,13 +43,16 @@ import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.component.AbstractAttachQueue;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
+import org.richfaces.test.ContainerRequired;
 
 /**
  * @author Nick Belaevski
  *
  */
+@Category(ContainerRequired.class)
 public class AttachQueueHandlerTest {
     private FacesEnvironment environment;
     private FacesRequest facesRequest;

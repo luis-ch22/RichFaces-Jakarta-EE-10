@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 
@@ -35,7 +36,7 @@ public class TestFocusManagerImpl extends AbstractServicesTest {
     FacesContext facesContext;
 
     @Mock
-    UIComponent viewRoot;
+    UIViewRoot viewRoot;
 
     @Mock
     UIComponent component;
@@ -76,6 +77,7 @@ public class TestFocusManagerImpl extends AbstractServicesTest {
         String componentId = "someComponentId";
         String clientId = "someClientId";
 
+        when(facesContext.getViewRoot()).thenReturn(viewRoot);
         when(component.getClientId(facesContext)).thenReturn(clientId);
         when(viewRoot.findComponent(componentId)).thenReturn(component);
 

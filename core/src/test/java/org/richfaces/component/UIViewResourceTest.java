@@ -25,6 +25,8 @@ package org.richfaces.component;
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
+import org.junit.experimental.categories.Category;
+import org.richfaces.test.ContainerRequired;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,6 +42,7 @@ import static org.junit.Assert.assertTrue;
  * @author asmirnov
  *
  */
+@Category(ContainerRequired.class)
 public class UIViewResourceTest {
     private FacesEnvironment environment;
 

@@ -59,6 +59,8 @@ import jakarta.faces.context.FacesContext;
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
+import org.junit.experimental.categories.Category;
+import org.richfaces.test.ContainerRequired;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -102,6 +104,7 @@ import com.sun.faces.component.visit.PartialVisitContext;
  * @author Nick Belaevski
  *
  */
+@Category(ContainerRequired.class)
 public class ExtendedPartialVisitContextTest {
     private class TrackingVisitCallback implements VisitCallback {
         private List<String> visitedIds = new ArrayList<String>();

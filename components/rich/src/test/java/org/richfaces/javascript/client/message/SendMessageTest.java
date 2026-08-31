@@ -28,7 +28,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.html.DomElement;
+import org.htmlunit.html.DomElement;
 
 /**
  * <p class="changed_added_4_0">

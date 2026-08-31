@@ -68,6 +68,44 @@
             <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces-a4j</artifactId>
         </dependency>
+        <!-- Core test-jar: provides shared test support such as the
+             org.richfaces.test.ContainerRequired JUnit category marker used to
+             exclude container-dependent tests from the unit run. -->
+        <dependency>
+            <groupId>com.github.luisch22.richfaces</groupId>
+            <artifactId>richfaces-core</artifactId>
+            <version>${project.version}</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
+        <!-- Jakarta EL implementation (GlassFish RI) for tests: ELTestBase and
+             its subclasses build ValueExpressions via ExpressionFactory.newInstance(),
+             which needs a concrete EL implementation on the classpath. -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <version>4.0.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Guava: richfaces-core exposes it only transitively/optionally, but
+             rich's own main code (e.g. ClientScriptServiceImpl) and several tests
+             (DataTableDataChildrenIterator extends AbstractIterator, UploadedFile25
+             uses Multimap) reference Guava types directly, so declare it here so
+             it is on both the compile and test classpaths. -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <!-- Hibernate Validator 8.0.x is the Jakarta Bean Validation 3.0 reference
+             implementation (Jakarta EE 10). The bean-validation tests build a
+             Validator via Validation.buildDefaultValidatorFactory(), which needs a
+             provider on the classpath. -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.5.Final</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Jakarta Expression Language 5.0 API (provided) -->
         <dependency>

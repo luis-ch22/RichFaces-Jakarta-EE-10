@@ -30,15 +30,18 @@ import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
+import org.richfaces.test.ContainerRequired;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 
 /**
  * @author nick
  *
  */
+@Category(ContainerRequired.class)
 public class ListRendererTest {
     private HtmlUnitEnvironment environment;
     private DataBean testBean;
@@ -123,7 +126,7 @@ public class ListRendererTest {
 
             assertEquals("li", item.getNodeName());
             assertEquals(styleClass, item.getAttribute("class"));
-            assertEquals(data.getTerm(), item.asText());
+            assertEquals(data.getTerm(), item.asNormalizedText());
         }
     }
 
@@ -140,7 +143,7 @@ public class ListRendererTest {
             HtmlElement item = (HtmlElement) termItems.get(i);
             assertEquals("dt", item.getNodeName());
             assertEquals("rf-dlst-trm", item.getAttribute("class"));
-            assertEquals(data.getTerm(), item.asText());
+            assertEquals(data.getTerm(), item.asNormalizedText());
         }
 
         for (int i = 0; i < definitionItems.size(); i++) {
@@ -149,7 +152,7 @@ public class ListRendererTest {
             HtmlElement item = (HtmlElement) definitionItems.get(i);
             assertEquals("dd", item.getNodeName());
             assertEquals("rf-dlst-dfn", item.getAttribute("class"));
-            assertEquals(data.getDefinition(), item.asText());
+            assertEquals(data.getDefinition(), item.asNormalizedText());
         }
     }
 }

@@ -26,6 +26,8 @@ import jakarta.faces.context.FacesContext;
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.experimental.categories.Category;
+import org.richfaces.test.ContainerRequired;
 import org.junit.Test;
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
@@ -35,6 +37,7 @@ import org.ajax4jsf.model.SequenceRange;
  * @author Konstantin Mishin
  *
  */
+@Category(ContainerRequired.class)
 public class UIExtendedDataTableTest extends AbstractFacesTest {
     private UIExtendedDataTable table;
 

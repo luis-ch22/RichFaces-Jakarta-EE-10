@@ -39,9 +39,9 @@ import jakarta.faces.application.ResourceHandler;
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.easymock.classextension.EasyMock;
-import org.jboss.test.faces.AbstractFacesTest;
+import org.easymock.EasyMock;
 import org.jboss.test.faces.htmlunit.LocalWebClient;
+import org.richfaces.AbstractCDIFacesTest;
 import org.richfaces.application.DependencyInjector;
 import org.richfaces.application.DependencyInjectorImpl;
 import org.richfaces.application.Module;
@@ -52,15 +52,15 @@ import org.richfaces.application.Uptime;
 import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.configuration.ConfigurationServiceImpl;
 
-import com.gargoylesoftware.htmlunit.Cache;
-import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.WebResponse;
+import org.htmlunit.Cache;
+import org.htmlunit.WebRequest;
+import org.htmlunit.WebResponse;
 
 /**
  * @author Nick Belaevski
  * @since 4.0
  */
-public class ResourceHandlerImplTest extends AbstractFacesTest {
+public class ResourceHandlerImplTest extends AbstractCDIFacesTest {
     protected static final String ECHO_HEADER = "RichFaces-Echo";
     private static final String IF_MODIFIED_SINCE = "If-Modified-Since";
     private static final String RESOURCES_FOLDER_PATH = "resources/";

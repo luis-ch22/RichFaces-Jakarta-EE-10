@@ -8,14 +8,14 @@ import jakarta.validation.Validation;
 import jakarta.validation.ValidationException;
 import jakarta.validation.Validator;
 
-import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
+import org.htmlunit.corejs.javascript.JavaScriptException;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.junit.Test;
 import org.richfaces.javascript.client.MockTestBase;
 import org.richfaces.javascript.client.RunParameters;
 
-import com.gargoylesoftware.htmlunit.ScriptException;
+import org.htmlunit.ScriptException;
 
 public abstract class BeanValidatorTestBase extends MockTestBase {
     protected static final String PROP = "property";

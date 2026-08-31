@@ -32,23 +32,26 @@ import jakarta.faces.application.ViewHandler;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewDeclarationLanguage;
 
-import com.gargoylesoftware.htmlunit.html.DomElement;
+import org.htmlunit.html.DomElement;
 
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.component.AbstractPanel;
+import org.richfaces.test.ContainerRequired;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 
 /**
  * @author Andrey Markhel
  *
  */
+@Category(ContainerRequired.class)
 public class PanelRendererTest {
     private HtmlUnitEnvironment environment;
 

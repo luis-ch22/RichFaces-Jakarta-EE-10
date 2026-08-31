@@ -38,9 +38,11 @@ import jakarta.faces.context.FacesContext;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.ContextInitParameter;
 import org.richfaces.ContextInitParameters;
 import org.richfaces.FacesRequestSetupRule;
+import org.richfaces.test.ContainerRequired;
 
 /**
  * Test for Skin/skin factory methods.
@@ -49,6 +51,7 @@ import org.richfaces.FacesRequestSetupRule;
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/10 14:28:13 $
  *
  */
+@Category(ContainerRequired.class)
 public class SkinTestCase {
     @Rule
     public FacesRequestSetupRule rule = new FacesRequestSetupRule();

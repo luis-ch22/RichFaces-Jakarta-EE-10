@@ -13,8 +13,8 @@ import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
 import jakarta.validation.ValidationException;
 
-import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
-import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
+import org.htmlunit.corejs.javascript.JavaScriptException;
+import org.htmlunit.corejs.javascript.NativeObject;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.junit.Test;
@@ -23,7 +23,7 @@ import org.richfaces.javascript.client.MockTestBase;
 import org.richfaces.javascript.client.RunParameters;
 import org.richfaces.validator.FacesValidatorServiceImpl;
 
-import com.gargoylesoftware.htmlunit.ScriptException;
+import org.htmlunit.ScriptException;
 
 public abstract class ValidatorTestBase extends MockTestBase {
     /**

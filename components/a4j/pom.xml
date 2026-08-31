@@ -73,6 +73,16 @@
             <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces-core</artifactId>
         </dependency>
+        <!-- Core test-jar: provides shared test support such as the
+             org.richfaces.test.ContainerRequired JUnit category marker used to
+             exclude container-dependent tests from the unit run. -->
+        <dependency>
+            <groupId>com.github.luisch22.richfaces</groupId>
+            <artifactId>richfaces-core</artifactId>
+            <version>${project.version}</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

@@ -27,15 +27,15 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.Assert;
+import org.richfaces.AbstractCDIFacesTest;
 import org.richfaces.application.CoreConfiguration;
 
 /**
  * @author Nick Belaevski
  * @since 4.0
  */
-public abstract class BaseCacheTest extends AbstractFacesTest {
+public abstract class BaseCacheTest extends AbstractCDIFacesTest {
     private int sizeLimit;
     private CacheManager cacheManager;
     private Cache cache;

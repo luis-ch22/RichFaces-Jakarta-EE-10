@@ -45,6 +45,7 @@ import junit.framework.TestCase;
 
 import org.easymock.Capture;
 import org.easymock.CaptureType;
+import org.easymock.EasyMock;
 import org.hamcrest.CoreMatchers;
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.junit.Test;
@@ -293,7 +294,15 @@ public class ScriptUtilsTest extends TestCase {
 
         for (Object o : list) {
             assertNotNull(o);
-            sb.append(o);
+            // A char[] written via ResponseWriter.writeText(char[], start, length)
+            // is normalized to a single-char String (the writer is called with
+            // start=0, length=1 in this test), matching the original captured form.
+            if (o instanceof char[]) {
+                char[] cs = (char[]) o;
+                sb.append(new String(cs, 0, 1));
+            } else {
+                sb.append(o);
+            }
         }
 
         assertEquals(expected, sb.toString().trim());
@@ -306,23 +315,10 @@ public class ScriptUtilsTest extends TestCase {
         MockFacesEnvironment environment = MockFacesEnvironment.createEnvironment();
 
         ResponseWriter mockWriter = environment.createMock(ResponseWriter.class);
-        Capture<? extends Object> capture = new Capture<Object>(CaptureType.ALL) {
-            /**
-             *
-             */
-            private static final long serialVersionUID = -4915440411892856583L;
-
-            @Override
-            public void setValue(Object value) {
-                if (value instanceof char[]) {
-                    char[] cs = (char[]) value;
-
-                    super.setValue(new String(cs, 0, 1));
-                } else {
-                    super.setValue(value);
-                }
-            }
-        };
+        // easymock 5 made Capture's constructor private; use the newCapture factory.
+        // The char[] -> single-char String normalization now happens in
+        // assertCaptureEquals when reading the captured values.
+        Capture<Object> capture = EasyMock.newCapture(CaptureType.ALL);
 
         mockWriter.writeText(capture(capture), (String) isNull());
         expectLastCall().anyTimes();

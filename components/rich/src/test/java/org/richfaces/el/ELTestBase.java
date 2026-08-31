@@ -16,9 +16,9 @@ import jakarta.el.ListELResolver;
 import jakarta.el.MapELResolver;
 import jakarta.el.ValueExpression;
 import jakarta.el.VariableMapper;
+import jakarta.el.ExpressionFactory;
 import jakarta.faces.context.FacesContext;
 
-import org.jboss.el.ExpressionFactoryImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.richfaces.el.model.Bean;
@@ -108,7 +108,7 @@ public class ELTestBase {
         }
     }
 
-    protected ExpressionFactoryImpl expressionFactory;
+    protected ExpressionFactory expressionFactory;
     protected Bean bean;
     protected ELResolver elResolver;
     protected ELContext elContext;
@@ -117,7 +117,7 @@ public class ELTestBase {
 
     @Before
     public void setUp() throws Exception {
-        expressionFactory = new ExpressionFactoryImpl();
+        expressionFactory = ExpressionFactory.newInstance();
         bean = new Bean();
         person = new Person();
         bean.setString("foo");

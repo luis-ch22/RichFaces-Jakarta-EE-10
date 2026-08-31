@@ -36,6 +36,8 @@ import jakarta.faces.context.FacesContext;
 
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
+import org.junit.experimental.categories.Category;
+import org.richfaces.test.ContainerRequired;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -45,6 +47,7 @@ import org.junit.Test;
  * @author Nick Belaevski
  *
  */
+@Category(ContainerRequired.class)
 public class UserResourcesTestCase {
     protected static class BaseUserResource extends AbstractUserResource {
         public void encode(FacesContext facesContext) throws IOException {

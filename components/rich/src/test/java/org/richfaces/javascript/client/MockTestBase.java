@@ -15,14 +15,17 @@ import org.jboss.test.qunit.Qunit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.richfaces.javascript.Message;
+import org.richfaces.test.ContainerRequired;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 
 @RunWith(Parameterized.class)
+@Category(ContainerRequired.class)
 public abstract class MockTestBase {
     protected static final String TEST_COMPONENT_ID = "testComponent";
     @Rule

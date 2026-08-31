@@ -166,6 +166,11 @@
              reflection on java.lang.ClassLoader.defineClass (blocked by JPMS).
              The forked test JVM does not inherit .mvn/jvm.config, pass them here. -->
         <surefire.jvm.params>-Xms1024m -Xmx2048m --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED</surefire.jvm.params>
+
+        <!-- Unit-test surefire excludes tests that require a live Jakarta EE/CDI
+             container (see org.richfaces.test.ContainerRequired). They are run in
+             the integration phase. Set -Dunit.test.excludedGroups= to run them. -->
+        <unit.test.excludedGroups>org.richfaces.test.ContainerRequired</unit.test.excludedGroups>
     </properties>
 
     <prerequisites>
@@ -243,6 +248,12 @@
                         <!-- Pass JDK 17+ add-opens (and heap) to the forked
                              test JVM; needed by cglib-based JSF test mocks. -->
                         <argLine>${surefire.jvm.params}</argLine>
+                        <!-- Exclude tests that need a real Jakarta EE/CDI
+                             container (they boot a full FacesContext, which
+                             Faces 4.0 cannot do inside the servlet mock). They
+                             run in the integration phase against a real
+                             container. Override -DexcludedGroups= to include them. -->
+                        <excludedGroups>${unit.test.excludedGroups}</excludedGroups>
                     </configuration>
                 </plugin>
                 <plugin>

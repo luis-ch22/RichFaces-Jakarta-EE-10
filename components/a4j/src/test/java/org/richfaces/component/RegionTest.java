@@ -45,6 +45,8 @@ import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.richfaces.test.ContainerRequired;
 
 /**
  * Test page pseudo-code:
@@ -69,6 +71,7 @@ import org.junit.Test;
  * @author Nick Belaevski
  *
  */
+@Category(ContainerRequired.class)
 public class RegionTest {
     private FacesEnvironment environment;
     private FacesRequest request;

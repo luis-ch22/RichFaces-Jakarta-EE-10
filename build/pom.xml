@@ -102,6 +102,10 @@
         <version.hornetq>2.2.7.Final</version.hornetq>
         <version.netty>3.2.5.Final</version.netty>
         <version.weld>2.2.12.Final</version.weld>
+        <!-- Weld SE for the Jakarta test runtime: Weld 5.x implements CDI 4.0,
+             matching the Jakarta EE 10 BOM and Mojarra 4. Used by core tests to
+             provide a real BeanManager so Mojarra 4's ConfigureListener starts. -->
+        <version.weld.se>5.1.7.Final</version.weld.se>
         <version.rewrite>2.0.12.Final</version.rewrite>
         <version.jsoup>1.5.2</version.jsoup>
         <version.hibernate-entitymanager>4.0.0.Final</version.hibernate-entitymanager>
@@ -124,8 +128,11 @@
         <!-- Test Dependencies Versions -->
         <version.junit>4.12</version.junit>
         <version.hamcrest>1.3</version.hamcrest>
-        <version.jsf-test>1.1.11</version.jsf-test>
-        <version.easymock>2.5.2</version.easymock>
+        <!-- test-jsf 10.x is the Jakarta variant (jakarta.el/jakarta.servlet) -->
+        <version.jsf-test>10.0.0</version.jsf-test>
+        <!-- test-jsf 10 pulls easymock 5.4.0; easymockclassextension was merged
+             into easymock in 3.0 and no longer exists as a separate artifact -->
+        <version.easymock>5.4.0</version.easymock>
         <version.mockito>1.8.5</version.mockito>
         <version.xmlunit>1.6</version.xmlunit>
 
@@ -435,6 +442,12 @@
                 <artifactId>weld-servlet</artifactId>
                 <version>${version.weld}</version>
             </dependency>
+            <!-- Weld SE (CDI 4.0) as a test-scoped runtime for the Jakarta tests -->
+            <dependency>
+                <groupId>org.jboss.weld.se</groupId>
+                <artifactId>weld-se-core</artifactId>
+                <version>${version.weld.se}</version>
+            </dependency>
             <dependency>
                 <groupId>org.ocpsoft.rewrite</groupId>
                 <artifactId>rewrite-servlet</artifactId>
@@ -516,8 +529,8 @@
                 <version>${version.jsf-test}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>javax.servlet</groupId>
-                        <artifactId>javax.servlet-api</artifactId>
+                        <groupId>jakarta.servlet</groupId>
+                        <artifactId>jakarta.servlet-api</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -546,11 +559,7 @@
                 <artifactId>easymock</artifactId>
                 <version>${version.easymock}</version>
             </dependency>
-            <dependency>
-                <groupId>org.easymock</groupId>
-                <artifactId>easymockclassextension</artifactId>
-                <version>${version.easymock}</version>
-            </dependency>
+            <!-- easymockclassextension removed: merged into easymock since 3.0 -->
 
             <dependency>
                 <groupId>org.mockito</groupId>

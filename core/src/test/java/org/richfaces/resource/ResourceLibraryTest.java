@@ -33,17 +33,20 @@ import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
+import org.richfaces.test.ContainerRequired;
 import org.w3c.dom.Element;
 
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlScript;
 
 /**
  * @author Nick Belaevski
  *
  */
+@Category(ContainerRequired.class)
 public class ResourceLibraryTest {
     @ResourceDependency(library = "org.richfaces", name = "static.reslib")
     public static class StaticLibraryComponent extends UIComponentBase {

@@ -37,6 +37,8 @@ import jakarta.faces.view.ViewDeclarationLanguage;
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
+import org.junit.experimental.categories.Category;
+import org.richfaces.test.ContainerRequired;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.component.MetaComponentResolver;
@@ -46,6 +48,7 @@ import org.richfaces.renderkit.AjaxConstants;
  * @author Nick Belaevski
  *
  */
+@Category(ContainerRequired.class)
 public class ComponentIdResolverTest {
     static final String META_COMPONENT_ID = "testId";
     static final String META_COMPONENT_ID_SUBSTITUTION = "@substitutedTestId";

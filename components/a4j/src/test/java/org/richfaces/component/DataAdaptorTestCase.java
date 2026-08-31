@@ -51,11 +51,14 @@ import org.ajax4jsf.component.IterationStateHolder;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.SequenceDataModel;
 import org.jboss.test.faces.AbstractFacesTest;
+import org.junit.experimental.categories.Category;
+import org.richfaces.test.ContainerRequired;
 
 /**
  * @author Nick Belaevski
  *
  */
+@Category(ContainerRequired.class)
 public class DataAdaptorTestCase extends AbstractFacesTest {
     private static final String VAR_NAME = "item";
 

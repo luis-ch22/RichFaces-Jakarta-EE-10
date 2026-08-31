@@ -7,12 +7,15 @@ import org.ajax4jsf.javascript.JSFunction;
 import org.jboss.test.qunit.Qunit;
 import org.jboss.test.qunit.Qunit.Builder;
 import org.junit.Rule;
+import org.junit.experimental.categories.Category;
 import org.richfaces.javascript.Message;
+import org.richfaces.test.ContainerRequired;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 
+@Category(ContainerRequired.class)
 public class MessageTestBase {
     public static final String COMPONENT = "form:component";
     public static final String MY_MESSAGE = "form:uiMessage";
@@ -34,7 +37,7 @@ public class MessageTestBase {
     protected Builder createQunitPage() {
         return Qunit
             .builder()
-            .emulate(BrowserVersion.FIREFOX_52)
+            .emulate(BrowserVersion.FIREFOX)
             .loadJsfResource("jquery.js", "org.richfaces")
             .loadJsfResource("richfaces.js", "org.richfaces")
             .loadJsfResource("richfaces-event.js", "org.richfaces")
@@ -99,7 +102,7 @@ public class MessageTestBase {
 
     protected String getMessageAsText() {
         HtmlElement htmlElement = getMessageContentElement();
-        String text = htmlElement.asText();
+        String text = htmlElement.asNormalizedText();
         return text;
     }
 }

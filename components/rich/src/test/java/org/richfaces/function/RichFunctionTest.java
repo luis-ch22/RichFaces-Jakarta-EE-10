@@ -111,7 +111,10 @@ public class RichFunctionTest {
         viewRoot = createMockComponent(UIViewRoot.class);
         expect(facesContext.getViewRoot()).andStubReturn(viewRoot);
 
-        currentComponent = createMockComponent(UIComponent.class);
+        // A real component (not an EasyMock) so that pushComponentToEL /
+        // UIComponent.getCurrentComponent work through Faces' real EL component
+        // stack; a mock's push is a no-op and getCurrentComponent would return null.
+        currentComponent = new jakarta.faces.component.UIOutput();
 
         locatedComponent = createMockComponent(UIComponent.class);
         expect(locatedComponent.getClientId(same(facesContext))).andStubReturn(TEST_CLIENT_ID);

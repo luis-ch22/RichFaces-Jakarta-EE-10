@@ -1,7 +1,6 @@
 /*
- * $Id$
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2013, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -20,34 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.javascript.client.message;
-
-import org.jboss.test.qunit.Qunit.Builder;
-import org.junit.Test;
-
-import org.htmlunit.javascript.host.event.Event;
+package org.richfaces.test;
 
 /**
- * <p class="changed_added_4_0">
- * </p>
+ * JUnit category marker for tests that need a real Jakarta EE / CDI container.
  *
- * @author asmirnov@exadel.com
+ * <p>These tests boot a full {@code FacesContext} through the {@code test-jsf}
+ * {@code StagingServer}. Under Faces 4.0 (Mojarra 4) that requires a live CDI
+ * container (active request/application contexts, Faces' own CDI producers and
+ * portable extensions), which the lightweight servlet mock does not provide.
+ * They are therefore excluded from the plain unit test run (surefire
+ * {@code excludedGroups}) and are meant to be executed against a real container
+ * in the integration phase (Arquillian + WildFly/Liberty).</p>
  *
+ * <p>Usage: annotate the test class with
+ * {@code @org.junit.experimental.categories.Category(ContainerRequired.class)}.</p>
+ *
+ * @author RichFaces Jakarta migration
  */
-public class DocumentReadyTest extends MessageTestBase {
-    @Override
-    protected Builder createQunitPage() {
-        return super.createQunitPage().loadContent("$(document).ready(function(){" + getMessageInit("") + "});");
-    }
-
-    @Test
-    public void testSend() throws Exception {
-        sendMessage();
-    }
-
-    @Test
-    public void testUnload() throws Exception {
-        sendMessage();
-        qunit.getPage().getDocumentElement().fireEvent(Event.TYPE_UNLOAD);
-    }
+public interface ContainerRequired {
 }

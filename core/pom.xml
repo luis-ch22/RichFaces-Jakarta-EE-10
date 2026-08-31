@@ -193,13 +193,28 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.easymock</groupId>
-            <artifactId>easymockclassextension</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Weld SE: real CDI 4.0 BeanManager for the test JVM. Faces 4.0
+             (Mojarra 4) requires CDI at startup; the test-jsf StagingServer has
+             no container, so we boot Weld SE and expose its BeanManager to the
+             mock ServletContext (see CDITestEnvironment). -->
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Jakarta EL implementation (GlassFish RI, provides
+             com.sun.el.ExpressionFactoryImpl). At runtime the container supplies
+             the EL impl; in tests Mojarra 4's startup needs it on the classpath,
+             otherwise jakarta.el.ELManager fails with "Provider
+             com.sun.el.ExpressionFactoryImpl not found". -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <version>4.0.2</version>
             <scope>test</scope>
         </dependency>
 

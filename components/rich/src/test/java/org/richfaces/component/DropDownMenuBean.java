@@ -1,11 +1,11 @@
 package org.richfaces.component;
 
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.SessionScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 
-@ManagedBean
+@Named
 @SessionScoped
-public class DropDownMenuBean {
+public class DropDownMenuBean implements java.io.Serializable {
     private static String _current = "none";
 
     public void doAction() {

@@ -11,9 +11,9 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import com.gargoylesoftware.htmlunit.html.DomText;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.DomText;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 
 public class InplaceInputRendererTest extends InplaceRendererTestBase {
     public static final String PAGE_NAME = "inplaceInputTest";
