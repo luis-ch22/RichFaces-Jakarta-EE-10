@@ -189,7 +189,7 @@ public class ResourceGenerator {
      * List of excluded files
      */
     @Parameter(names = { "--excludeFile" }, descriptionKey = "excludedFiles")
-    private List<String> excludedFiles = Arrays.asList("^javax.faces", "^\\Qorg.richfaces.renderkit.html.images.\\E.*", "^\\Qorg.richfaces.renderkit.html.iconimages.\\E.*");
+    private List<String> excludedFiles = Arrays.asList("^jakarta.faces", "^\\Qorg.richfaces.renderkit.html.images.\\E.*", "^\\Qorg.richfaces.renderkit.html.iconimages.\\E.*");
     /**
      * Turns on compression with YUI Compressor (JavaScript/CSS compression)
      */

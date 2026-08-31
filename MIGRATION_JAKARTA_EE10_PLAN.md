@@ -267,15 +267,47 @@ librería. Herramienta recomendada: **Eclipse Transformer** en modo fuente, o
     el resto por esto.
 
 ### 3.3 Descriptores a esquema 4.0
-- [ ] `faces-config.xml`: subir a esquema **Faces 4.0**
-      (`https://jakarta.ee/xml/ns/jakartaee`, `version="4.0"`).
-- [ ] `*.taglib.xml`: namespace de taglib jakarta
-      (`http://jakarta.faces...` según spec 4.0). Ojo: los taglibs de RichFaces
-      declaran su propio namespace de librería; lo que cambia es el esquema y
-      referencias a facelets/faces jakarta.
-- [ ] Namespaces XML de vistas (`.xhtml` de examples): de
-      `http://xmlns.jcp.org/jsf/...` / `http://java.sun.com/...` a
-      `jakarta.faces.*`.
+- [x] `faces-config.xml` de PRODUCCIÓN subidos a esquema **Faces 4.0**
+      (`https://jakarta.ee/xml/ns/jakartaee`, `version="4.0"`):
+      `core/.../META-INF/core.faces-config.xml`,
+      `a4j/.../behaviors-handler-delegate.faces-config.xml`,
+      `rich/.../META-INF/{dataTable,select,validator}.faces-config.xml`. Se
+      migraron también los `javax.faces.event.*` / `javax.faces.Output` internos
+      a `jakarta.faces.*`.
+- [x] `*.taglib.xml`: los taglibs de producción los GENERA el CDK 10.0.1 (ya
+      jakarta); no hay `.taglib.xml` en `src/main`. Nada que migrar a mano.
+- [x] Los `.template.xml` y `cdk/attributes/*.xml` usan
+      `xmlns:javaee="http://java.sun.com/xml/ns/javaee"` como token interno del
+      CDK; el CDK 10.0.1 los acepta tal cual (los builds generan OK). NO se tocan.
+- [ ] Namespaces XML de vistas (`.xhtml` de examples): pendiente para la Fase H
+      (examples).
+
+### 3.5 Flecos de Fase C — strings literales y managed-beans (ejecutado)
+
+- [x] **Nombre de librería/recurso de Faces:** `javax.faces:jsf.js` →
+      `jakarta.faces:faces.js` (y `-uncompressed`) en `ResourceConstants.java`;
+      patrón de exclusión `^javax.faces` → `^jakarta.faces` en `ResourceGenerator.java`.
+- [x] **Protocolo Ajax en `richfaces.js`:** `javax.faces.source`,
+      `javax.faces.partial.*`, `javax.faces.behavior.event`, `javax.faces.ViewRoot`,
+      `javax.faces.portletbridge.STATE_ID` → prefijo `jakarta.faces.*` (los nombres
+      de parámetro del protocolo Faces cambiaron en 4.0; crítico para el Ajax).
+- [x] **Whitelist de deserialización** (`resource-serialization.properties`):
+      `javax.el.*`/`javax.faces.*` → `jakarta.*`.
+- [x] **Managed-beans → CDI:** `SkinBean` (`@Named("a4jSkin")` +
+      `@ApplicationScoped`) y `VersionBean` (`@Named("richfacesVersion")` +
+      `@ApplicationScoped`, quitado `final` para el proxy CDI). Eliminadas las
+      declaraciones `<managed-bean>` del `core.faces-config.xml` (removidas en
+      Faces 4.0).
+
+**Verificación:** `mvn -pl core,components/a4j,components/rich -am -DskipTests
+-Dgpg.skip=true clean install` → **BUILD SUCCESS** (JDK 21). La librería completa
+(core + a4j + rich, con CDK jakarta + resource-optimizer) compila y empaqueta
+100% limpia en Jakarta EE 10 / Faces 4.0.
+
+> NOTA CDI: `a4jSkin`/`richfacesVersion` ahora dependen de que el WAR consumidor
+> tenga CDI activo (`beans.xml`) para resolver `#{a4jSkin.xxx}` en los `.ecss` y
+> `#{richfacesVersion...}`. En Liberty con faces-4.0, CDI está activo por defecto.
+> Verificar el skinning en el mini-proyecto (sección 11).
 
 ### 3.4 Compilar y estabilizar
 - [x] `mvn -pl core -am -Dmaven.test.skip=true -Dgpg.skip=true clean compile`.
