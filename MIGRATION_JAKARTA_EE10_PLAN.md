@@ -529,22 +529,23 @@ Si D-1 no encaja tal cual (API del modelo cambiada, o hace falta un ajuste):
 
 ---
 
-## 5. Fase E — faces-config / taglibs / registro CDI de la librería
+## 5. Fase E — faces-config / taglibs / registro CDI de la librería — HECHA
 
-- [ ] Revisar `core/src/main/resources/META-INF/core.faces-config.xml`: el
-      managed-bean `a4jSkin` (scope application) es un `managed-bean` clásico de
-      JSF. En Faces 4.0 los managed-beans fueron eliminados. Opciones:
-  - Convertir `SkinBean` a CDI (`@Named("a4jSkin")` +
-    `@jakarta.enterprise.context.ApplicationScoped`) y añadir `beans.xml`.
-  - O registrarlo vía `application`/`ELResolver` programático
-    (`SkinPropertiesELResolver` ya existe; evaluar si basta).
-  - **Impacto de skinning:** `#{a4jSkin.xxx}` en los `.ecss` debe seguir
-    resolviendo. Verificar tras el cambio que el CSS compilado
-    (`CompiledCSSResource`) sigue sustituyendo variables.
-- [ ] Añadir `beans.xml` (CDI 4.0, `bean-discovery-mode="annotated"`) donde haga
-      falta activar CDI en la librería.
-- [ ] Buscar otros `managed-bean` en los `*.faces-config.xml` de `core` y
-      `components` y migrarlos igual.
+Nota: el grueso de esta fase se ejecutó junto con los flecos de la Fase C (sección
+3.5), porque faces-config-4.0 y la eliminación de managed-beans están acoplados.
+
+- [x] `core.faces-config.xml`: el managed-bean `a4jSkin` (y `richfacesVersion`)
+      convertidos a CDI (`@Named` + `@ApplicationScoped`); las declaraciones
+      `<managed-bean>` eliminadas (Faces 4.0 ya no las soporta).
+  - **Impacto de skinning:** `#{a4jSkin.xxx}` en los `.ecss` sigue resolviendo
+    vía CDI (mismo nombre EL `a4jSkin`); a verificar en runtime en el
+    mini-proyecto Liberty (sección 11).
+- [x] Añadido `core/src/main/resources/META-INF/beans.xml` (CDI 4.0,
+      `bean-discovery-mode="annotated"`) para que `SkinBean`/`VersionBean` se
+      descubran en cualquier contenedor CDI. Core compila e instala con él
+      (BUILD SUCCESS, JDK 21).
+- [x] Verificado que NO quedan otros `<managed-bean>` en los `*.faces-config.xml`
+      de producción de `core`/`components` (solo estaban los dos del core).
 
 ---
 
