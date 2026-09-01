@@ -51,9 +51,9 @@
 
         <module>dist</module>
 
-        <!-- Jakarta EE 9.1 (Faces 3.0) transformed artifacts. Must come after
-             core/components so their javax jars exist to transform. -->
-        <module>jakarta-bridge</module>
+        <!-- jakarta-bridge REMOVED (Fase J.1): core/components are now Jakarta EE
+             10 native (jakarta.faces via the jakarta CDK), so the post-transform
+             bridge (Strategy 2) is no longer needed. -->
 
 		<!-- 
         <module>examples/photoalbum</module>
@@ -105,6 +105,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Minimum Maven required (raised from 3.0 in Phase J; the modern
+             plugins already in use need 3.8+). -->
+        <maven.min.version>3.9.0</maven.min.version>
 
         <!-- Base Dependencies Versions -->
         <version.richfaces>5.0.0</version.richfaces>

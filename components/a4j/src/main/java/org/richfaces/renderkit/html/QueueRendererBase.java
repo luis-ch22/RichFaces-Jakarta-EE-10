@@ -21,9 +21,13 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
-
 import java.util.List;
+
+import org.richfaces.application.CommonComponentsConfiguration;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import org.richfaces.component.QueueRegistry;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import jakarta.faces.application.Application;
 import jakarta.faces.application.ResourceDependencies;
@@ -40,16 +44,11 @@ import jakarta.faces.event.PostAddToViewEvent;
 import jakarta.faces.event.PreRemoveFromViewEvent;
 import jakarta.faces.render.Renderer;
 
-import org.richfaces.application.CommonComponentsConfiguration;
-import org.richfaces.component.QueueRegistry;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-
 /**
  * @author Nick Belaevski Base class for rendering Queue
  */
 @ResourceDependencies({
-        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "jakarta.faces", name = "faces.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")

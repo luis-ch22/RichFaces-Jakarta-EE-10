@@ -62,36 +62,44 @@ public class JavaScriptCompressingProcessor implements ResourceProcessor {
 
     @Override
     public void process(String outputName, InputStream in, OutputStream out, boolean closeAtFinish) throws IOException {
+        // Buffer the source so we can fall back to the uncompressed bytes if the
+        // YUI/Rhino compressor cannot parse modern JS (e.g. jQuery). Rhino is a
+        // 2013-era parser and throws EvaluatorException on newer ECMAScript; in
+        // that case we still MUST emit the resource (uncompressed), otherwise the
+        // packaging step references a file that was never written and the build
+        // fails non-deterministically (e.g. "Compressed/.../atmosphere.js not
+        // found"). RichFaces serves the resource fine unminified at runtime.
+        byte[] source = in.readAllBytes();
 
-        Reader reader = null;
-        Writer writer = null;
-
+        Writer writer = new OutputStreamWriter(out, charset);
         try {
-            reader = new InputStreamReader(in, charset);
-            writer = new OutputStreamWriter(out, charset);
-
             MavenLogErrorReporter reporter = new MavenLogErrorReporter(outputName);
-            new JavaScriptCompressor(reader, reporter).compress(writer, 0, true, true, false, false);
+            try (Reader reader = new InputStreamReader(new java.io.ByteArrayInputStream(source), charset)) {
+                new JavaScriptCompressor(reader, reporter).compress(writer, 0, true, true, false, false);
+            } catch (RuntimeException e) {
+                // Compression failed (unparseable JS). Emit the original source
+                // verbatim so the resource still exists.
+                if (log.isWarnEnabled()) {
+                    log.warn("Could not minify " + outputName + " (" + e.getMessage()
+                        + "); writing it uncompressed.");
+                }
+                writer.write(new String(source, charset));
+            }
 
             if (!closeAtFinish) {
                 // add semicolon to satisfy end of context of each script when packing files
                 writer.write(";");
-                writer.flush();
             }
+            writer.flush();
 
-            if (reporter.hasErrors() && log.isErrorEnabled()) {
-                log.error(reporter.getErrorsLog());
+            if (reporter.hasErrors() && log.isDebugEnabled()) {
+                log.debug(reporter.getErrorsLog());
             }
 
             if (reporter.hasWarnings() && log.isDebugEnabled()) {
                 log.debug(reporter.getWarningsLog());
             }
         } finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                // Swallow
-            }
             if (closeAtFinish) {
                 try {
                     writer.close();

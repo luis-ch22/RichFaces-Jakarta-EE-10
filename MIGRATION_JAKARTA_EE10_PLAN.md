@@ -860,53 +860,111 @@ build **reproducible** en JDK 21 sin pines de bytecode.
 
 ---
 
-## 10. Fase J — Limpieza, CI y objetivo final
+## 10. Fase J — Limpieza, CI y objetivo final — ✅ COMPLETA
 
-### 10.1 Retirar el puente
-- [ ] Una vez `core`/`components` son jakarta NATIVO y verdes, eliminar el
-      módulo `jakarta-bridge` del reactor (ya no se necesita post-transformar).
-- [ ] Quitar de `.m2`/docs las variantes `*-jakarta` producidas por el puente.
+### 10.1 Retirar el puente — ✅ HECHO
+- [x] Eliminado el módulo `jakarta-bridge` del reactor (`<modules>` del pom raíz,
+      con nota J.1) y borrado el directorio `jakarta-bridge/`. Ya no se
+      post-transforma: `core`/`components` son jakarta NATIVO.
+- [x] Borradas de `.m2` las variantes `*-jakarta` del puente
+      (`richfaces-core-jakarta`, `richfaces-a4j-jakarta`, `richfaces-jakarta`,
+      `richfaces-jakarta-bridge`). Los artefactos en uso son
+      `richfaces-core` / `richfaces-a4j` / `richfaces` `5.0.0` (sin classifier).
 
-### 10.2 CI y docs
-- [ ] `.travis.yml` → `jdk: openjdk21` (o migrar a GitHub Actions con Temurin 21).
-- [ ] Actualizar `README.adoc` y `TESTS.md`: requisitos JDK 21 + Jakarta EE 10.
-- [ ] Revisar warnings de deprecación relevantes (no bloquean).
+### 10.2 CI y docs — ✅ HECHO
+- [x] Migrado CI de `.travis.yml` (JDK 8) a **GitHub Actions + Temurin 21**
+      (`.github/workflows/build.yml`): build de la librería saltando tests +
+      tests unitarios de `core`, `a4j`, `rich`. Borrado `.travis.yml`.
+- [x] Actualizados `README.adoc` y `TESTS.md`: requisitos JDK 21 + Jakarta EE 10;
+      matriz PhantomJS/Chrome/Firefox → Chrome headless (Selenium 4);
+      documentado `integration-tests-jakarta`.
+- [x] `maven.min.version` 3.0 → **3.9.0** en `bom/pom.xml`, `build/pom.xml` y
+      añadida la propiedad en el pom raíz (antes se usaba `${maven.min.version}`
+      sin definirla).
+- **Cachés muertos (jbosscache/oscache/ehcache): DIFERIDO documentado.** No se
+  eliminan porque `core/src/main/java/org/richfaces/cache/{JBossCacheCache,
+  OSCacheCache,EhCacheCache}(+Factory).java` importan esas libs directamente
+  (deps `optional` en compile scope); borrarlas rompe la compilación de `core`.
+  Retirarlas exige borrar también esas clases + su registro en la factory de
+  caché → cambio de mayor alcance fuera del cierre. Son proveedores de caché
+  opcionales, no bloquean. Deuda registrada.
 
-### 10.3 Objetivo final: mini-proyecto Java 21 + WebSphere Liberty
-- [ ] Crear `demo-liberty/` (WAR, `maven.compiler.release=21`) que dependa de
-      los `richfaces-*` jakarta NATIVOS.
-- [ ] `server.xml` de Liberty con feature **`faces-4.0`** (Jakarta, namespace
-      `jakarta.faces`) + `localConnector`.
-- [ ] Empaquetar en el WAR las dependencias de runtime que Liberty NO aporta:
-  - `richfaces-core`, `richfaces-a4j`, `richfaces` (jakarta nativos).
-  - `jakarta.xml.bind-api` 4.0 + `jaxb-runtime` 4.0 (RichFaces lo usa al
-    arrancar; sin él la app no inicializa).
-  - Guava, cssparser y demás transitivas de `richfaces-core`.
-  - Marcar Faces/Servlet/EL/CDI como `provided` (las aporta Liberty).
-- [ ] `beans.xml` + `faces-config.xml` mínimos + un `.xhtml` con `<rich:panel>` y
-      `<a4j:commandButton>`.
-- [ ] Desplegar en Liberty y verificar en el navegador: el componente renderiza
-      y el Ajax de a4j responde.
+### 10.3 Objetivo final: mini-proyecto Java 21 + WebSphere Liberty — ✅ HECHO
+- **Proyecto:** `C:\Users\luis-\Workspace\mini_proyecto_faces` (WAR, `release=21`),
+  fuera del repo de la librería. Depende de los `richfaces-*` jakarta nativos.
+- **`server.xml` de Liberty** (Open Liberty 24.0.0.9, `C:\liberty\wlp`, server
+  `richfacesDemo`): features `faces-4.0`, `cdi-4.0`, `servlet-6.0`,
+  `localConnector-1.0`; `httpPort=9080`; `<webApplication contextRoot="/mini">`.
+- **Empaquetado en el WAR** (verificado en `WEB-INF/lib`): `richfaces-core`,
+  `richfaces-a4j`, `richfaces` (jakarta), `jaxb-runtime 4.0.5` (+ jaxb-core, api,
+  txw2, istack, angus-activation), guava, cssparser, sac, log4j. Faces / Servlet
+  / EL / CDI marcados `provided` (los aporta Liberty).
+- **`beans.xml` (CDI 4.0) + `faces-config.xml` (4.0) + `web.xml` (6.0)** + un
+  `index.xhtml` con `<rich:panel>` y `<a4j:commandButton>` que incrementa por
+  Ajax el contador de un bean CDI `@Named @SessionScoped`.
+
+#### Dos bugs reales encontrados y corregidos al desplegar
+1. **POM inválido de `richfaces-core` para consumidores externos.** La
+   dependencia `io.github.classgraph:classgraph` (resource-optimizer) se declaró
+   **sin `<version>`** confiando en un `dependencyManagement` que NO existe en su
+   parent (`richfaces-parent`, el pom raíz; la versión sólo estaba gestionada en
+   `build/pom.xml`, que no es parent de `core`). Al consumir `richfaces-core`
+   como dependencia, Maven no resolvía la versión → POM inválido → **las
+   transitivas de runtime (guava, cssparser…) no se propagaban al WAR.** Fix:
+   añadida la propiedad local `version.classgraph` (4.8.174) y
+   `<version>${version.classgraph}</version>` en `core/pom.xml` (mismo patrón que
+   `resource-optimizer-plugin`). classgraph sigue `optional` → no entra al WAR
+   (sólo se usa en build-time), correcto.
+2. **`javax.xml.bind` sin migrar en `components/rich`.** Al arrancar, la app
+   fallaba con `NoClassDefFoundError: javax/xml/bind/JAXB` en
+   `org.richfaces.javascript.ClientServiceConfigParser` (parseo de la config de
+   validación cliente al iniciar RichFaces). 6 ficheros seguían en la API vieja;
+   migrados a `jakarta.xml.bind`:
+   `ClientServiceConfigParser.java`, `validator/model/{ClientSideScripts,
+   Component, Resource}.java` (main) y `renderkit/{Country, CountriesBean}.java`
+   (test). Confirmado por grep: **0 `javax.xml.bind` restantes** en el código.
+
+#### Build del JAR de `rich` con el fix
+- `rich` se reconstruyó con `-Doptimization.skip=true` →
+  **BUILD SUCCESS**, `richfaces-5.0.0.jar` reinstalado en `.m2` con las clases
+  `jakarta.xml.bind`. El skip evita el minificador **YUI 2.4.8 + Rhino**, que no
+  parsea el JS moderno (jQuery/atmosphere) y de forma no determinista dejaba
+  huecos en `Compressed/` que rompían el `maven-jar-plugin`. RichFaces sirve esos
+  recursos dinámicamente en runtime (mismo enfoque que `examples/showcase`).
+  Actualizar el minificador queda como deuda de producción (Anexo 14), no de la
+  migración jakarta.
+
+> **RESULTADO — Fase J CERRADA:** puente eliminado; CI en GitHub Actions/Temurin
+> 21; docs y `maven.min.version` actualizados; mini-proyecto WAR Java 21
+> desplegado en Open Liberty 24 con `faces-4.0` mostrando `<rich:panel>` +
+> `<a4j:commandButton>` (Ajax) en el navegador. La migración a Jakarta EE 10 /
+> Faces 4.0 sobre JDK 21 queda **funcionalmente verificada de extremo a extremo**.
 
 ---
 
 ## 11. Definition of Done (Jakarta EE 10)
 
-- [ ] `bom`, `build/*`, `core`, `components`, `dist` compilan con Faces 4.0 y
+- [x] `bom`, `build/*`, `core`, `components`, `dist` compilan con Faces 4.0 y
       `maven.compiler.release=21`.
-- [ ] No queda ningún `import javax.` salvo los que siguen en el JDK
+- [x] No queda ningún `import javax.` salvo los que siguen en el JDK
       (`javax.swing`, `javax.xml.parsers`, `javax.xml.namespace`,
       `javax.naming`, `javax.imageio`, `javax.crypto`, `javax.net`, `javax.sql`).
-- [ ] El **CDK genera `jakarta.*`** y `components` compila (verificado con
+      (Cierre J: eliminados también los últimos `javax.xml.bind` de
+      `components/rich` → `jakarta.xml.bind`.)
+- [x] El **CDK genera `jakarta.*`** y `components` compila (verificado con
       `javap`/grep sobre `generated-sources`).
-- [ ] Managed beans de la librería migrados a CDI (o eliminados); `a4jSkin`
+- [x] Managed beans de la librería migrados a CDI (o eliminados); `a4jSkin`
       resuelve y el skinning `.ecss` sigue funcionando.
-- [ ] Tests unitarios de `core`, `a4j` y `rich` en verde.
+- [x] Tests unitarios de `core`, `a4j` y `rich` en verde.
 - [ ] Al menos un perfil de integración corre en WildFly 30+ / Tomcat 10.1+.
-- [ ] Examples migrados a CDI y compilando (bajo demanda).
-- [ ] resource-optimizer reproducible en JDK 21.
-- [ ] `jakarta-bridge` eliminado; CI verde en JDK 21.
-- [ ] Mini-proyecto Liberty desplegado y visible en navegador con `faces-4.0`.
+      (Existe `integration-tests-jakarta/` con `RichFacesSmokeIT` sobre Selenium
+      4; ejecución bajo demanda.)
+- [x] Examples migrados a CDI y compilando (bajo demanda).
+- [x] resource-optimizer reproducible en JDK 21 (ClassGraph 4.8.174).
+- [x] `jakarta-bridge` eliminado; CI verde en JDK 21 (GitHub Actions / Temurin 21).
+- [x] Mini-proyecto Liberty desplegado y visible en navegador con `faces-4.0`
+      (Open Liberty 24, `richfaces-*` jakarta nativos, `<rich:panel>` +
+      `<a4j:commandButton>` Ajax).
 
 ---
 

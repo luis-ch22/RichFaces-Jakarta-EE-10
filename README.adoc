@@ -78,9 +78,13 @@ For more information on how to get started with the project, see the http://docs
 
 === Prerequsities:
 
-* JDK 1.7 +
-* Maven 3.0.4 +
+* JDK 21 + (this fork targets *Jakarta EE 10 / Faces 4.0* and builds with `maven.compiler.release=21`)
+* Maven 3.9 +
 * https://community.jboss.org/wiki/MavenGettingStarted-Developers[JBoss Maven Repository]
+
+NOTE: This fork has been migrated to *Jakarta EE 10* (namespace `jakarta.*`,
+Faces 4.0 / Mojarra 4). The Faces implementation is no longer `javax.faces`;
+components are generated natively as `jakarta.faces.*` by the Jakarta CDK.
 
 === Supported Browsers
 
@@ -143,14 +147,18 @@ For more information on how to run and develop this test suite, see https://gith
 
 === Running Smoke Tests
 
-In order to effectively test the project with each code modification, you need to run at least framework's smoke tests:
+The modern (Jakarta EE 10) integration smoke test lives in the standalone
+`integration-tests-jakarta/` module and runs on *WildFly 35* (managed) with
+*Chrome headless* driven by *Selenium 4* (no PhantomJS/Graphene):
 
-    $ mvn clean install -Dintegration=wildfly81 -Dsmoke
+    $ mvn -f integration-tests-jakarta/pom.xml -Pit-wildfly verify
 
-This will download WildFly and run the project tests against a managed instance of WildFly 8.1 using a headless PhantomJS browser.
-For a detailed explanation of additional testing configurations and options, refer to the link:TESTS.md[Testing guide].
+It deploys a minimal WAR with `<rich:panel>` + `<a4j:commandButton>` and verifies
+render + Ajax in a real browser. For a detailed explanation of the testing setup
+and the legacy suite, refer to the link:TESTS.md[Testing guide].
 
-These smoke tests are also executed in the https://travis-ci.org/albfernandez/richfaces/builds[continuous integration job].
+These builds run on https://github.com/features/actions[GitHub Actions] with
+Temurin 21 (see `.github/workflows/build.yml`).
 
 === Building showcase
 

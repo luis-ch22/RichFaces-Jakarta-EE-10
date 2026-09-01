@@ -47,6 +47,12 @@
 
     <properties>
         <version.richfaces>5.0.0</version.richfaces>
+        <!-- ClassGraph (resource-optimizer scanner). Pinned here because
+             richfaces-core's parent is richfaces-parent (root pom), which does
+             not manage classgraph; without an explicit version the installed
+             richfaces-core POM is invalid for external consumers (transitive
+             deps such as guava/cssparser would not resolve). -->
+        <version.classgraph>4.8.174</version.classgraph>
     </properties>
 
     <dependencies>
@@ -236,6 +242,7 @@
         <dependency>
             <groupId>io.github.classgraph</groupId>
             <artifactId>classgraph</artifactId>
+            <version>${version.classgraph}</version>
             <scope>compile</scope>
             <optional>true</optional>
         </dependency>
