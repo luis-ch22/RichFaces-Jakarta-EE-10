@@ -21,17 +21,18 @@
  */
 package org.richfaces.demo.core;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
+import jakarta.faces.model.SelectItem;
 
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean(name = "dynamicExecuteBean")
+@Named("dynamicExecuteBean")
 @SessionScoped
 public class DynamicExecuteBean implements Serializable {
     private static final long serialVersionUID = -486936947341873167L;

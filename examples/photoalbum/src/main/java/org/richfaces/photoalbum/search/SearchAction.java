@@ -25,10 +25,10 @@ package org.richfaces.photoalbum.search;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 import org.richfaces.photoalbum.model.Album;
 import org.richfaces.photoalbum.model.Image;

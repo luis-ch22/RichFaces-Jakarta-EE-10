@@ -21,18 +21,21 @@
  */
 package org.richfaces.demo.iteration;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 import java.util.Comparator;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 import org.richfaces.demo.iteration.model.Employee;
 import org.richfaces.model.Filter;
 import org.richfaces.component.SortOrder;
 
-@ManagedBean(name = "filteringAndSortingBean")
+@Named("filteringAndSortingBean")
 @SessionScoped
-public class FilteringAndSortingBean {
+public class FilteringAndSortingBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private SortOrder nameSortOrder = SortOrder.unsorted;
     private SortOrder emailSortOrder = SortOrder.unsorted;
     private String nameFilterValue;

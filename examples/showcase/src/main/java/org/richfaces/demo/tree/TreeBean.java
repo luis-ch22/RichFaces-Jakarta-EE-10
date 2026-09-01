@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.component.AbstractTree;
@@ -21,11 +21,11 @@ import org.richfaces.event.TreeSelectionChangeEvent;
 /**
  * @author Ilya Shaikovsky
  */
-@ManagedBean
+@Named
 @ViewScoped
 public class TreeBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    @ManagedProperty(value = "#{cdsParser.cdsList}")
+    @Inject
     private List<CDXmlDescriptor> cdXmlDescriptors;
     private List<TreeNode> rootNodes = new ArrayList<TreeNode>();
     private Map<String, Country> countriesCache = new HashMap<String, Country>();

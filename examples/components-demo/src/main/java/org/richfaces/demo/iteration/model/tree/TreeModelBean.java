@@ -21,16 +21,19 @@
  */
 package org.richfaces.demo.iteration.model.tree;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 
+
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean
+@Named
 @ViewScoped
-public class TreeModelBean {
+public class TreeModelBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private boolean projectIsLeaf = false;
 
     public boolean isProjectIsLeaf() {

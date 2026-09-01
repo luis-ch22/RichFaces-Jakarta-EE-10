@@ -21,6 +21,9 @@
  */
 package org.richfaces.demo.iteration;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -28,16 +31,14 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.IntegerConverter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.FacesEvent;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.IntegerConverter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.faces.event.FacesEvent;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.demo.iteration.model.tree.DataHolderTreeNodeImpl;
@@ -60,7 +61,7 @@ import org.richfaces.model.TreeNodeImpl;
  * @author Nick Belaevski
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class TreeBean implements Serializable {
     public static final class SelectionChangeHandler implements TreeSelectionChangeListener {

@@ -21,18 +21,21 @@
  */
 package org.richfaces.demo.iteration;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 import org.richfaces.component.ListType;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
-public class ListBean {
+public class ListBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String listType = ListType.unordered.name();
 
     public String getListType() {

@@ -2,12 +2,13 @@ package org.richfaces.demo.toolbar;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class ToolBarBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String groupSeparator;
     private String groupItemSeparator;
 

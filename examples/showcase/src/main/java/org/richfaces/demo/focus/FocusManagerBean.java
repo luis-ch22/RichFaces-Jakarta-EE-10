@@ -1,13 +1,13 @@
 package org.richfaces.demo.focus;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
 
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.focus.FocusManager;
 
 @RequestScoped
-@ManagedBean
+@Named
 public class FocusManagerBean {
 
     public void preRenderView() {

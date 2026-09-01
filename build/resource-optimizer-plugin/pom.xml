@@ -43,6 +43,10 @@
         <version.plexus-utils>3.0.21</version.plexus-utils>
         <version.plexus-velocity>1.1.8</version.plexus-velocity>
         <version.plugin.plugin>3.13.1</version.plugin.plugin>
+        <!-- Modern Javassist so Reflections can read Java 21 bytecode. Defined
+             locally because this module's parent is richfaces-parent (not
+             build/pom.xml), so build/pom.xml's version.javassist is not in scope. -->
+        <version.javassist>3.33.0-GA</version.javassist>
     </properties>
 
     <dependencies>
@@ -117,10 +121,14 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- Modern Javassist so Reflections can read Java 21 bytecode. -->
+        <!-- Modern Javassist so Reflections can read Java 21 bytecode.
+             Version pinned explicitly (not only via the reactor parent's
+             dependencyManagement) so the installed plugin POM is self-contained
+             and resolvable by external consumers such as the examples. -->
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
+            <version>${version.javassist}</version>
         </dependency>
 
         <!-- Faces 4.0 (Mojarra, jakarta.faces) + Servlet API. Replaces

@@ -21,7 +21,7 @@
  */
 package org.richfaces.photoalbum.util;
 
-import javax.ejb.ApplicationException;
+import jakarta.ejb.ApplicationException;
 
 @ApplicationException(rollback = false)
 public class PhotoAlbumException extends Exception {

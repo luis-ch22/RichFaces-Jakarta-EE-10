@@ -2,10 +2,10 @@ package org.richfaces.demo.tree.adaptors;
 
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class FileSystemBean {
     private static final String SRC_PATH = "/WEB-INF";

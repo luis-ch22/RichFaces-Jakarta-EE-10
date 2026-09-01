@@ -25,7 +25,7 @@
  */
 package org.richfaces.demo.validator;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author asmirnov

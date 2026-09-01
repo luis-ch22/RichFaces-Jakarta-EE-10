@@ -22,16 +22,19 @@
 
 package org.richfaces.demo.output;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 import org.richfaces.event.ItemChangeEvent;
 
-@ManagedBean
+@Named
 @SessionScoped
-public class ModalPanel {
+public class ModalPanel implements Serializable {
+    private static final long serialVersionUID = 1L;
     private boolean autosized;
     private boolean keepVisualState;
     private String left;

@@ -25,7 +25,7 @@
  */
 package org.richfaces.demo.validator;
 
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Min;
 
 /**
  * @author asmirnov

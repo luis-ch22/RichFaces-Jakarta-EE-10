@@ -24,7 +24,7 @@ package org.richfaces.photoalbum.model.actions;
 
 import java.util.List;
 
-import javax.ejb.Local;
+import jakarta.ejb.Local;
 
 import org.richfaces.photoalbum.model.Event;
 import org.richfaces.photoalbum.model.EventCategory;

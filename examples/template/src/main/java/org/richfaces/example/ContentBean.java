@@ -25,17 +25,21 @@
  */
 package org.richfaces.example;
 
-import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
+import jakarta.enterprise.context.Dependent;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 
 /**
  * @author leo
  *
  */
+@Named
+@Dependent
 public class ContentBean {
     private static final String PRELUDE = "<html xmlns=\"http://www.w3.org/1999/xhtml\"\n"
-            + " xmlns:f=\"http://java.sun.com/jsf/core\"\n" + " xmlns:h=\"http://java.sun.com/jsf/html\"\n"
-            + " xmlns:rich=\"http://richfaces.org/rich\"\n" + " xmlns:c=\"http://java.sun.com/jsp/jstl/core\">\n";
+            + " xmlns:f=\"jakarta.faces.core\"\n" + " xmlns:h=\"jakarta.faces.html\"\n"
+            + " xmlns:rich=\"http://richfaces.org/rich\"\n" + " xmlns:c=\"jakarta.tags.core\">\n";
     private static final String TAIL = "\n</html>";
     private String xpath = "//*[local-name()='define'][@name='content']/*";
 

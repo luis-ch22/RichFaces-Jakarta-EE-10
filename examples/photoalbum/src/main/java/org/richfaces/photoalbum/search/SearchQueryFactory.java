@@ -24,10 +24,10 @@ package org.richfaces.photoalbum.search;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 import org.richfaces.photoalbum.model.User;
 import org.richfaces.photoalbum.util.Constants;

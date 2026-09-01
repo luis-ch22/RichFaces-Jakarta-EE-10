@@ -21,17 +21,18 @@
  */
 package org.richfaces.demo.core;
 
+
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean(name = "timeBean")
+@Named("timeBean")
 @RequestScoped()
 public class TimeBean {
     private String formattedDate = null;

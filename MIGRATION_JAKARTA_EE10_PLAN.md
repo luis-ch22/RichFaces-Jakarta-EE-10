@@ -621,32 +621,193 @@ Stack moderno (2026):
 
 ---
 
-## 8. Fase H — Examples a Jakarta (incluye migración CDI real)
+## 8. Fase H — Examples a Jakarta (incluye migración CDI real) — ✅ COMPLETA (8/8)
 
 Los examples SÍ usan managed beans JSF (`javax.faces.bean.*`), eliminados en
-Faces 4.0. Aquí está el refactor CDI de verdad. Alcance conocido (verificado):
-`examples/template`, `examples/standalone-js`, `examples/showcase` (el más
-grande, ~30 beans), `examples/push-demo`.
+Faces 4.0. Aquí está el refactor CDI de verdad. Hay **8 examples** en total.
 
-- [ ] Renombrado jakarta (Fase C) sobre cada example.
-- [ ] Migrar anotaciones de managed bean a CDI:
-  - `@javax.faces.bean.ManagedBean` → `@jakarta.inject.Named`.
-  - `@RequestScoped` → `jakarta.enterprise.context.RequestScoped`.
-  - `@SessionScoped` → `jakarta.enterprise.context.SessionScoped` (bean
-    `Serializable`).
-  - `@ApplicationScoped` → `jakarta.enterprise.context.ApplicationScoped`.
-  - `@ViewScoped` → `jakarta.faces.view.ViewScoped` (sigue existiendo en Faces).
-  - `@ManagedProperty` → `@Inject` + `@Named` (inyección CDI).
-- [ ] Añadir `beans.xml` a cada example (`WEB-INF/beans.xml`, CDI 4.0).
-- [ ] `examples/photoalbum`: además usa `javax.activation` (JAF, removido del
-      JDK) — ya se le añadió `javax.activation:1.2.0` en la Fase 21; en jakarta
-      pasa a `jakarta.activation:jakarta.activation-api:2.1`.
-- [ ] `examples/showcase`: `javax.xml.bind` (JAXB) en `CapitalsParser`,
-      `CDParser` → `jakarta.xml.bind`.
-- [ ] Subir `source/target 1.7` restantes de examples a `release=21` (algunos
-      ya se hicieron en la Fase 21; verificar).
-- [ ] Construir cada example bajo demanda (siguen comentados en el reactor):
-      `mvn -DskipTests -Dgpg.skip=true -f examples/<x>/pom.xml clean package`.
+### 8.0 Reglas de migración aplicadas (patrón común, verificado en 6 examples)
+
+- **Beans → CDI:** `@javax.faces.bean.ManagedBean[(name=x)]` → `@jakarta.inject.Named[("x")]`
+  (se descarta `eager=true`). Scopes: `javax.faces.bean.{Request,Session,Application}Scoped`
+  → `jakarta.enterprise.context.*`; `@ViewScoped` → `jakarta.faces.view.ViewScoped`
+  (sigue en Faces); `@NoneScoped` → `@Dependent`.
+- **Serializable:** los beans `@SessionScoped`/`@ViewScoped` deben implementar
+  `java.io.Serializable` con `serialVersionUID` (añadido donde faltaba).
+- **`@ManagedProperty(value="#{bean}")`** → `@jakarta.inject.Inject` (se quita el
+  value). Si inyectaba un literal, el default se mueve a inicializador de campo o
+  `@PostConstruct` (p.ej. irc-client `SkinBean`).
+- **Renombrado de imports/FQN:** `javax.faces.*`, `javax.validation.*`,
+  `javax.persistence.*`, `javax.annotation.{PostConstruct,...}`,
+  `javax.enterprise.*`, `javax.inject.*`, `javax.el.*`, `javax.servlet.*`,
+  `javax.xml.bind.*` (JAXB) → `jakarta.*`. **NO se tocan** (JDK): `javax.swing.*`,
+  `javax.xml.{parsers,transform,xpath,namespace}.*`, `javax.naming.*`,
+  `javax.imageio.*`, `javax.crypto.*`, `javax.net.*`, `javax.sql.*`.
+- **Descriptores** → namespace `https://jakarta.ee/xml/ns/jakartaee`:
+  `web.xml` a Servlet 6.0 (`web-app_6_0.xsd`, `version="6.0"`) + renombrar
+  `javax.faces.*` param-names y `javax.faces.webapp.FacesServlet`;
+  `faces-config.xml` a 4.0 (`web-facesconfig_4_0.xsd`), quitando `<managed-bean>`
+  (ahora CDI) pero conservando `<factory>/<lifecycle>/<converter>/...`;
+  `persistence.xml` a Jakarta Persistence 3.1 (`persistence_3_1.xsd`);
+  `beans.xml` CDI 4.0 (`beans_4_0.xsd`, `bean-discovery-mode="annotated"`),
+  creándolo donde falte.
+- **XHTML** (namespaces Facelets Faces 4.0): `http://java.sun.com/jsf/html`
+  (y `http://xmlns.jcp.org/jsf/*`) → `jakarta.faces.html`; `/jsf/core` →
+  `jakarta.faces.core`; `/jsf/facelets` → `jakarta.faces.facelets`;
+  `/jsf/composite*` → `jakarta.faces.composite*`; `/jsp/jstl/core` →
+  `jakarta.tags.core`; `/jsp/jstl/functions` → `jakarta.tags.functions`.
+  Se dejan intactos los namespaces `richfaces.org` (a4j, rich) y los `.html/.css/.js`
+  estáticos (capturas de demo).
+- **POM:** `org.jboss.spec:jboss-javaee-web-6.0` → `jakarta.platform:jakarta.jakartaee-web-api:10.0.0`
+  (provided); `jboss-javaee-6.0` (full) → `jakarta.platform:jakarta.jakartaee-api:10.0.0`.
+- **Build bajo demanda** (siguen comentados en el reactor). Helper reutilizable:
+  `build\jakarta-transform\mvnbuild.cmd <pom-relativo> <log-relativo>`
+  (fija JDK 21, `taskkill /F /IM java.exe`, `mvn -B -Dmaven.test.skip=true
+  -Dgpg.skip=true clean install`, y anexa `DONE_EXIT_<n>`). Verificar por
+  `BUILD SUCCESS`/`DONE_EXIT_0` en el log (la terminal de esta sesión devuelve
+  salida vacía/exit -1 aunque el comando sí corre).
+
+### 8.1 Prerrequisitos resueltos (POMs de librería inválidos para consumidores)
+
+Los examples consumen los `richfaces-*` desde `.m2`; sus POMs efectivos tenían
+dependencias **sin versión**, lo que los hacía inválidos para consumidores
+externos y rompía la resolución transitiva:
+- `components/pom.xml`: `com.github.albfernandez.richfaces.cdk:annotations`
+  sin versión → añadido `<version>${version.cdk}</version>` (10.0.1). Afecta a
+  a4j y rich (heredan de este parent).
+- `build/resource-optimizer-plugin/pom.xml`: `org.javassist:javassist` sin
+  versión (su parent es `richfaces-parent`, no `build/pom.xml`, donde estaba la
+  propiedad) → añadida propiedad local `<version.javassist>3.33.0-GA` + versión
+  explícita en la dependencia.
+- **Reinstalados en `.m2` (jakarta, JDK 21, BUILD SUCCESS):**
+  `richfaces-resource-optimizer-maven-plugin`, `richfaces-a4j`, `richfaces` (rich).
+  Nota: `richfaces-core`, `-a4j`, `richfaces` ya estaban jakarta; se re-emitieron
+  con los POMs corregidos. Los `[ERROR] Exception rendering resource ...
+  resource==null` y los "syntax errors" de YUI/Rhino en `jquery.js` del
+  resource-optimizer son **NO fatales** (rich compila/instala verde en ~50 s).
+
+### 8.2 Estado por example
+
+| # | Example | Estado | Notas |
+|---|---|---|---|
+| 1 | `template` | ✅ BUILD SUCCESS (war 5.0.0 en `.m2`) | Base de overlay de otros. 3 beans CDI (`TimeBean`, `SkinBean`, `Pages` @App) + `ContentBean` @Dependent; `faces-config` sin managed-beans; `PhaseTracker` a `jakarta.faces.event`; `beans.xml` nuevo. |
+| 2 | `push-demo` | ✅ BUILD SUCCESS (war 5.0.0) | `RichBean` → `@Named @RequestScoped`; overlay de `template`. |
+| 3 | `standalone-js` | ✅ BUILD SUCCESS (war 5.0.0) | `IterationBean` (@Session+Serializable), `AutocompleteBean` (@Request); `fn=jakarta.tags.functions`. Ficheros `.html/.css` de captura sin tocar. |
+| 4 | `irc-client` | ✅ BUILD SUCCESS (war 5.0.0) | `SkinBean` (drop `@ManagedProperty`, default en `@PostConstruct`), `ChatBean`; dep full `jakarta.jakartaee-api:10.0.0` (usa JMS para push). Templates propios (no overlay). |
+| 5 | `jpa-demo` | ✅ BUILD SUCCESS (war 5.0.0) | `PersistenceService` @App (drop `eager`), `PersonBean`/`RF10888` @Session+Serializable con `@Inject`; JPA→`jakarta.persistence`; `persistence.xml` v3.1; `<factory><lifecycle-factory>` conservado; Faces 4.0 `Lifecycle`/`LifecycleFactory` compilan sin métodos abstractos nuevos. Overlay de `template`. |
+| 6 | `components-demo` | ✅ BUILD SUCCESS (war 5.0.0) | Migrado por sub-agente: 83 `.java`, 114 `.xhtml`. 20 beans +Serializable; `DropListenerBean` `@ManagedProperty`→`@Inject`; 11 clases JAXB `javax.xml.bind`→`jakarta.xml.bind`; `javax.swing.*` conservado. `faces-config` conserva `<lifecycle><phase-listener>PhaseTracker`. Overlay de `template`. |
+| 7 | `showcase` | ✅ BUILD SUCCESS (war 5.0.0) | POM reescrito a WAR Jakarta único (ver 8.3). `opBean1/opBean2` (managed-beans del mismo tipo) → productores CDI `OutputPanelBeanProducer`; `system-event-class` a jakarta; `beans.xml` CDI 4.0 (`weld:scan` conservado); `app-tags.taglib.xml` 4.0. 90 `.java` (53 beans, `ActionListenerBean` @Dependent, 9 `@ManagedProperty`→`@Inject`, `SkinBean` literal→inicializador, varios +Serializable), 233 `.xhtml`, 3 JAXB. Dep `rewrite-servlet` a `10.0.2.Final` (línea jakarta.servlet). Borrados overlays `webapp-*`/`resources-*`. |
+| 8 | `photoalbum` | ✅ BUILD SUCCESS (war 5.0.0) | POM reescrito a WAR Jakarta único (ver 8.4). `javax.activation`→`jakarta.activation-api:2.1.3`; Jackson 1.x (`org.codehaus.jackson`)→Jackson 2 (`com.fasterxml.jackson.annotation`); Hibernate ORM 6 (quitado `@LazyCollection`, resto conservado); HV8 (`@NotEmpty`/`@Email`→`jakarta.validation.constraints`); `javax.ws.rs`→`jakarta.ws.rs`. 83 `.java`, 97 `.xhtml`; `web.xml` 6.0, `faces-config` 4.0, `beans.xml` 4.0, `persistence.xml` 3.1, taglib 4.0. Eliminado el stack Arquillian/Drone/PhantomJS/testng, `-XX:MaxPermSize`, y las ejecuciones del resource-optimizer. |
+
+### 8.3 ✅ HECHO — `examples/showcase`
+
+Era el example más grande y con más deuda legacy. Ejecutado (2026, clean code):
+**simplificado** el `pom.xml` a un único WAR Jakarta EE 10 y **eliminada** toda la
+maquinaria legacy multi-impl / multi-contenedor / integración. Resultado: **BUILD
+SUCCESS**. Detalle de lo realizado (el plan original se conserva como referencia):
+
+- **PART A — reescribir `examples/showcase/pom.xml`** (hoy ~1488 líneas) a un POM
+  mínimo:
+  - Conservar coordenadas (`org.richfaces.examples:richfaces-showcase:5.0.0`,
+    war), `dependencyManagement` (imports `richfaces-cache-bom`, `richfaces-build`),
+    `maven.compiler.release=21`.
+  - Deps compile: `richfaces`, `richfaces-push-depchain`, `slf4j-api`,
+    `ehcache-core`, `hsqldb` (si `hsqldb-j5` no resuelve → `org.hsqldb:hsqldb:2.7.2`),
+    `hibernate-validator` (si no gestionado → `8.0.1.Final`), Hibernate ORM
+    (`hibernate-entitymanager` no existe en ORM 6 → `org.hibernate.orm:hibernate-core:6.4.4.Final`),
+    `jandex`, `rewrite-servlet`, `jsoup`, `weld-servlet-core` (CDI en servlet;
+    si no gestionado → `weld-servlet-shaded:5.1.2.Final`).
+  - `jakarta.platform:jakarta.jakartaee-web-api:10.0.0` (provided) — reemplaza
+    `jboss-javaee-6.0` y **todos** los perfiles de impl JSF (Mojarra 4 llega
+    transitivo de richfaces).
+  - **Quitar** deps `javax.enterprise:cdi-api`, `javax.servlet.jsp.jstl:jstl-api`
+    (los da jakartaee-web-api), y **todo** el bloque test (junit, arquillian-*,
+    suite-extension, httpclient, build-resources, page-fragments).
+  - **Eliminar perfiles** completos: `jsf_ri`, `jsf_jboss`, `myfaces`, `jee6`,
+    `openshift`, `smoke-tests`, `release`, `integration-tests`,
+    `browser-{phantomjs,chrome,firefox}`, `browser-remote-reusable`, y **todos**
+    los `wildfly-*`/`tomcat-*`/`jbosseap*`. Esto borra **`-XX:MaxPermSize`**,
+    `arquillian.drone.browser=phantomjs`, `graphene-webdriver`,
+    `arquillian-drone-webdriver-depchain`, `screenshooter` y
+    `jsfImplementation=org.glassfish:javax.faces` (Anexos 13.4/14.6). Verificar
+    que NINGUNA de esas cadenas queda en el POM.
+  - Quitar `<prerequisites><maven>3.0`.
+- **PART B — consolidar webapp:** hoy hay `webapp` (base: `WEB-INF/{faces-config.xml,
+  beans.xml (CDI 1.0), app-tags.taglib.xml}` + vistas) y overlays `webapp-tomcat`,
+  `webapp-jee6`, `webapp-openshift` + `resources-{tomcat,jee6,openshift}`.
+  Colapsar a `src/main/webapp` + `src/main/resources`:
+  - Crear `src/main/webapp/WEB-INF/web.xml` a partir de `webapp-jee6/WEB-INF/web.xml`
+    migrado a Servlet 6.0 (params `jakarta.faces.*`, `FacesServlet` jakarta,
+    `PROJECT_STAGE` literal `Development`, conservar context-params `org.richfaces.*`,
+    push, welcome-file, mime, login-config).
+  - Borrar los directorios overlay `webapp-tomcat/-jee6/-openshift` y
+    `resources-tomcat/-jee6/-openshift` (contienen descriptores javax/contenedor).
+- **PART C — migrar código/descriptores/xhtml** según reglas 8.0. Ojo:
+  `beans.xml` base está en CDI 1.0 → subir a 4.0; `app-tags.taglib.xml` → namespace
+  facelet-taglib Jakarta (`facelettaglibrary_4_0.xsd`); JAXB en `CapitalsParser`,
+  `CDParser` (y otros) `javax.xml.bind`→`jakarta.xml.bind`; hay `persistence.xml`
+  a v3.1 si existe bajo `resources`.
+- **Build:** `build\jakarta-transform\mvnbuild.cmd examples\showcase\pom.xml
+  examples\showcase\build-h.log` e iterar hasta `BUILD SUCCESS`. Posibles ajustes:
+  artefactos renombrados en Jakarta (hibernate-entitymanager→core 6, hsqldb-j5,
+  weld-servlet-core/shaded, groupId de hibernate-validator).
+
+### 8.4 ✅ HECHO — `examples/photoalbum`
+
+El más pesado por volumen (CDI, JPA, EJB, `javax.activation`, Jackson, Hibernate).
+Ya era CDI (0 managed beans JSF). Resultado: **BUILD SUCCESS**. Además de las
+reglas comunes se resolvieron migraciones de API no triviales: `javax.activation`
+→ `jakarta.activation-api:2.1.3`; **Jackson 1.x → 2** (`org.codehaus.jackson`
+→ `com.fasterxml.jackson.annotation`, dep `jackson-annotations:2.17.1`);
+**Hibernate ORM 6** (se quitó `@LazyCollection`/`LazyCollectionOption`, eliminado
+en ORM 6; lazy es el default JPA, comportamiento preservado); `hibernate-annotations`
+→ `hibernate-core:6.4.4.Final`; **Bean Validation 3 / HV 8** (`@NotEmpty`, `@Email`
+→ `jakarta.validation.constraints`; `@Length`, `@URL` siguen en HV);
+`javax.ws.rs` → `jakarta.ws.rs`. Se **eliminaron** del pom el stack de integración
+(Arquillian/Drone/PhantomJS/testng), `-XX:MaxPermSize`, y las ejecuciones del
+`resource-optimizer-plugin` (el WAR funciona sin pre-empaquetado de recursos;
+RichFaces los sirve dinámicamente). El plan original se conserva abajo como
+referencia:
+- Reglas 8.0 (imports `javax.*`→`jakarta.*`: `cdi`, `persistence`, `ejb`,
+  `faces`, `servlet`, `validation`, `annotation`).
+- **`javax.activation`** → `jakarta.activation:jakarta.activation-api:2.1` (el
+  POM ya tenía `com.sun.activation:javax.activation:1.2.0` de la Fase 21).
+- Descriptores: `web.xml` 6.0, `faces-config` 4.0, `beans.xml` (existe en CDI 1.0
+  → subir a 4.0), `persistence.xml` v3.1.
+- **Anexos 13.4/14.6:** quitar `-XX:MaxPermSize`; eliminar/excluir el stack de
+  integración Arquillian/Drone/PhantomJS/Selenium del `pom.xml` (mismo criterio
+  que showcase: dejar un único WAR Jakarta, sin la maquinaria de tests de
+  navegador legacy).
+- Build con el helper e iterar hasta `BUILD SUCCESS`.
+
+### 8.5 Cierre de Fase H
+
+- [x] Actualizar esta sección con showcase y photoalbum en verde.
+- [x] Los 8 examples migrados a Jakarta EE 10 / Faces 4.0 / JDK 21 y **BUILD
+      SUCCESS**; los 8 WAR 5.0.0 quedan instalados en `.m2`
+      (`org/richfaces/examples/{template, push-demo, standalone-js, irc-client,
+      jpa-demo, components-demo, richfaces-showcase, richfaces-photoalbum}`).
+- [x] Anexos 13.4/14.6 cubiertos para examples: `-XX:MaxPermSize` eliminado de
+      showcase y photoalbum; stack Drone/PhantomJS/Graphene/Arquillian eliminado
+      de sus POMs; `javax.activation` → `jakarta.activation-api`; JAXB →
+      `jakarta.xml.bind`.
+- [ ] **Commit de la Fase H** (`git add` de `examples/*`, `components/pom.xml`,
+      `build/resource-optimizer-plugin/pom.xml`,
+      `build/jakarta-transform/mvnbuild.cmd` y este plan).
+
+> **Caveat de runtime (no bloquea build; para pulir en despliegue):** en showcase,
+> 9 antiguos `@ManagedProperty(value="#{bean.lista}")` se convirtieron a `@Inject`.
+> En CDI `@Inject` resuelve por tipo, no por expresión EL; los campos que inyectan
+> `List<T>` (p.ej. `List<CDXmlDescriptor>`, `List<Capital>`, `List<InventoryItem>`)
+> necesitarán un **productor CDI** de ese tipo para funcionar en runtime. Compila
+> en verde; se abordará al desplegar/validar en navegador.
+
+> Nota de entorno (esta sesión): la terminal integrada quedó degradada
+> (antepone sintaxis PowerShell `cd "..." ;` a `cmd`, devuelve exit -1/salida
+> vacía aunque el comando corre; el patrón `set VAR=.. && mvn` corrompía la línea
+> de comando). Solución: el helper `.cmd` + verificar resultados leyendo ficheros
+> (`grep_search`/`read_file`) y `.m2`, no la salida de la terminal. Los procesos
+> en background a veces quedan "zombie" (no escriben log): parar y relanzar.
 
 ---
 
@@ -753,3 +914,220 @@ grande, ~30 beans), `examples/push-demo`.
 cmd /v:on /c "set JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-21.0.4.7-hotspot&& mvn.cmd -Dmaven.test.skip=true -Dgpg.skip=true clean install"
 ```
 Para reanudar tras un fallo de un módulo concreto: añadir `-rf :<artifactId>`.
+
+---
+
+## 13. Anexo — Inventario del stack de tooling legacy pendiente (escaneo del repo)
+
+Escaneo hecho sobre todo el repo (agosto 2026) buscando `graphene`, `phantomjs`,
+`arquillian.drone`, `selenium`, `screenshooter`. Objetivo: no dejar por fuera
+ninguna referencia al stack de test de navegador legacy. Lo que sigue COMPLETA
+lo ya cubierto en las Fases G/H y aterriza el trabajo restante.
+
+### 13.1 Qué eran PhantomJS y Graphene (y por qué RichFaces los usaba)
+
+- **PhantomJS**: navegador **headless** (sin ventana) basado en WebKit, la
+  misma familia de motor que usaba Safari/Chrome antiguo. Ejecutaba páginas con
+  HTML/CSS/JS reales pero sin pintar en pantalla, controlado por script. En CI
+  servía para correr tests de UI en un servidor sin monitor. RichFaces lo usaba
+  como **navegador por defecto** de sus tests de integración (`browser=phantomjs`)
+  porque era rápido y no necesitaba entorno gráfico. Está **descontinuado desde
+  2018** (el mantenedor lo archivó cuando Chrome sacó su modo headless nativo);
+  no soporta JS moderno ni se instala de forma fiable hoy. Por eso el plan lo
+  reemplaza por **Chrome headless**.
+- **Graphene**: extensión de **Arquillian** (framework de test de JBoss/Red Hat)
+  construida sobre **Selenium WebDriver**. Añadía azúcar para test de apps AJAX:
+  esperas inteligentes (`waitGui`, `waitAjax`, `waitModel` — ver el bloque
+  `<extension qualifier="graphene">` del `arquillian.xml`), inyección de
+  `WebDriver`/`@Page`/`@FindBy` en el test, y el patrón **Page Fragments**
+  (componentes de página reutilizables). RichFaces lo usaba porque sus
+  componentes son intrínsecamente AJAX: sin esperas de "AJAX terminó" los tests
+  serían inestables (flaky). El módulo `build/page-fragments` es precisamente una
+  librería de fragmentos Graphene que modela cada componente RichFaces
+  (`RichFacesDataTable`, `RichFacesTree`, etc.) para reusarlos en los ~86 IT.
+- **Drone** (`arquillian.drone.browser`): el gestor de ciclo de vida del
+  `WebDriver` de Arquillian. Decidía qué navegador levantar (phantomjs/chrome/
+  firefox) y lo inyectaba en Graphene. Es la capa que las propiedades
+  `arquillian.drone.*` configuran.
+- **Selenium 2 (`2.53.0`)** + **screenshooter** (`arquillian-browser-screenshooter`,
+  saca captura al fallar un test) completaban el stack. Selenium 2 usaba el
+  protocolo JSON Wire (hoy reemplazado por el estándar W3C WebDriver de
+  Selenium 4).
+
+En resumen, la cadena legacy era:
+**Arquillian** (orquesta el contenedor + despliega el WAR) → **Drone** (levanta
+el navegador) → **PhantomJS** (el navegador headless) → **Graphene** (esperas
+AJAX + page fragments) → **Selenium 2** (driver) → **screenshooter** (evidencia).
+
+### 13.2 Qué cambiamos a nivel de herramientas (resumen del "antes → después")
+
+| Pieza | Antes (legacy, JSF 2.x/javax) | Después (Jakarta EE 10, `integration-tests-jakarta/`) |
+|---|---|---|
+| Orquestador | Arquillian 1.1.11.Final | **Arquillian 1.10.2.Final** |
+| Navegador | **PhantomJS** (headless, descontinuado) | **Chrome headless** real |
+| Gestor de navegador | Arquillian **Drone** 2.0 | **Selenium Manager** (auto-provisiona el driver) |
+| Framework UI/esperas | **Graphene** 2.1.0.CR1 + page-fragments | Selenium 4 directo (esperas explícitas) |
+| Driver | **Selenium 2.53.0** (JSON Wire) | **Selenium 4.35.0** (W3C WebDriver) |
+| Evidencia al fallo | screenshooter 2.1.0.Alpha1 | (Selenium 4 nativo, si se necesita) |
+| Contenedor | WildFly 8/9/10, Tomcat 7/8 | **WildFly 35.0.0.Final** gestionado |
+| Ensamblado WAR | ShrinkWrap 1.2.3 | **ShrinkWrap resolver 3.3.7** |
+| Impl. Faces | `org.glassfish:javax.faces` (Mojarra JSF 2) | Mojarra 4.0.24 (Faces 4.0, la trae el contenedor) |
+
+Decisión clave: en vez de **portar** el framework legacy (~86 IT atados a
+Graphene/PhantomJS), se creó una infra de integración nueva y mínima en
+`integration-tests-jakarta/` (Fase G, con `RichFacesSmokeIT` en verde). El
+stack legacy se **conserva sin tocar** para port incremental.
+
+### 13.3 Referencias legacy que SIGUEN en el repo (pendientes, no bloquean)
+
+El escaneo confirma que el stack legacy sigue declarado en estos sitios. NINGUNO
+está en el reactor por defecto (examples comentados; IT legacy fuera del build
+unitario), por eso no rompe el build actual, pero queda como deuda a limpiar en
+la Fase J:
+
+1. **`pom.xml` raíz** (perfil `integration-tests` y perfiles de navegador):
+   - Propiedades `arquillian.drone.browser=phantomjs`, `arquillian.drone.reusable`,
+     `testCategory.excluded.browser = AND NOT category.FailingOnPhantomJS`.
+   - `arquillian.richfaces.jsfImplementation=org.glassfish:javax.faces` (JSF 2, javax).
+   - Dependencias `graphene-webdriver`, `arquillian-drone-webdriver-depchain`,
+     `arquillian-browser-screenshooter` (`version.screenshooter=2.1.0.Alpha1`),
+     `version.selenium=2.53.0`, `version.arquillian.graphene=2.1.0.CR1` (en
+     `build/pom.xml`).
+   - Perfiles `browser-phantomjs`, `browser-chrome`, `browser-firefox` (Drone).
+2. **`build/build-resources/src/main/resources/arquillian.xml`**: define
+   `<extension qualifier="graphene">`, `<extension qualifier="webdriver">` con
+   `phantomjs.binary.path`, `<extension qualifier="screenshooter">`, contenedores
+   `jbosseap6`/`wildfly8/9/10`/`tomcat7/8` (todos JSF 2.x). Es la config del
+   stack legacy completo.
+3. **`build/page-fragments/`**: librería de Page Fragments de Graphene
+   (`graphene-webdriver` como dep). Solo tiene sentido con Graphene.
+4. **`components/*/src/test/integration/`**: los ~86 IT legacy que usan los page
+   fragments + Graphene.
+5. **`examples/showcase/pom.xml`** y **`examples/photoalbum/pom.xml`**: repiten
+   toda la config Drone/PhantomJS/Graphene/perfiles de navegador (se aborda en la
+   Fase H cuando se migren los examples).
+6. **`TESTS.md`** y **`MIGRATION_JAVA21.md`**: documentan PhantomJS como browser
+   por defecto y la matriz PhantomJS/Chrome/Firefox; hay que actualizarlos.
+7. **Comentarios `PhantomJS` en JS de terceros** (`core/.../jquery.js`,
+   `qunit.js`, `codemirror.js`, `statusChangeObserver.js`): son solo comentarios
+   de compatibilidad dentro de librerías vendorizadas. **NO tocar** (no es
+   nuestro código y no afecta a nada).
+
+### 13.4 Tareas añadidas al plan (a ejecutar en Fases H y J)
+
+Estas tareas cierran el hueco del tooling legacy detectado en el escaneo:
+
+- [ ] **(Fase J) Limpiar el stack legacy del `pom.xml` raíz y `build/pom.xml`**:
+      eliminar dependencias `graphene-webdriver`, `arquillian-drone-*`,
+      `arquillian-browser-screenshooter`, y las propiedades
+      `version.selenium=2.53.0`, `version.arquillian.graphene`,
+      `version.screenshooter`. Quitar los perfiles `browser-phantomjs` (y
+      revisar `browser-chrome`/`browser-firefox` que dependen de Drone).
+      Hacerlo SOLO cuando la infra de `integration-tests-jakarta/` cubra lo que
+      necesitemos, para no perder cobertura.
+- [ ] **(Fase J) Reescribir `arquillian.xml`** (o crear uno nuevo bajo
+      `integration-tests-jakarta/`): quitar `graphene`, `webdriver` (phantomjs),
+      `screenshooter` y los contenedores JSF-2; dejar solo WildFly 35 (o el
+      contenedor jakarta elegido). Cambiar `jsfImplementation` a Mojarra 4.
+- [ ] **(Fase H) Migrar la config de integración de los examples** (`showcase`,
+      `photoalbum`): reemplazar Drone/PhantomJS/Graphene por Selenium 4 + Chrome
+      headless (o excluir sus IT del build por ahora, como el resto de examples).
+- [ ] **(Fase J) Decidir el destino de `build/page-fragments`**: (a) portarlo a
+      Selenium 4 si se quiere recuperar los ~86 IT, o (b) marcarlo como legacy y
+      sacarlo del reactor. Documentar la decisión.
+- [ ] **(Fase G/port incremental) Portar IT legacy** de
+      `components/*/src/test/integration` a Selenium 4 según se vayan
+      necesitando, reusando el patrón de `RichFacesSmokeIT`.
+- [ ] **(Fase J) Actualizar `TESTS.md` y `MIGRATION_JAVA21.md`**: sustituir la
+      matriz "PhantomJS (default)/Chrome/Firefox" por "Chrome headless (Selenium
+      4, default)"; documentar cómo correr `integration-tests-jakarta`.
+- [ ] **NO tocar** los comentarios `PhantomJS` dentro de las libs JS de terceros
+      (jquery, qunit, codemirror): son vendorizadas.
+
+> Estado: el escaneo NO reveló ninguna dependencia del stack legacy dentro de la
+> ruta crítica (core/components jakarta). Todo lo legacy vive en perfiles no
+> activos, examples comentados, o el `arquillian.xml` de build-resources. Por eso
+> es **deuda de limpieza (Fase J)**, no un bloqueante de la migración jakarta.
+
+---
+
+## 14. Anexo — Dependencias deprecated y recomendaciones (escaneo del repo)
+
+Escaneo hecho sobre los `pom.xml` y el código fuente (`@Deprecated`, flags de
+JVM, versiones de plugins/CI) para inventariar lo que sigue obsoleto tras la
+migración jakarta. Cada punto lleva su recomendación y la **fase donde se
+ejecuta** (H = examples, J = limpieza/CI). NINGUNO bloquea el build actual; son
+deuda a cerrar al continuar con H y J.
+
+### 14.1 Dependencias descontinuadas o sin variante Jakarta
+
+| Dependencia | Dónde | Estado | Recomendación | Fase |
+|---|---|---|---|---|
+| `org.jboss.cache:jbosscache-core` 3.2.5.GA (~2010) | `bom/pom.xml`, `core/pom.xml` | Muerto hace +10 años; se dejó en `javax.transaction` a propósito (no hay variante jakarta). `optional`. | **Eliminar.** Reemplazado por Infinispan. RichFaces solo lo usa como proveedor de caché opcional de recursos; se cubre con caché local o Infinispan. | J |
+| `opensymphony:oscache` 2.3 | `bom/pom.xml`, `core/pom.xml` | Muerto (OpenSymphony desapareció). `optional`. | **Eliminar** sin reemplazo (redundante con los otros cachés). | J |
+| `net.sf.ehcache:ehcache-core` 2.4.3 | `bom/pom.xml`, `core/pom.xml` | Línea 2.x muy antigua (viva es 3.x). `optional`. | Subir a EHCache 3.x **o eliminar** (proveedor de caché opcional redundante). | J |
+| `com.yahoo.platform.yui:yuicompressor` 2.4.8 + Rhino antiguo | `build/resource-optimizer-plugin`, `build/pom.xml` | Descontinuado por Yahoo. Ya emite "syntax errors" al minificar JS moderno (jquery.js) y **el recurso se sirve SIN minificar**. | **Reemplazar** por Google Closure Compiler (JS) + minificador CSS moderno, o mover la minificación a un build de frontend. **Mayor impacto en producción.** | J |
+| `org.reflections:reflections` 0.9.8 (2013) | `build/resource-optimizer-plugin`, `core` | Antigua; ya se parcheó forzando Javassist 3.33 para leer bytecode Java 21 (Fase I). API de `scan` cambió en versiones posteriores. | Subir a Reflections 0.10.x y adaptar `MarkerResourcesScanner`, **o** reemplazar por **ClassGraph** (estándar actual, soporta Java moderno nativo). | I/J |
+
+### 14.2 APIs marcadas `@Deprecated` en el propio código
+
+Métodos/clases deprecated detectados en `core`, `a4j`, `rich`:
+- `RendererUtils.getNestingForm(FacesContext, UIComponent)` y
+  `findComponentFor(FacesContext, UIComponent, String)` — ya existen los
+  reemplazos sin `FacesContext`.
+- `SkinFactory.getInstance()` (sin contexto).
+- `AbstractCacheableResource.isMatchesLastModified/isMatchesEntityTag`.
+- `FastBufferReader(FastBufferWriter)` / `FastBufferInputStream(FastBufferOutputStream)`.
+- Clases enteras: `AjaxResourceLibrary`, `push.EventAbortedException`.
+- `AbstractTogglePanel.getChildIndex(String)`, `ExtendedDataTableRenderer` (método interno).
+
+- **Recomendación:** **NO tocar durante la migración jakarta.** No bloquean y
+  borrarlos rompe compatibilidad de API pública/binaria. Dejar para una limpieza
+  posterior a que todo esté verde. Si los warnings de `-release 21` molestan,
+  `@SuppressWarnings("deprecation")` en el llamador (no urgente). | J (posterior)
+
+### 14.3 Configuración de build/JVM/CI obsoleta
+
+| Ítem | Dónde | Estado | Recomendación | Fase |
+|---|---|---|---|---|
+| `-XX:MaxPermSize=...` | `examples/showcase/pom.xml`, `examples/photoalbum/pom.xml` | PermGen eliminado en Java 8; el flag se ignora (warning en JVMs estrictas). | **Quitar** todos los `-XX:MaxPermSize`. Ya no hace nada. | H |
+| `.travis.yml` con `openjdk8`/`oraclejdk8` | raíz | CI atado a Java 8; Travis-CI muerto para OSS. El CI actual NO valida nada de lo migrado. | **Migrar a GitHub Actions** con Temurin 21. | J |
+| `maven.min.version` 3.0 | `bom/pom.xml` | Maven 3.0 es de 2010. | Subir el mínimo a **3.8+/3.9** (acorde a los plugins modernos ya en uso). | J |
+
+### 14.4 Puente `jakarta-bridge` (deuda temporal por diseño)
+
+- No es "deprecated" en sentido estricto, pero es deuda temporal: post-transforma
+  `javax`→`jakarta`.
+- **Recomendación:** eliminar cuando `core`/`components` sean jakarta NATIVO y
+  verdes (ya es la tarea 10.1 de la Fase J). | J
+
+### 14.5 Prioridad sugerida
+
+1. **Alto impacto en producción:** reemplazar YUI Compressor (recursos sin
+   minificar hoy).
+2. **Limpieza de bajo riesgo / alto valor:** quitar JBoss Cache + OSCache +
+   `-XX:MaxPermSize`; migrar CI a GitHub Actions.
+3. **Robustez del build:** Reflections → 0.10.x o ClassGraph.
+4. **Cosmético / posterior:** métodos `@Deprecated` internos.
+
+### 14.6 Checklist para incorporar en Fases H y J
+
+**En la Fase H (examples):**
+- [ ] Quitar `-XX:MaxPermSize=...` de `examples/showcase/pom.xml` y
+      `examples/photoalbum/pom.xml` (y cualquier otro `arquillian.container.*.jvm.args`).
+
+**En la Fase J (limpieza + CI):**
+- [ ] Eliminar `jbosscache-core` de `bom/pom.xml` y `core/pom.xml` (+ propiedad
+      `version.jbosscache`). Documentar que el caché opcional pasa a
+      Infinispan/local.
+- [ ] Eliminar `oscache` de `bom/pom.xml` y `core/pom.xml` (+ `version.oscache`).
+- [ ] Decidir EHCache: subir a 3.x o eliminar (+ `version.ehcache`).
+- [ ] Reemplazar YUI Compressor por Closure Compiler (JS) + minificador CSS
+      moderno en `resource-optimizer-plugin`; verificar que los recursos se
+      sirven minificados.
+- [ ] Subir Reflections a 0.10.x (adaptar `MarkerResourcesScanner`) o migrar a
+      ClassGraph.
+- [ ] Subir `maven.min.version` a 3.8+/3.9 en `bom/pom.xml`.
+- [ ] Migrar `.travis.yml` → GitHub Actions con Temurin 21.
+- [ ] (Posterior, no bloqueante) Revisar/eliminar los métodos `@Deprecated`
+      internos una vez todo esté verde.

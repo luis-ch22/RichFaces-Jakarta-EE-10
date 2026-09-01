@@ -2,12 +2,13 @@ package org.richfaces.demo.dropdownmenu;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class DropDownMenuBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String current;
 
     public String getCurrent() {

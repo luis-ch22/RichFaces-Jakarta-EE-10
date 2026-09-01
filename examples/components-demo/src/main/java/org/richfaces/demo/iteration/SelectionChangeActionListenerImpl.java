@@ -22,7 +22,7 @@
 
 package org.richfaces.demo.iteration;
 
-import javax.faces.event.AbortProcessingException;
+import jakarta.faces.event.AbortProcessingException;
 
 import org.richfaces.event.TreeSelectionChangeEvent;
 import org.richfaces.event.TreeSelectionChangeListener;

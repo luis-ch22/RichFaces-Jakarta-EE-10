@@ -21,15 +21,17 @@
  */
 package org.richfaces.demo.input;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.AjaxBehaviorEvent;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.AjaxBehaviorEvent;
 
 import org.richfaces.model.UploadedFile;
 import org.richfaces.event.FileUploadEvent;
@@ -38,9 +40,10 @@ import org.richfaces.event.FileUploadEvent;
  * @author Konstantin Mishin
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
-public class FileUploadBean {
+public class FileUploadBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String acceptedTypes = "png";
     private boolean disabled = false;
     private boolean noDuplicate = false;

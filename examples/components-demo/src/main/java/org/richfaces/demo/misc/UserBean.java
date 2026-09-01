@@ -21,18 +21,21 @@
  */
 package org.richfaces.demo.misc;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 import java.security.Principal;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
-public class UserBean {
+public class UserBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String rolename;
 
     public String getRolename() {

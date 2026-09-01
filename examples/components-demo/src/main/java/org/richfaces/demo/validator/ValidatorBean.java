@@ -25,21 +25,24 @@
  */
 package org.richfaces.demo.validator;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.validation.Valid;
-import javax.validation.constraints.Max;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 
 /**
  * @author asmirnov
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
-public class ValidatorBean {
+public class ValidatorBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final List<Validable<?>> beans;
 
     /**

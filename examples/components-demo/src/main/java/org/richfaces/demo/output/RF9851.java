@@ -21,16 +21,19 @@
  */
 package org.richfaces.demo.output;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 /**
  * @author akolonitsky
  * @since Dec 6, 2010
  */
-@ManagedBean(name = "RF9851")
+@Named("RF9851")
 @SessionScoped
-public class RF9851 {
+public class RF9851 implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String name;
     private String email;
 

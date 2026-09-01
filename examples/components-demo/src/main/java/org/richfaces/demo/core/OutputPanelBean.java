@@ -21,15 +21,16 @@
  */
 package org.richfaces.demo.core;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.event.AjaxBehaviorEvent;
+
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
+import jakarta.faces.event.AjaxBehaviorEvent;
 
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean(name = "outputPanelBean")
+@Named("outputPanelBean")
 @RequestScoped
 public class OutputPanelBean {
     public void behaviorListener(AjaxBehaviorEvent event) {

@@ -2,16 +2,16 @@ package org.richfaces.demo.lists;
 
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
 
 import org.richfaces.demo.tables.model.capitals.Capital;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class ListSelectBean {
-    @ManagedProperty(value = "#{capitalsParser.capitalsList}")
+    @Inject
     private List<Capital> capitals;
     private List<Capital> selectedCapitals;
 

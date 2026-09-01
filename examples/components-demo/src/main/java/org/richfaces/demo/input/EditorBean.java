@@ -22,13 +22,14 @@
 
 package org.richfaces.demo.input;
 
+
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.event.ValueChangeEvent;
+import jakarta.faces.event.ValueChangeEvent;
 
-@ManagedBean(name = "editor")
+@Named("editor")
 @ViewScoped
 public class EditorBean implements Serializable {
 

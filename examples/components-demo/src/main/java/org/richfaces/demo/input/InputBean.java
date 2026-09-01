@@ -22,13 +22,16 @@
 
 package org.richfaces.demo.input;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 import java.util.List;
 
 @SessionScoped
-@ManagedBean(name = "inputBean")
-public class InputBean {
+@Named("inputBean")
+public class InputBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String value;
     private List<String> values;
 

@@ -23,7 +23,7 @@ package org.richfaces.photoalbum.search;
 
 import java.util.List;
 
-import javax.ejb.Local;
+import jakarta.ejb.Local;
 
 import org.richfaces.photoalbum.model.Album;
 import org.richfaces.photoalbum.model.Image;

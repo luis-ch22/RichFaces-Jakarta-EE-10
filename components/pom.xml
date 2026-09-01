@@ -173,6 +173,7 @@
         <dependency>
             <groupId>com.github.albfernandez.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
+            <version>${version.cdk}</version>
             <scope>provided</scope>
         </dependency>
 

@@ -26,16 +26,17 @@
  */
 package org.richfaces.demo.output;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import org.richfaces.component.Positioning;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 
-@ManagedBean
+@Named
 @SessionScoped
 public class TooltipBean implements Serializable {
     /**

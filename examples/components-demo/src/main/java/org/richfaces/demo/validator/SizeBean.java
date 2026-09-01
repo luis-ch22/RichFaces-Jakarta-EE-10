@@ -25,7 +25,7 @@
  */
 package org.richfaces.demo.validator;
 
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
 
 /**
  * @author asmirnov

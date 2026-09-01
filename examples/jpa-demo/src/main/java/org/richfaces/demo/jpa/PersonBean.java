@@ -21,12 +21,13 @@
  */
 package org.richfaces.demo.jpa;
 
+import java.io.Serializable;
 import java.util.Map;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import javax.persistence.EntityManager;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
 
 import org.richfaces.component.SortOrder;
 
@@ -36,9 +37,11 @@ import com.google.common.collect.Maps;
  * @author Nick Belaevski
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
-public class PersonBean {
+public class PersonBean implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private static final class PersonDataModel extends JPADataModel<Person> {
         private PersonDataModel(EntityManager entityManager) {
             super(entityManager, Person.class);
@@ -50,7 +53,7 @@ public class PersonBean {
         }
     }
 
-    @ManagedProperty(value = "#{persistenceService}")
+    @Inject
     private PersistenceService persistenceService;
     private Map<String, SortOrder> sortOrders = Maps.newHashMapWithExpectedSize(1);
     private Map<String, String> filterValues = Maps.newHashMap();

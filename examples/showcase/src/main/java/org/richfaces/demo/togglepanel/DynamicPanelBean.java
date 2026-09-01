@@ -1,11 +1,14 @@
 package org.richfaces.demo.togglepanel;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
+
+import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
 
 @SessionScoped
-@ManagedBean
-public class DynamicPanelBean {
+@Named
+public class DynamicPanelBean implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String activeTab;
 

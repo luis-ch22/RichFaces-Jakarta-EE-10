@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.ConfigurableNavigationHandler;
-import javax.faces.application.NavigationCase;
-import javax.faces.application.NavigationHandler;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.ConfigurableNavigationHandler;
+import jakarta.faces.application.NavigationCase;
+import jakarta.faces.application.NavigationHandler;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
-@ManagedBean
+@Named
 @SessionScoped
 public class DemoNavigator implements Serializable {
     private static final long serialVersionUID = 3970933260901989658L;
@@ -28,7 +28,7 @@ public class DemoNavigator implements Serializable {
     private static final String SEPARATOR = "/";
     private static final String SAMPLE_PREFIX = "-sample";
     private static final String SAMPLES_FOLDER = "samples/";
-    @ManagedProperty(value = "#{navigationParser.groupsList}")
+    @Inject
     private List<GroupDescriptor> groups;
     private DemoDescriptor currentDemo;
     private SampleDescriptor currentSample;

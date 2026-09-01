@@ -1,26 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 
-<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+<faces-config version="4.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd">
 
     <factory>
         <lifecycle-factory>org.richfaces.demo.arrangeablemodel.PersistenceLifecycleFactory</lifecycle-factory>
     </factory>
-    <managed-bean>
-        <managed-bean-name>opBean1</managed-bean-name>
-        <managed-bean-class>org.richfaces.demo.outputPanel.OutputPanelBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>opBean2</managed-bean-name>
-        <managed-bean-class>org.richfaces.demo.outputPanel.OutputPanelBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+    <!--
+        The former JSF managed beans opBean1/opBean2 (two request-scoped
+        instances of OutputPanelBean under different names) are now provided by
+        the CDI producers in OutputPanelBeanProducer.
+    -->
 
     <application>
         <system-event-listener>
             <system-event-listener-class>org.richfaces.demo.push.TopicsContextMessageProducerInitializer</system-event-listener-class>
-            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
+            <system-event-class>jakarta.faces.event.PostConstructApplicationEvent</system-event-class>
         </system-event-listener>
         <locale-config>
             <default-locale>en_US</default-locale>

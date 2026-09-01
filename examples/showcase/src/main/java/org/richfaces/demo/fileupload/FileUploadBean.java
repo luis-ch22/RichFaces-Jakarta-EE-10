@@ -5,8 +5,8 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
 
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
@@ -14,9 +14,10 @@ import org.richfaces.model.UploadedFile;
 /**
  * @author Ilya Shaikovsky
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class FileUploadBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private ArrayList<UploadedImage> files = new ArrayList<UploadedImage>();
 
     public void paint(OutputStream stream, Object object) throws IOException {

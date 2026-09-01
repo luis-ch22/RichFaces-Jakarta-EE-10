@@ -2,10 +2,10 @@ package org.richfaces.demo.notify;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class NotifyBean implements Serializable {
 
