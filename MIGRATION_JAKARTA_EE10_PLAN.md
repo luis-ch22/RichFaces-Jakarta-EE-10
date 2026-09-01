@@ -811,18 +811,52 @@ referencia:
 
 ---
 
-## 9. Fase I — Deuda del resource-optimizer (build reproducible)
+## 9. Fase I — Deuda del resource-optimizer (build reproducible) — ✅ COMPLETA
 
-- [ ] Subir `reflections` de 0.9.8 a 0.10.x (o 0.9.12) para que lea bytecode
-      Java 21 de forma fiable.
-- [ ] ADAPTAR el scanner custom
-      `core/src/main/resource-optimizer/.../MarkerResourcesScanner` a la nueva
-      API (`scan(Object)` cambió a `scan(Object, Store)` en 0.9.12; puede diferir
-      más en 0.10.x). Alternativa: reemplazar el motor de escaneo.
-- [ ] Verificar que los goals `packed-resources` /
-      `packed-compressed-resources` de `rich` pasan de forma determinista.
-- [ ] (Opcional) Actualizar YUI Compressor 2.4.8 + Rhino antiguo, que emite
-      "syntax errors" al minificar JS moderno (no fatal hoy).
+**Enfoque elegido: migrar de Reflections 0.9.8 a ClassGraph** (en vez de subir a
+Reflections 0.10.x). Reflections 0.10.x elimina la API que este código usa
+(`AbstractScanner`, `getStore().getStoreMap()`, el campo público `Reflections.log`,
+`SubTypesScanner`/`TypeAnnotationsScanner`) y no ofrece un equivalente directo del
+marker-file scanner, así que habría sido una reescritura contra una API frágil.
+ClassGraph lee bytecode Java moderno de forma nativa, por lo que **elimina también
+el parche de Javassist 3.33.0-GA** que se forzaba sobre Reflections 0.9.8. Resultado:
+build **reproducible** en JDK 21 sin pines de bytecode.
+
+- [x] ~~Subir `reflections` a 0.10.x~~ → **Reemplazado por ClassGraph 4.8.174**
+      (`io.github.classgraph:classgraph`). Lee bytecode Java 21 de forma fiable y
+      nativa. Eliminadas del build las dependencias `org.reflections:reflections`
+      y `org.javassist:javassist` y las propiedades `version.reflections` /
+      `version.javassist` (en `build/pom.xml`, `build/resource-optimizer-plugin/pom.xml`
+      y `core/pom.xml`).
+- [x] ADAPTAR el scanner custom → **reescrito**. Se creó
+      `core/src/main/resource-optimizer/.../resource/scan/impl/reflections/ClassGraphScanner.java`
+      (helper `AutoCloseable` que envuelve un `ScanResult` de ClassGraph con
+      `overrideClasspath(urls).ignoreParentClassLoaders().enableClassInfo().enableAnnotationInfo()`
+      y expone `getTypesAnnotatedWith` / `getSubTypesOf` / `getMarkedClasses`).
+      Se **eliminaron** `MarkerResourcesScanner.java` y `ReflectionsExt.java`.
+      `DynamicResourcesScanner` y `ResourceOrderingScanner` se reescribieron para
+      usar el nuevo helper (try-with-resources), conservando el comportamiento
+      (filtrado de URLs por `META-INF/faces-config.xml`, filtro de clases
+      instanciables, ordering). Los marker files `META-INF/**.resource.properties`
+      se detectan vía `ScanResult.getAllResources()`.
+- [x] Verificar `packed-resources` / `packed-compressed-resources` de `rich`
+      deterministas → **BUILD SUCCESS**. Reactor
+      `mvn -pl core,build/resource-optimizer-plugin,components/rich -Dmaven.test.skip=true
+      -Dgpg.skip=true clean install` verde (rich ~1:14 min). Las **6 ejecuciones**
+      `richfaces-resource-optimizer:5.0.0:process` (static / compressed /
+      packed-resources / resources-excluded / packed-compressed /
+      compressed-excluded) completan. **Desaparece por completo** el ruido previo
+      de Reflections/Javassist (`ReflectionsException: could not create class file`,
+      `invalid constant type: 18`). ClassGraph es determinista por diseño.
+- [ ] (Opcional, se traslada a la **Fase J**) Actualizar YUI Compressor 2.4.8 +
+      Rhino, que sigue emitiendo `Compilation produced N syntax errors` al minificar
+      `jquery.js` (único `[ERROR]` restante en el log; **no fatal**, el recurso se
+      sirve sin minificar). No forma parte de la robustez del scanner; ya estaba
+      listado como deuda de producción en el Anexo 14.
+
+> **RESULTADO — Fase I CERRADA:** el classpath scanning del resource-optimizer
+> corre sobre ClassGraph 4.8.174; sin Reflections 0.9.8 ni Javassist pineado. El
+> build de `rich` con las 6 fases del optimizer es reproducible en JDK 21.
 
 ---
 
@@ -1067,7 +1101,7 @@ deuda a cerrar al continuar con H y J.
 | `opensymphony:oscache` 2.3 | `bom/pom.xml`, `core/pom.xml` | Muerto (OpenSymphony desapareció). `optional`. | **Eliminar** sin reemplazo (redundante con los otros cachés). | J |
 | `net.sf.ehcache:ehcache-core` 2.4.3 | `bom/pom.xml`, `core/pom.xml` | Línea 2.x muy antigua (viva es 3.x). `optional`. | Subir a EHCache 3.x **o eliminar** (proveedor de caché opcional redundante). | J |
 | `com.yahoo.platform.yui:yuicompressor` 2.4.8 + Rhino antiguo | `build/resource-optimizer-plugin`, `build/pom.xml` | Descontinuado por Yahoo. Ya emite "syntax errors" al minificar JS moderno (jquery.js) y **el recurso se sirve SIN minificar**. | **Reemplazar** por Google Closure Compiler (JS) + minificador CSS moderno, o mover la minificación a un build de frontend. **Mayor impacto en producción.** | J |
-| `org.reflections:reflections` 0.9.8 (2013) | `build/resource-optimizer-plugin`, `core` | Antigua; ya se parcheó forzando Javassist 3.33 para leer bytecode Java 21 (Fase I). API de `scan` cambió en versiones posteriores. | Subir a Reflections 0.10.x y adaptar `MarkerResourcesScanner`, **o** reemplazar por **ClassGraph** (estándar actual, soporta Java moderno nativo). | I/J |
+| ~~`org.reflections:reflections` 0.9.8 (2013)~~ | ~~`build/resource-optimizer-plugin`, `core`~~ | ✅ **RESUELTO (Fase I):** reemplazado por **ClassGraph 4.8.174**; eliminados Reflections 0.9.8 y el Javassist 3.33 pineado. Lee bytecode Java 21 nativo. | Hecho. | I ✅ |
 
 ### 14.2 APIs marcadas `@Deprecated` en el propio código
 

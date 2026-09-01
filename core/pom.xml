@@ -234,14 +234,8 @@
 
         <!-- Resource Optimizer -->
         <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.collections</groupId>
-                    <artifactId>google-collections</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
             <scope>compile</scope>
             <optional>true</optional>
         </dependency>
