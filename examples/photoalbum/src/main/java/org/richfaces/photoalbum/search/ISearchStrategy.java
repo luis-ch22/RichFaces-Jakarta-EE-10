@@ -25,8 +25,8 @@ package org.richfaces.photoalbum.search;
 
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 /**
  * Generic interface for determine what query need for particular entity and other parameters

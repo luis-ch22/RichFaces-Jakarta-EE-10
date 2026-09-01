@@ -31,7 +31,7 @@ import java.util.jar.JarFile;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 /**
  * In RichFaces 4.5.0 a new EPVC was intorduced that exposed a bug in Mojarra (MyFaces is Ok).

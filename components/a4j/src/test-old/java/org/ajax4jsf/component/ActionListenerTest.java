@@ -22,15 +22,15 @@ package org.ajax4jsf.component;
 
 import java.io.Serializable;
 
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.IntegerConverter;
-import javax.faces.event.ActionEvent;
+import jakarta.el.ELContext;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.IntegerConverter;
+import jakarta.faces.event.ActionEvent;
 
 import org.richfaces.test.AbstractFacesTest;
 
@@ -81,7 +81,7 @@ public class ActionListenerTest extends AbstractFacesTest {
     }
 
     /**
-     * Test method for {@link org.ajax4jsf.component.UIActionParameter#processAction(javax.faces.event.ActionEvent)}.
+     * Test method for {@link org.ajax4jsf.component.UIActionParameter#processAction(jakarta.faces.event.ActionEvent)}.
      */
     public void testProcessAction() {
         UICommand command = new UICommand();
@@ -141,7 +141,7 @@ public class ActionListenerTest extends AbstractFacesTest {
     static class TestConverter implements Converter {
         /*
         *  (non-Javadoc)
-        * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
+        * @see jakarta.faces.convert.Converter#getAsObject(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, java.lang.String)
         */
         public Object getAsObject(FacesContext context, UIComponent comp, String str) {
             Bean bean = new Bean();
@@ -155,7 +155,7 @@ public class ActionListenerTest extends AbstractFacesTest {
 
         /*
          *  (non-Javadoc)
-         * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
+         * @see jakarta.faces.convert.Converter#getAsString(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, java.lang.Object)
          */
         public String getAsString(FacesContext context, UIComponent comp, Object value) {
             Bean bean = (Bean) value;

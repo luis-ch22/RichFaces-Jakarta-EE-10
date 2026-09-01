@@ -9,15 +9,15 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Locale;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.LengthValidator;
-import javax.faces.validator.RequiredValidator;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.LengthValidator;
+import jakarta.faces.validator.RequiredValidator;
+import jakarta.faces.validator.Validator;
+import jakarta.faces.validator.ValidatorException;
 
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;
@@ -49,7 +49,7 @@ public class FacesValidatorServiceTest {
         serviceImpl = new FacesValidatorServiceImpl();
         expect(environment.getFacesContext().getViewRoot()).andStubReturn(viewRoot);
         expect(viewRoot.getLocale()).andStubReturn(Locale.ENGLISH);
-        expect(environment.getApplication().getMessageBundle()).andStubReturn("javax.faces.Messages");
+        expect(environment.getApplication().getMessageBundle()).andStubReturn("jakarta.faces.Messages");
         HashMap<String, Object> attributes = new HashMap<String, Object>();
         attributes.put("label", "foo");
         expect(input.getAttributes()).andStubReturn(attributes);

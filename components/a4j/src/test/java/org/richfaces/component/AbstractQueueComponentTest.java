@@ -22,7 +22,6 @@ package org.richfaces.component;
 
 import static org.junit.Assert.assertEquals;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,25 +35,28 @@ import org.jboss.test.faces.ApplicationServer;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.experimental.categories.Category;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
+import org.richfaces.test.ContainerRequired;
 
-import com.gargoylesoftware.htmlunit.ScriptPreProcessor;
-import com.gargoylesoftware.htmlunit.ScriptResult;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.javascript.host.Window;
-import com.gargoylesoftware.htmlunit.javascript.host.WindowProxy;
+import org.htmlunit.ScriptPreProcessor;
+import org.htmlunit.ScriptResult;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.javascript.host.Window;
+import org.htmlunit.javascript.host.WindowProxy;
 
-import net.sourceforge.htmlunit.corejs.javascript.FunctionObject;
-import net.sourceforge.htmlunit.corejs.javascript.NativeArray;
-import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
-import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
-import net.sourceforge.htmlunit.corejs.javascript.Undefined;
+import org.htmlunit.corejs.javascript.FunctionObject;
+import org.htmlunit.corejs.javascript.NativeArray;
+import org.htmlunit.corejs.javascript.NativeObject;
+import org.htmlunit.corejs.javascript.ScriptableObject;
+import org.htmlunit.corejs.javascript.Undefined;
 
 /**
  * @author Nick Belaevski
  * @since 3.3.0
  */
+@Category(ContainerRequired.class)
 public abstract class AbstractQueueComponentTest {
     private static final String AJAX_SUBMIT = "ajaxSubmit";
     public static final int DEFAULT_REQUEST_TIME = 1000;
@@ -161,15 +163,6 @@ public abstract class AbstractQueueComponentTest {
 
     protected String getRootContextPath() {
         return this.getClass().getPackage().getName().replace('.', '/');
-    }
-
-    @SuppressWarnings("deprecation") // deprecated in JSF 2.2
-    protected javax.faces.view.facelets.ResourceResolver createResourceResolver() {
-        return new javax.faces.view.facelets.ResourceResolver() {
-            public URL resolveUrl(String path) {
-                return Thread.currentThread().getContextClassLoader().getResource(getRootContextPath() + path);
-            }
-        };
     }
 
     protected void postRenderView() throws Exception {

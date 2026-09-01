@@ -9,8 +9,8 @@ import static org.junit.Assert.assertSame;
 
 import java.util.Collections;
 
-import javax.faces.convert.Converter;
-import javax.faces.convert.NumberConverter;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.NumberConverter;
 
 import org.easymock.Capture;
 import org.easymock.EasyMock;
@@ -47,7 +47,7 @@ public class BehaviorGetConverterTest extends BehaviorTestBase {
     @Before
     public void setupService() {
         expect(factory.getInstance(FacesConverterService.class)).andStubReturn(converterService);
-        converterCapture = new Capture<Converter>();
+        converterCapture = EasyMock.newCapture();
         expect(
             converterService.getConverterDescription(same(environment.getFacesContext()), same(input),
                 capture(converterCapture), EasyMock.<String>isNull())).andStubReturn(descriptor);

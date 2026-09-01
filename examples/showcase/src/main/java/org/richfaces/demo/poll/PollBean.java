@@ -3,13 +3,13 @@ package org.richfaces.demo.poll;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 
 /**
  * @author Ilya Shaikovsky
  */
-@ManagedBean
+@Named
 @ViewScoped
 public class PollBean implements Serializable {
     private static final int POLL_DISABLEMENT_INTERVAL = 60000;

@@ -23,8 +23,8 @@ package org.richfaces.photoalbum.search;
 
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 import org.richfaces.photoalbum.util.Constants;
 

@@ -27,11 +27,11 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.inject.Named;
 
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
@@ -43,7 +43,7 @@ import org.richfaces.application.push.TopicsContext;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
 
-@ManagedBean
+@Named
 @SessionScoped
 public class ChatBean extends PircBot implements Serializable {
     private static final long serialVersionUID = -4945680041914388092L;

@@ -22,10 +22,10 @@ package org.ajax4jsf.component;
 
 import java.util.List;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.UIViewRoot;
 
 import org.ajax4jsf.renderkit.html.scripts.QueueScriptResourceRenderer;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;

@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class Form {
 
-    @FindBy(name = "javax.faces.ViewState")
+    @FindBy(name = "jakarta.faces.ViewState")
     private WebElement viewState;
 
     @FindBy(css = "input[type=submit]")

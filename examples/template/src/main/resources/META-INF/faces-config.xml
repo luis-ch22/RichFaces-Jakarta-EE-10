@@ -21,16 +21,12 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd" version="2.0">
-    <managed-bean>
-        <managed-bean-name>pages</managed-bean-name>
-        <managed-bean-class>org.richfaces.example.Pages</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>content</managed-bean-name>
-        <managed-bean-class>org.richfaces.example.ContentBean</managed-bean-class>
-        <managed-bean-scope>none</managed-bean-scope>
-    </managed-bean>
+<faces-config xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd" version="4.0">
+    <!--
+        Managed beans migrated to CDI (Jakarta EE 10 / Faces 4.0):
+          - org.richfaces.example.Pages       -> @Named @ApplicationScoped
+          - org.richfaces.example.ContentBean -> @Named @Dependent
+        See WEB-INF/beans.xml.
+    -->
 </faces-config>

@@ -28,25 +28,28 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.faces.application.ViewHandler;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewDeclarationLanguage;
 
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
+import org.richfaces.test.ContainerRequired;
 
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 
 /**
  * @author Andrey Markhel
  *
  */
+@Category(ContainerRequired.class)
 public class PopupRendererTest {
     private HtmlUnitEnvironment environment;
 
@@ -76,7 +79,7 @@ public class PopupRendererTest {
 
     /**
      * Test method for
-     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#doEncodeBegin(javax.faces.context.ResponseWriter, javax.faces.context.FacesContext, javax.faces.component.UIComponent)}
+     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#doEncodeBegin(jakarta.faces.context.ResponseWriter, jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)}
      * .
      *
      * @throws IOException

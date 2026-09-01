@@ -1,11 +1,11 @@
 package org.richfaces.demo.tables;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
 
 import org.richfaces.demo.tables.model.expenses.ExpenseReport;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class ReportBean {
     ExpenseReport expReport;

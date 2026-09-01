@@ -2,10 +2,10 @@ package org.richfaces.demo.param;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class ParamBean implements Serializable {
     /**

@@ -23,9 +23,9 @@ package org.richfaces.component.validation;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-import javax.validation.constraints.Size;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import jakarta.validation.constraints.Size;
 
 /**
  * @author <a href="http://community.jboss.org/people/ppitonak">Pavol Pitonak</a>

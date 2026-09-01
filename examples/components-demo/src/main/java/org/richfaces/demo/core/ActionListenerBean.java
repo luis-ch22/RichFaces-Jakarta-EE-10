@@ -21,20 +21,21 @@
  */
 package org.richfaces.demo.core;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.NoneScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ActionListener;
+
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Named;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ActionListener;
 
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean
-@NoneScoped
+@Named
+@Dependent
 public class ActionListenerBean {
     public static final class ActionListenerImpl implements ActionListener {
         public void processAction(ActionEvent event) throws AbortProcessingException {

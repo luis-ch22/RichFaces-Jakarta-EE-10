@@ -29,16 +29,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 
 /**
  * @author ishaikovsky
  */
-@ManagedBean(name = "skinBean")
+@Named("skinBean")
 @SessionScoped
 public class SkinBean implements Serializable {
     /**
@@ -46,12 +45,13 @@ public class SkinBean implements Serializable {
      */
     private static final long serialVersionUID = -2399884208294434812L;
     private static final String SKIN_VIEW_PARAMETER = "skin";
-    @ManagedProperty(value = "blueSky")
     private String skin;
     private List<String> skins;
 
     @PostConstruct
     public void initialize() {
+        // Default skin (previously injected via @ManagedProperty(value = "blueSky")).
+        skin = "blueSky";
         skins = new ArrayList<String>();
         skins.add("blueSky");
         skins.add("classic");

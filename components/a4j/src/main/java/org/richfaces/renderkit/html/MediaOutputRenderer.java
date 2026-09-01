@@ -24,11 +24,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.FacesException;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIParameter;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 import org.ajax4jsf.Messages;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -59,8 +59,8 @@ public class MediaOutputRenderer extends RendererBase {
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeEnd(javax.faces.context.ResponseWriter,
-     * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeEnd(jakarta.faces.context.ResponseWriter,
+     * jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)
      */
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
@@ -90,8 +90,8 @@ public class MediaOutputRenderer extends RendererBase {
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeBegin(javax.faces.context.ResponseWriter,
-     * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeBegin(jakarta.faces.context.ResponseWriter,
+     * jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)
      */
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {

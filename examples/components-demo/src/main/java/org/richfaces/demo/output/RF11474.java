@@ -22,12 +22,15 @@
 
 package org.richfaces.demo.output;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 
-@ManagedBean(name = "rf11474")
+
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
+@Named("rf11474")
 @ViewScoped
-public class RF11474 {
+public class RF11474 implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String activeTab;
 

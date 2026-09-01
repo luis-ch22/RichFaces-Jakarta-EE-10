@@ -23,8 +23,8 @@ package org.ajax4jsf.component;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.component.UIForm;
-import javax.faces.component.html.HtmlForm;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.html.HtmlForm;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 

@@ -26,10 +26,10 @@ import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIColumn;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 
 import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.ExtendedDataTableState;

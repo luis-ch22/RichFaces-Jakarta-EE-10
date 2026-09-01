@@ -22,13 +22,14 @@
 
 package org.richfaces.demo.iteration;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 
 import org.richfaces.demo.iteration.model.Employee;
 import org.richfaces.demo.iteration.utils.EmployeeUtils;
@@ -36,9 +37,10 @@ import org.ajax4jsf.model.DataComponentState;
 import org.richfaces.model.SelectionMode;
 import org.richfaces.event.SortingEvent;
 
-@ManagedBean
+@Named
 @SessionScoped
-public class IterationBean {
+public class IterationBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     DataComponentState dataTableState;
     Map<Object, Integer> stateMap = new HashMap<Object, Integer>();
     int page = 1;

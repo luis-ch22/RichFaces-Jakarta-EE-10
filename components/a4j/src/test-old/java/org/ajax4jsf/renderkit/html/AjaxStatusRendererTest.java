@@ -22,9 +22,9 @@ package org.ajax4jsf.renderkit.html;
 
 import java.util.Iterator;
 
-import javax.faces.component.UIForm;
-import javax.faces.component.UIGraphic;
-import javax.faces.component.html.HtmlForm;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.UIGraphic;
+import jakarta.faces.component.html.HtmlForm;
 
 import org.ajax4jsf.component.UIAjaxStatus;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;

@@ -51,9 +51,9 @@
 
         <module>dist</module>
 
-        <!-- Jakarta EE 9.1 (Faces 3.0) transformed artifacts. Must come after
-             core/components so their javax jars exist to transform. -->
-        <module>jakarta-bridge</module>
+        <!-- jakarta-bridge REMOVED (Fase J.1): core/components are now Jakarta EE
+             10 native (jakarta.faces via the jakarta CDK), so the post-transform
+             bridge (Strategy 2) is no longer needed. -->
 
 		<!-- 
         <module>examples/photoalbum</module>
@@ -106,10 +106,25 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- Minimum Maven required (raised from 3.0 in Phase J; the modern
+             plugins already in use need 3.8+). -->
+        <maven.min.version>3.9.0</maven.min.version>
+
         <!-- Base Dependencies Versions -->
         <version.richfaces>5.0.0</version.richfaces>
-        <version.cdk>4.5.1-SNAPSHOT</version.cdk>
+        <!-- Jakarta CDK (albfernandez): generates jakarta.faces.* code. groupId
+             changed from org.richfaces.cdk to com.github.albfernandez.richfaces.cdk. -->
+        <groupId.cdk>com.github.albfernandez.richfaces.cdk</groupId.cdk>
+        <version.cdk>10.0.1</version.cdk>
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
+
+        <!-- Jakarta EE 10 (Faces 4.0) - migration Phase B -->
+        <!-- Platform BOM manages the API versions coherently: Faces 4.0,
+             Servlet 6.0, EL 5.0, CDI 4.0, Bean Validation 3.0, Annotations 2.1,
+             XML Binding 4.0. Mojarra is the Faces reference implementation. -->
+        <version.jakartaee.bom>10.0.0</version.jakartaee.bom>
+        <version.mojarra>4.0.24</version.mojarra>
+        <version.jaxb>4.0.5</version.jaxb>
 
         <!-- Container Versions -->
         <version.wildfly100>10.0.0.Final</version.wildfly100>
@@ -155,6 +170,11 @@
              reflection on java.lang.ClassLoader.defineClass (blocked by JPMS).
              The forked test JVM does not inherit .mvn/jvm.config, pass them here. -->
         <surefire.jvm.params>-Xms1024m -Xmx2048m --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED</surefire.jvm.params>
+
+        <!-- Unit-test surefire excludes tests that require a live Jakarta EE/CDI
+             container (see org.richfaces.test.ContainerRequired). They are run in
+             the integration phase. Set -Dunit.test.excludedGroups= to run them. -->
+        <unit.test.excludedGroups>org.richfaces.test.ContainerRequired</unit.test.excludedGroups>
     </properties>
 
     <prerequisites>
@@ -163,26 +183,29 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Java EE -->
+            <!-- Jakarta EE 10 platform BOM (replaces jboss-javaee-6.0 / -web-6.0).
+                 Manages Faces 4.0 API, Servlet 6.0, EL 5.0, CDI 4.0, Bean
+                 Validation 3.0, Annotations 2.1 and XML Binding 4.0 versions. -->
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
-                <version>${version.jboss-javaee}</version>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-bom</artifactId>
+                <version>${version.jakartaee.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- Faces (JSF) 4.0 reference implementation: Mojarra. Provides the
+                 jakarta.faces API + impl. Marked provided by consumers. -->
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-web-6.0</artifactId>
-                <version>${version.jboss-javaee}</version>
-                <type>pom</type>
-                <scope>import</scope>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>xalan</artifactId>
-                        <groupId>xalan</groupId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.glassfish</groupId>
+                <artifactId>jakarta.faces</artifactId>
+                <version>${version.mojarra}</version>
+            </dependency>
+            <!-- Jakarta XML Binding (JAXB) 4.0 runtime. JAXB was removed from the
+                 JDK in Java 11; RichFaces uses it at init (ClientServiceConfigParser). -->
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>${version.jaxb}</version>
             </dependency>
 
             <!-- RichFaces -->
@@ -229,6 +252,12 @@
                         <!-- Pass JDK 17+ add-opens (and heap) to the forked
                              test JVM; needed by cglib-based JSF test mocks. -->
                         <argLine>${surefire.jvm.params}</argLine>
+                        <!-- Exclude tests that need a real Jakarta EE/CDI
+                             container (they boot a full FacesContext, which
+                             Faces 4.0 cannot do inside the servlet mock). They
+                             run in the integration phase against a real
+                             container. Override -DexcludedGroups= to include them. -->
+                        <excludedGroups>${unit.test.excludedGroups}</excludedGroups>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -310,7 +339,7 @@
                     <version>${version.jacoco.plugin}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.richfaces.cdk</groupId>
+                    <groupId>${groupId.cdk}</groupId>
                     <artifactId>richfaces-cdk-maven-plugin</artifactId>
                     <version>${version.cdk}</version>
                 </plugin>
@@ -335,9 +364,9 @@
                             <pluginExecutions>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>org.richfaces.cdk</groupId>
+                                        <groupId>${groupId.cdk}</groupId>
                                         <artifactId>richfaces-cdk-maven-plugin</artifactId>
-                                        <versionRange>[4.5.2.Final,)</versionRange>
+                                        <versionRange>[10.0.0,)</versionRange>
                                         <goals>
                                             <goal>generate</goal>
                                         </goals>

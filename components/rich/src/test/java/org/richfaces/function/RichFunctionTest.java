@@ -34,10 +34,10 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import org.easymock.EasyMock;
 import org.jboss.test.faces.mock.MockFacesEnvironment;
@@ -111,7 +111,10 @@ public class RichFunctionTest {
         viewRoot = createMockComponent(UIViewRoot.class);
         expect(facesContext.getViewRoot()).andStubReturn(viewRoot);
 
-        currentComponent = createMockComponent(UIComponent.class);
+        // A real component (not an EasyMock) so that pushComponentToEL /
+        // UIComponent.getCurrentComponent work through Faces' real EL component
+        // stack; a mock's push is a no-op and getCurrentComponent would return null.
+        currentComponent = new jakarta.faces.component.UIOutput();
 
         locatedComponent = createMockComponent(UIComponent.class);
         expect(locatedComponent.getClientId(same(facesContext))).andStubReturn(TEST_CLIENT_ID);

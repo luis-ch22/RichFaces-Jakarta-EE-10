@@ -26,17 +26,25 @@ import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.faces.context.FacesContext;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:59:40 $
+ *
+ * Exposed to EL as #{a4jSkin} (used by the .ecss skinning templates). JSF
+ * managed-beans were removed in Faces 4.0, so this is now a CDI bean; it used to
+ * be registered in core.faces-config.xml as an application-scoped managed-bean.
  */
+@Named("a4jSkin")
+@ApplicationScoped
 public class SkinBean extends AbstractMap implements Skin {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.skin.Skin#hashCode(javax.faces.context.FacesContext)
+     * @see org.richfaces.skin.Skin#hashCode(jakarta.faces.context.FacesContext)
      */
     public int hashCode(FacesContext context) {
         return getSkin().hashCode(context);
@@ -109,7 +117,7 @@ public class SkinBean extends AbstractMap implements Skin {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.skin.Skin#getParameter(javax.faces.context.FacesContext, java.lang.String)
+     * @see org.richfaces.skin.Skin#getParameter(jakarta.faces.context.FacesContext, java.lang.String)
      */
     public Object getParameter(FacesContext context, String name) {
         return getSkin().getParameter(context, name);
@@ -140,7 +148,7 @@ public class SkinBean extends AbstractMap implements Skin {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.skin.Skin#getColorParameter(javax.faces.context.FacesContext, java.lang.String)
+     * @see org.richfaces.skin.Skin#getColorParameter(jakarta.faces.context.FacesContext, java.lang.String)
      */
     public Integer getColorParameter(FacesContext context, String name) {
         return getSkin().getColorParameter(context, name);
@@ -149,7 +157,7 @@ public class SkinBean extends AbstractMap implements Skin {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.skin.Skin#getColorParameter(javax.faces.context.FacesContext, java.lang.String, java.lang.Object)
+     * @see org.richfaces.skin.Skin#getColorParameter(jakarta.faces.context.FacesContext, java.lang.String, java.lang.Object)
      */
     public Integer getColorParameter(FacesContext context, String name, Object defaultValue) {
         return getSkin().getColorParameter(context, name, defaultValue);
@@ -158,7 +166,7 @@ public class SkinBean extends AbstractMap implements Skin {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.skin.Skin#getIntegerParameter(javax.faces.context.FacesContext, java.lang.String)
+     * @see org.richfaces.skin.Skin#getIntegerParameter(jakarta.faces.context.FacesContext, java.lang.String)
      */
     public Integer getIntegerParameter(FacesContext context, String name) {
         return getSkin().getIntegerParameter(context, name);
@@ -167,7 +175,7 @@ public class SkinBean extends AbstractMap implements Skin {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.skin.Skin#getIntegerParameter(javax.faces.context.FacesContext, java.lang.String, java.lang.Object)
+     * @see org.richfaces.skin.Skin#getIntegerParameter(jakarta.faces.context.FacesContext, java.lang.String, java.lang.Object)
      */
     public Integer getIntegerParameter(FacesContext context, String name, Object defaultValue) {
         return getSkin().getIntegerParameter(context, name, defaultValue);

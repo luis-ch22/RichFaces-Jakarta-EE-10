@@ -23,9 +23,9 @@ package org.richfaces.photoalbum.model.actions;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 
 import org.richfaces.photoalbum.model.Shelf;
 import org.richfaces.photoalbum.model.User;

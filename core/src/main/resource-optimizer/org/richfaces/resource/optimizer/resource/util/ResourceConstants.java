@@ -27,6 +27,8 @@ import org.richfaces.resource.ResourceKey;
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class ResourceConstants {
-    public static final ResourceKey JSF_COMPRESSED = new ResourceKey("jsf.js", "javax.faces");
-    public static final ResourceKey JSF_UNCOMPRESSED = new ResourceKey("jsf-uncompressed.js", "javax.faces");
+    // Faces 4.0 renamed the RI script library javax.faces:jsf.js to
+    // jakarta.faces:faces.js (and the uncompressed variant likewise).
+    public static final ResourceKey JSF_COMPRESSED = new ResourceKey("faces.js", "jakarta.faces");
+    public static final ResourceKey JSF_UNCOMPRESSED = new ResourceKey("faces-uncompressed.js", "jakarta.faces");
 }

@@ -10,9 +10,10 @@ import static org.mockito.Mockito.when;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 
 import org.ajax4jsf.javascript.JSLiteral;
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
@@ -35,7 +36,7 @@ public class TestFocusManagerImpl extends AbstractServicesTest {
     FacesContext facesContext;
 
     @Mock
-    UIComponent viewRoot;
+    UIViewRoot viewRoot;
 
     @Mock
     UIComponent component;
@@ -76,6 +77,7 @@ public class TestFocusManagerImpl extends AbstractServicesTest {
         String componentId = "someComponentId";
         String clientId = "someClientId";
 
+        when(facesContext.getViewRoot()).thenReturn(viewRoot);
         when(component.getClientId(facesContext)).thenReturn(clientId);
         when(viewRoot.findComponent(componentId)).thenReturn(component);
 

@@ -31,12 +31,12 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.FunctionMapper;
-import javax.el.ValueExpression;
-import javax.el.VariableMapper;
-import javax.faces.el.CompositeComponentExpressionHolder;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.FunctionMapper;
+import jakarta.el.ValueExpression;
+import jakarta.el.VariableMapper;
+import jakarta.faces.el.CompositeComponentExpressionHolder;
 
 import org.richfaces.validator.GraphValidatorState;
 
@@ -95,7 +95,7 @@ public class CapturingELContext extends ELContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.el.ELContext#getELResolver()
+     * @see jakarta.el.ELContext#getELResolver()
      */
     @Override
     public ELResolver getELResolver() {
@@ -204,8 +204,9 @@ public class CapturingELContext extends ELContext {
             return delegate.getCommonPropertyType(context, base);
         }
 
+        // Jakarta EL 5.0 signature: <T> T convertToType(ELContext, Object, Class<T>)
         @Override
-        public Object convertToType(ELContext context, Object obj, Class<?> targetType) {
+        public <T> T convertToType(ELContext context, Object obj, Class<T> targetType) {
             return delegate.convertToType(context, obj, targetType);
         }
     }

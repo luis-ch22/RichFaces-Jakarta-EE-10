@@ -21,15 +21,15 @@
  */
 package org.richfaces.demo.push;
 
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.PostConstructApplicationEvent;
-import javax.faces.event.PreDestroyApplicationEvent;
-import javax.faces.event.SystemEvent;
-import javax.faces.event.SystemEventListener;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.faces.application.Application;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.PostConstructApplicationEvent;
+import jakarta.faces.event.PreDestroyApplicationEvent;
+import jakarta.faces.event.SystemEvent;
+import jakarta.faces.event.SystemEventListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 /**
  * <p>
@@ -51,7 +51,7 @@ public abstract class AbstractCapabilityInitializer implements CapabilityInitial
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.event.SystemEventListener#processEvent(javax.faces.event. SystemEvent)
+     * @see jakarta.faces.event.SystemEventListener#processEvent(jakarta.faces.event. SystemEvent)
      */
     public void processEvent(SystemEvent event) throws AbortProcessingException {
         if (isCapabilityEnabled()) {
@@ -104,7 +104,7 @@ public abstract class AbstractCapabilityInitializer implements CapabilityInitial
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.event.SystemEventListener#isListenerForSource(java.lang.Object )
+     * @see jakarta.faces.event.SystemEventListener#isListenerForSource(java.lang.Object )
      */
     public boolean isListenerForSource(Object source) {
         return true;

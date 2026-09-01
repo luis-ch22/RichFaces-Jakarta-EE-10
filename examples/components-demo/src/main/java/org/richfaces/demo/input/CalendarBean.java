@@ -22,20 +22,23 @@
 
 package org.richfaces.demo.input;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.event.ValueChangeEvent;
+import jakarta.faces.event.ValueChangeEvent;
 
 import org.richfaces.component.Positioning;
 import org.richfaces.event.CurrentDateChangeEvent;
 
-@ManagedBean
+@Named
 @SessionScoped
-public class CalendarBean {
+public class CalendarBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Locale locale;
     private boolean popup;
     private String pattern;

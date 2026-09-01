@@ -20,18 +20,21 @@
  */
 package org.richfaces.renderkit.util;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UIViewRoot;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UIViewRoot;
 
 import org.jboss.test.faces.AbstractFacesTest;
+import org.junit.experimental.categories.Category;
+import org.richfaces.test.ContainerRequired;
 import org.richfaces.component.SwitchType;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com created 11.04.2007
  *
  */
+@Category(ContainerRequired.class)
 public class FormUtilTest extends AbstractFacesTest {
     @Override
     public void setUp() throws Exception {

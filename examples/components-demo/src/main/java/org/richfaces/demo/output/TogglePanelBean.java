@@ -22,16 +22,17 @@
 
 package org.richfaces.demo.output;
 
+
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.event.ItemChangeEvent;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class TogglePanelBean implements Serializable {
     private static final long serialVersionUID = -2403138958014741653L;

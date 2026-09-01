@@ -7,22 +7,25 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.UIViewRoot;
 
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.jboss.test.qunit.Qunit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.richfaces.javascript.Message;
+import org.richfaces.test.ContainerRequired;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 
 @RunWith(Parameterized.class)
+@Category(ContainerRequired.class)
 public abstract class MockTestBase {
     protected static final String TEST_COMPONENT_ID = "testComponent";
     @Rule

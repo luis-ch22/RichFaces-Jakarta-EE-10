@@ -34,10 +34,10 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.easymock.EasyMock;
-import org.jboss.test.faces.AbstractFacesTest;
+import org.richfaces.AbstractCDIFacesTest;
 import org.richfaces.application.Module;
 import org.richfaces.application.ServicesFactory;
 import org.richfaces.application.ServicesFactoryImpl;
@@ -48,7 +48,7 @@ import org.richfaces.application.ServiceTracker;
  * @author Nick Belaevski
  * @since 4.0
  */
-public class AbstractBaseResourceTest extends AbstractFacesTest {
+public class AbstractBaseResourceTest extends AbstractCDIFacesTest {
     @Override
     public void setUp() throws Exception {
         super.setUp();

@@ -30,18 +30,21 @@ import static org.richfaces.application.configuration.ConfigurationServiceHelper
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getLongConfigurationValue;
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getStringConfigurationValue;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.ContextInitParameter;
 import org.richfaces.ContextInitParameters;
 import org.richfaces.FacesRequestSetupRule;
+import org.richfaces.test.ContainerRequired;
 
 /**
  * @author Nick Belaevski
  *
  */
+@Category(ContainerRequired.class)
 public class ConfigurationServiceImplTest {
     @Rule
     public FacesRequestSetupRule rule = new FacesRequestSetupRule();

@@ -20,10 +20,10 @@
  */
 package org.ajax4jsf.renderkit.html;
 
-import javax.faces.FacesException;
-import javax.faces.component.UIForm;
-import javax.faces.component.UIParameter;
-import javax.faces.component.html.HtmlForm;
+import jakarta.faces.FacesException;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.component.html.HtmlForm;
 
 import org.ajax4jsf.component.UIMediaOutput;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;

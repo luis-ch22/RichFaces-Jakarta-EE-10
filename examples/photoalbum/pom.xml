@@ -20,9 +20,9 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-  
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.richfaces.examples</groupId>
@@ -33,7 +33,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     <name>RichFaces Photoalbum</name>
 
     <description>
-        RichFaces Photoalbum is a sample of complex Java EE application using RichFaces Framework. 
+        RichFaces Photoalbum is a sample of a complex Jakarta EE application using the RichFaces framework.
     </description>
 
     <url>https://github.com/albfernandez/richfaces</url>
@@ -51,74 +51,28 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <name>RichFaces committers</name>
         </developer>
     </developers>
-    
+
     <scm>
-		<connection>scm:git:git@github.com:albfernandez/richfaces.git</connection>
-		<developerConnection>scm:git:git@github.com:albfernandez/richfaces.git</developerConnection>
-		<url>git@github.com:albfernandez/richfaces.git</url>
-	</scm>
-	<issueManagement>
-		<system>GitHub</system>
-		<url>https://github.com/albfernandez/richfaces/issues</url>
-	</issueManagement>
+        <connection>scm:git:git@github.com:albfernandez/richfaces.git</connection>
+        <developerConnection>scm:git:git@github.com:albfernandez/richfaces.git</developerConnection>
+        <url>git@github.com:albfernandez/richfaces.git</url>
+    </scm>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/albfernandez/richfaces/issues</url>
+    </issueManagement>
 
     <properties>
         <version.richfaces>5.0.0</version.richfaces>
         <version.metadata-extractor>2.6.2</version.metadata-extractor>
-        <version.jackson>1.9.12</version.jackson>
-        <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
-        <version.wildfly100>10.0.0.Final</version.wildfly100>
-        <version.wildfly90>9.0.1.Final</version.wildfly90>
-        <version.wildfly81>8.1.0.Final</version.wildfly81>
-        <version.wildfly82>8.2.1.Final</version.wildfly82>
-        <version.jboss-as7>7.1.1.Final</version.jboss-as7>
-
-        <maven.min.version>3.0</maven.min.version>
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <!-- Test properties -->
-        <testng.listeners>org.jboss.test.selenium.listener.ConsoleStatusTestListener,org.jboss.test.selenium.listener.FailureLoggingTestListener</testng.listeners>
-        <testng.suite.xml>src/test/resources/testng.xml</testng.suite.xml>
-
-        <jvm.args.ip>-Djava.net.preferIPv4Stack=false -Djava.net.preferIPv6Addresses=false</jvm.args.ip>
-        <!-- jvm args for all containers without setting prefered IP -->
-        <arquillian.drone.reusable>false</arquillian.drone.reusable>
-        <arquillian.container.all.jvm.args>-Xms1024m -Xmx1024m -XX:MaxPermSize=512m -DstatelessViews=${statelessViews}</arquillian.container.all.jvm.args>
-        <arquillian.container.all.jvm.args.withIP>${arquillian.container.all.jvm.args} ${jvm.args.ip}</arquillian.container.all.jvm.args.withIP>
-        <!-- following will be set as system properties -->
-        <arquillian.container.jbossas.7-1.node0>127.0.0.1</arquillian.container.jbossas.7-1.node0>
-        <arquillian.container.jbossas.7-1.jvm.args>${arquillian.container.all.jvm.args.withIP}
-            -Djboss.bind.address=${arquillian.container.jbossas.7-1.node0}
-            -Djboss.bind.address.management=${arquillian.container.jbossas.7-1.node0}
-            -Djboss.bind.address.unsecure=${arquillian.container.jbossas.7-1.node0}</arquillian.container.jbossas.7-1.jvm.args>
-        <arquillian.container.wildfly.8-1.jvm.args>-Xmx768m -XX:MaxPermSize=256m</arquillian.container.wildfly.8-1.jvm.args>
-        
-       
-        <testCategory.included.default>NOT category.None</testCategory.included.default>
-        <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
-        
-        <!-- JVM values for surefire plugin -->
-        <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->
-        <surefire.jvm.params>-Xms1024m -Xmx2048m</surefire.jvm.params>
-        
-        <!-- G+ login credentials, default is undefined -->
-        <!-- if not provided, any tests requiring G+ login will fail -->
-        <googlePlus.username>undefined</googlePlus.username>
-        <googlePlus.password>undefined</googlePlus.password>
     </properties>
-
-    <prerequisites>
-        <maven>${maven.min.version}</maven>
-    </prerequisites>
 
     <dependencyManagement>
         <dependencies>
-            <!--
-                Reference usage of RichFaces BOM dependency version management
-            -->
             <dependency>
                 <groupId>com.github.luisch22.richfaces</groupId>
                 <artifactId>richfaces-cache-bom</artifactId>
@@ -126,10 +80,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--
-               Manage example dependency versions for whole RichFaces build
-               (not intented to be used by other projects projects)
-            -->
             <dependency>
                 <groupId>com.github.luisch22.richfaces</groupId>
                 <artifactId>richfaces-build</artifactId>
@@ -141,44 +91,35 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     </dependencyManagement>
 
     <dependencies>
-
-        <!-- Java EE deps -->
+        <!-- Jakarta EE 10 web API (Servlet 6, Faces 4, CDI 4, JPA 3.1, EL, Bean Validation);
+             provided by the container. Mojarra 4 comes transitively from RichFaces. -->
         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-web-6.0</artifactId>
-            <type>pom</type>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-web-api</artifactId>
+            <version>10.0.0</version>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>antlr</groupId>
-                    <artifactId>antlr</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>xalan</artifactId>
-                    <groupId>xalan</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
-        <!-- javax.activation (JAF) was removed from the JDK in Java 11; this
-             example uses javax.activation.MimetypesFileTypeMap. Provide the
-             standalone implementation that keeps the javax.activation package. -->
+        <!-- Jakarta Activation (JAF): this example uses
+             jakarta.activation.MimetypesFileTypeMap. Replaces the legacy
+             com.sun.activation:javax.activation:1.2.0. -->
         <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>javax.activation</artifactId>
-            <version>1.2.0</version>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <version>2.1.3</version>
         </dependency>
 
-        <!-- RichFaces dependency -->
+        <!-- RichFaces (jakarta native) -->
         <dependency>
             <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces</artifactId>
         </dependency>
 
-        <!-- Runtime dependencies -->
+        <!-- Bean Validation implementation -->
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
+            <version>8.0.1.Final</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -187,11 +128,15 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- JPA provider (Hibernate ORM 6) -->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.4.4.Final</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
@@ -201,46 +146,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <artifactId>metadata-extractor</artifactId>
             <version>${version.metadata-extractor}</version>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-jaxrs</artifactId>
-            <version>${version.jackson}</version>
-        </dependency>
 
-        <!-- Test dependencies -->
+        <!-- Jackson 2 annotations (replaces the legacy org.codehaus.jackson 1.x
+             JSON annotations used on the JPA entities). -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.luisch22.richfaces</groupId>
-            <artifactId>richfaces-page-fragments</artifactId>
-            <scope>test</scope>
-            <optional>true</optional>
-            <version>${version.richfaces}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.luisch22.richfaces</groupId>
-            <artifactId>richfaces-build-resources</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <scope>test</scope>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.17.1</version>
         </dependency>
     </dependencies>
 
     <build>
-
-        <!-- Maven will append the version to the finalName (which is the 
-        name given to the generated war, and hence the context root) -->
+        <!-- Maven appends the version to finalName (context root). -->
         <finalName>${project.artifactId}</finalName>
         <resources>
             <resource>
@@ -254,44 +171,32 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </resource>
         </resources>
 
-        <testResources>
-            <testResource>
-                <directory>${project.basedir}/src/test/resources</directory>
-                <filtering>true</filtering>
-            </testResource>
-        </testResources>
-
         <plugins>
-
-            <!-- skip tests by default -->
             <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <!-- Travis build workaround -->
-                    <argLine>${surefire.jvm.params}</argLine>
-                    <skipTests>true</skipTests>
-                </configuration>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.3.2</version>
             </plugin>
-            <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
-            annotation processors -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
                 <configuration>
                     <release>${maven.compiler.release}</release>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
                 <configuration>
-                    <!-- Java EE 6 doesn't require web.xml, Maven needs to 
-                    catch up! -->
+                    <!-- Jakarta EE does not require web.xml -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <archive>
-                        <manifestEntries>
-                            <Dependencies>com.google.guava,org.slf4j</Dependencies>
-                        </manifestEntries>
-                    </archive>
                     <webResources>
                         <resource>
                             <directory>src/main/webapp</directory>
@@ -300,791 +205,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </webResources>
                 </configuration>
             </plugin>
-            
-            <!-- The JBoss AS plugin deploys your war to a local JBoss AS 
-            container -->
-            <!-- To use, run: mvn package jboss-as:deploy -->
-            <plugin>
-                <groupId>org.jboss.as.plugins</groupId>
-                <artifactId>jboss-as-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>com.github.luisch22.richfaces</groupId>
-                <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
-                <version>${version.richfaces}</version>
-                <configuration>
-                    <skins>
-                        <skin>photoalbum</skin>
-                    </skins>
-                    <excludedFiles>
-                        <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
-                        <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
-                    </excludedFiles>
-                    <includedContentTypes>
-                        <include>text/css</include>
-                        <include>image/.+</include>
-                    </includedContentTypes>
-                    <fileNameMappings>
-                        <property>
-                            <name>^.*showcase.*/([^/]+\.css)$</name>
-                            <value>org.richfaces.showcase.css/$1</value>
-                        </property>
-                        <property>
-                            <name>^.+/([^/]+\.(png|gif|jpg))$</name>
-                            <value>org.richfaces.images/$1</value>
-                        </property>
-                        <property>
-                            <name>^.+/([^/]+\.css)$</name>
-                            <value>org.richfaces.css/$1</value>
-                        </property>
-                    </fileNameMappings>
-                    <excludedFiles>
-                        <exclude>^javax.faces</exclude>
-                        <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
-                        <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
-                        <exclude>^\Qorg.richfaces.ckeditor\E</exclude>
-                        <!-- ignore already generated resources -->
-                        <exclude>^\Qorg.richfaces.staticResource\E</exclude>
-                        <exclude>^org\.richfaces:jquery\.js$</exclude>
-                    </excludedFiles>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>process-resources</id>
-                        <goals>
-                            <goal>process</goal>
-                        </goals>
-                        <configuration>
-
-                            <!-- default RichFaces mapping file, can be anywhere 
-                            on the classpath, but then you will will need to configure Resource Mapping 
-                            configuration file location in web.xml, refer to RichFaces Developer Guide -->
-                            <staticResourceMappingFile>${project.build.outputDirectory}/META-INF/richfaces/photoalbum-packedcompressed-resource-mappings.properties</staticResourceMappingFile>
-
-                            <!-- resources will be placed in JAR/META-INF/resources/com.acme.staticResources/ 
-                            or WAR/WEB-INF/classes/META-INF/resources/com.acme.staticResources/ depending 
-                            on packaging of this project -->
-                            <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/org.richfaces.staticResource/${version.richfaces}/PackedCompressed/</resourcesOutputDir>
-
-                            <!-- resources will be located under JSF_RESOURCE_ROOT/com.acme.staticResources 
-                            (e.g. JAR/META-INF/com.acme.staticResources) -->
-                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/PackedCompressed/</staticResourcePrefix>
-
-                            <!-- resources will be packaged, refer to RichFaces 
-                            Developer Guide -->
-                            <pack>packed</pack>
-
-                            <!-- resources will be compressed, refer to RichFaces 
-                            Developer Guide -->
-                            <compress>true</compress>
-
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>process-resources-packed</id>
-                        <goals>
-                            <goal>process</goal>
-                        </goals>
-                        <configuration>
-
-                            <!-- default RichFaces mapping file, can be anywhere 
-                            on the classpath, but then you will will need to configure Resource Mapping 
-                            configuration file location in web.xml, refer to RichFaces Developer Guide -->
-                            <staticResourceMappingFile>${project.build.outputDirectory}/META-INF/richfaces/photoalbum-packed-resource-mappings.properties</staticResourceMappingFile>
-
-                            <!-- resources will be placed in JAR/META-INF/resources/com.acme.staticResources/ 
-                            or WAR/WEB-INF/classes/META-INF/resources/com.acme.staticResources/ depending 
-                            on packaging of this project -->
-                            <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/org.richfaces.staticResource/${version.richfaces}/Packed/</resourcesOutputDir>
-
-                            <!-- resources will be located under JSF_RESOURCE_ROOT/com.acme.staticResources 
-                            (e.g. JAR/META-INF/com.acme.staticResources) -->
-                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/Packed/</staticResourcePrefix>
-
-                            <!-- resources will be packaged, refer to RichFaces 
-                            Developer Guide -->
-                            <pack>packed</pack>
-
-                            <!-- resources will be compressed, refer to RichFaces 
-                            Developer Guide -->
-                            <compress>false</compress>
-
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.6</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.3.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.13.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>3.1.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.19.1</version>
-                    <configuration>
-                        <!-- Travis build workaround -->
-                        <argLine>${surefire.jvm.params}</argLine>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>2.6</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.9</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.9.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.10.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.github.luisch22.richfaces</groupId>
-                    <artifactId>ichfaces-resources-maven-plugin</artifactId>
-                    <version>${version.richfaces}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.jboss.as.plugins</groupId>
-                    <artifactId>jboss-as-maven-plugin</artifactId>
-                    <version>${version.jboss-as7}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.3</version>
-                    <configuration>
-                        <localCheckout>true</localCheckout>
-                        <pushChanges>false</pushChanges>
-                    </configuration>
-                </plugin>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-dependency-plugin</artifactId>
-                                        <versionRange>[2.9,)</versionRange>
-                                        <goals>
-                                            <goal>unpack</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <execute>
-                                            <runOnIncremental>false</runOnIncremental>
-                                        </execute>
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>com.github.luisch22.richfaces</groupId>
-                                        <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
-                                        <versionRange>[4.5.2-Final,)</versionRange>
-                                        <goals>
-                                            <goal>process</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
-
-    <profiles>
-
-        <profile>
-            <id>release</id>
-            <properties>
-                <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>generate-javadoc</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>group-sources</id>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <appendAssemblyId>true</appendAssemblyId>
-                                    <descriptor>assembler.xml</descriptor>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>smoke-tests</id>
-            <activation>
-                <property>
-                    <name>smoke</name>
-                </property>
-            </activation>
-            <properties>
-                <testCategory.included.default>category.Smoke</testCategory.included.default>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>integration-tests</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                </property>
-            </activation>
-            <properties>
-                <integration.test.source>src/test/java/</integration.test.source>
-                
-                <!-- Arquillian Configuration -->
-                <arquillian.debug>false</arquillian.debug>
-                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
-                <arquillian.drone.reusable>false</arquillian.drone.reusable>
-                <arquillian.richfaces.version />
-                <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
-                <arquillian.richfaces.jsfProvider>mojarra</arquillian.richfaces.jsfProvider>
-                <arquillian.richfaces.jsfImplementation>org.glassfish:javax.faces</arquillian.richfaces.jsfImplementation>
-                <arquillian.container.home />
-                <arquillian.container.distribution />
-                <arquillian.container.configuration />
-                <arquillian.container.uninstall>true</arquillian.container.uninstall>
-                <arquillian.container.vmargs>-Xmx768m -XX:MaxPermSize=256m</arquillian.container.vmargs>
-                <arquillian.maven.settings />
-                
-                <!-- Container Selection -->
-                <arquillian.launch.wildfly90>false</arquillian.launch.wildfly90>
-                <arquillian.launch.wildfly81>false</arquillian.launch.wildfly81>
-                <arquillian.launch.wildfly82>false</arquillian.launch.wildfly82>
-                
-                <!-- JUnit Categories Selection -->
-                <testCategory.excluded.container />
-                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
-                <testCategory.excluded.jsf />
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>com.github.luisch22.richfaces</groupId>
-                    <artifactId>richfaces-build-resources</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.junit</groupId>
-                    <artifactId>arquillian-junit-container</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.protocol</groupId>
-                    <artifactId>arquillian-protocol-servlet</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.shrinkwrap.resolver</groupId>
-                    <artifactId>shrinkwrap-resolver-depchain</artifactId>
-                    <type>pom</type>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-                    <artifactId>shrinkwrap-descriptors-depchain</artifactId>
-                    <type>pom</type>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.extension</groupId>
-                    <artifactId>arquillian-drone-webdriver-depchain</artifactId>
-                    <type>pom</type>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.graphene</groupId>
-                    <artifactId>graphene-webdriver</artifactId>
-                    <type>pom</type>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <executions>
-                            <!--                             <execution> -->
-                            <!--                                 <id>add-integration-test-sources</id> -->
-                            <!--                                 <phase>process-test-sources</phase> -->
-                            <!--                                 <goals> -->
-                            <!--                                     <goal>add-test-source</goal> -->
-                            <!--                                 </goals> -->
-                            <!--                                 <configuration> -->
-                            <!--                                     <sources> -->
-                            <!--                                         <source>${integration.test.source}</source> -->
-                            <!--                                     </sources> -->
-                            <!--                                 </configuration> -->
-                            <!--                             </execution> -->
-                            <execution>
-                                <id>add-integration-test-resources</id>
-                                <phase>process-test-resources</phase>
-                                <goals>
-                                    <goal>add-test-resource</goal>
-                                </goals>
-                                <configuration>
-                                    <resources>
-                                        <resource>
-                                            <directory>${integration.test.source}</directory>
-                                            <targetPath>${project.build.directory}/test-classes</targetPath>
-                                            <excludes>
-                                                <exclude>**/*.java</exclude>
-                                            </excludes>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.19.1</version>
-                        <executions>
-                            <execution>
-                                <id>default-test</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <configuration>
-                                    <!-- Travis build workaround -->
-                                    <argLine>${surefire.jvm.params}</argLine>
-                                    <!--  there are no unit tests -->
-                                    <skip>false</skip>
-                                    <excludes>
-                                        <exclude>**/ftest/**/Test*.java</exclude>
-                                    </excludes>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>integration-tests</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <configuration>
-                                    <!-- Travis build workaround -->
-                                    <argLine>${surefire.jvm.params}</argLine>
-                                    <testSourceDirectory>src/test</testSourceDirectory>
-                                    <includes>
-                                        <include>**/ftest/**/Test*.java</include>
-                                    </includes>
-                                    <skipTests>${skipITs}</skipTests>
-                                    <test>${test}</test>
-                                    <groups>${testCategory.included.default} ${testCategory.excluded.browser}</groups>
-                                    <excludedGroups>${testCategory.excluded.default}</excludedGroups>
-                                    <systemPropertyVariables>
-                                        <arquillian.debug>${arquillian.debug}</arquillian.debug>
-                                        <googlePlus.username>${googlePlus.username}</googlePlus.username>
-                                        <googlePlus.password>${googlePlus.password}</googlePlus.password>
-                                    </systemPropertyVariables>
-                                </configuration>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>com.github.luisch22.richfaces</groupId>
-                                <artifactId>richfaces-build-resources</artifactId>
-                                <version>${version.richfaces}</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack-arquillian-settings</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>com.github.luisch22.richfaces</groupId>
-                                            <artifactId>richfaces-build-resources</artifactId>
-                                            <version>${version.richfaces}</version>
-                                            <type>jar</type>
-                                            <overWrite>true</overWrite>
-                                        </artifactItem>
-                                    </artifactItems>
-                                    <includes>arquillian.xml</includes>
-                                    <outputDirectory>src/test/resources</outputDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <!-- Browsers -->
-        <profile>
-            <id>browser-phantomjs</id>
-            <activation>
-                <property>
-                    <name>browser</name>
-                    <value>phantomjs</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
-                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
-            </properties>
-        </profile>
-        <profile>
-            <id>browser-chrome</id>
-            <activation>
-                <property>
-                    <name>browser</name>
-                    <value>chrome</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.drone.browser>chrome</arquillian.drone.browser>
-                <testCategory.excluded.browser />
-            </properties>
-        </profile>
-        <profile>
-            <id>browser-firefox</id>
-            <activation>
-                <property>
-                    <name>browser</name>
-                    <value>firefox</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.drone.browser>firefox</arquillian.drone.browser>
-                <testCategory.excluded.browser>AND NOT category.FailingOnFirefox</testCategory.excluded.browser>
-            </properties>
-        </profile>
-        <profile>
-            <id>browser-remote-reusable</id>
-            <properties>
-                <arquillian.drone.reusable>true</arquillian.drone.reusable>
-            </properties>
-        </profile>
-
-        <!-- Containers -->
-        <profile>
-            <id>wildfly-managed-10-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly100</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.wildfly10>true</arquillian.launch.wildfly10>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly100}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly100}</arquillian.container.distribution>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-managed-9-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly90</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.wildfly9>true</arquillian.launch.wildfly9>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly90}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly90}</arquillian.container.distribution>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-managed-8-1</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly81</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly81}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly81}</arquillian.container.distribution>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>${version.wildfly81}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-managed-8-2</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly82</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly82}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly82}</arquillian.container.distribution>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>${version.wildfly82}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-remote-10-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly100-remote</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-remote-9-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly90-remote</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-remote-8-1</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly81-remote</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <version>${version.wildfly81}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>wildfly-remote-8-2</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly82-remote</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <version>${version.wildfly82}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-managed-6-4</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap64</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
-                <arquillian.container.home>${project.build.directory}/jboss-eap-6.4</arquillian.container.home>
-                <arquillian.container.distribution>file:///path/to/jboss-eap-6.4.0.zip</arquillian.container.distribution>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-remote-6-4</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap64-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-managed-6-3</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap63</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
-                <arquillian.container.home>${project.build.directory}/jboss-eap-6.3</arquillian.container.home>
-                <arquillian.container.distribution>file:///path/to/jboss-eap-6.3.0.zip</arquillian.container.distribution>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-remote-6-3</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap63-remote</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
-
 
 </project>

@@ -87,7 +87,7 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <groupId>org.richfaces.cdk</groupId>
+                    <groupId>com.github.albfernandez.richfaces.cdk</groupId>
                     <artifactId>richfaces-cdk-maven-plugin</artifactId>
                     <executions>
                         <execution>
@@ -131,10 +131,33 @@
                         <requirePluginVersions>
                             <!-- During development SNAPSHOT versions of the CDK plugin are used.
                                  This setting ignores the no SNAPSHOT rule for the CDK  -->
-                            <unCheckedPluginList>org.richfaces.cdk:richfaces-cdk-maven-plugin, com.github.luisch22.richfaces:richfaces-resource-optimizer-maven-plugin</unCheckedPluginList>
+                            <unCheckedPluginList>com.github.albfernandez.richfaces.cdk:richfaces-cdk-maven-plugin, com.github.luisch22.richfaces:richfaces-resource-optimizer-maven-plugin</unCheckedPluginList>
                         </requirePluginVersions>
                     </rules>
                 </configuration>
+            </plugin>
+            <!-- Run the CDK component generator as a real Maven goal bound to
+                 process-sources. This is required on JDK 21 because the CDK ships
+                 an annotation processor (CdkProcessorImpl) that declares
+                 SupportedSourceVersion RELEASE_8; javac silently skips such a
+                 processor when compiling with -release 21, so the UIxxx component
+                 classes would never be generated during default-compile. Binding
+                 the 'generate' goal explicitly here makes the generation happen
+                 via the CDK's own pipeline, independent of javac's APT. The
+                 execution is inherited by the a4j and rich modules (which declare
+                 the plugin in their own build/plugins). -->
+            <plugin>
+                <groupId>com.github.albfernandez.richfaces.cdk</groupId>
+                <artifactId>richfaces-cdk-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>cdk-generate-sources</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
 
@@ -148,8 +171,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.richfaces.cdk</groupId>
+            <groupId>com.github.albfernandez.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
+            <version>${version.cdk}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -236,9 +260,10 @@
                 </property>
             </activation>
             <dependencies>
+                <!-- Mojarra 4.0 (jakarta.faces) — Faces 4.0 reference impl -->
                 <dependency>
                     <groupId>org.glassfish</groupId>
-                    <artifactId>javax.faces</artifactId>
+                    <artifactId>jakarta.faces</artifactId>
                     <scope>compile</scope>
                     <optional>true</optional>
                 </dependency>

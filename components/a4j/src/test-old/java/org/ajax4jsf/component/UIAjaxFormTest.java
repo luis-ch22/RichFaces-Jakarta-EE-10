@@ -22,13 +22,13 @@ package org.ajax4jsf.component;
 
 import java.io.Serializable;
 
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.IntegerConverter;
-import javax.faces.event.ActionEvent;
-import javax.faces.validator.Validator;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.IntegerConverter;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.validator.Validator;
 
 import org.ajax4jsf.component.ActionListenerTest.Bean;
 import org.ajax4jsf.event.AjaxEvent;
@@ -113,7 +113,7 @@ public class UIAjaxFormTest extends AbstractAjax4JsfTestCase {
     }
 
     class TestAjaxFormValidator implements Validator {
-        public void validate(javax.faces.context.FacesContext context, UIComponent component, Object value) {
+        public void validate(jakarta.faces.context.FacesContext context, UIComponent component, Object value) {
             result = true;
         }
     }

@@ -2,16 +2,16 @@ package org.richfaces.demo.editor;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class EditorBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ManagedProperty(value = "#{fairyTailBean}")
+    @Inject
     private transient FairyTailBean fairyTailBean;
 
     private String toolbar = "basic";

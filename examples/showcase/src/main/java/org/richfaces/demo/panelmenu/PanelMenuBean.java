@@ -1,13 +1,16 @@
 package org.richfaces.demo.panelmenu;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
+
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 
 import org.richfaces.event.ItemChangeEvent;
 
-@ManagedBean
+@Named
 @ViewScoped
-public class PanelMenuBean {
+public class PanelMenuBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String current;
     private boolean singleMode;
 

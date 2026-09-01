@@ -28,19 +28,16 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
+import jakarta.faces.application.ResourceDependencies;
+import jakarta.faces.application.ResourceDependency;
 
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.scanners.TypeAnnotationsScanner;
-import org.reflections.util.ConfigurationBuilder;
 import org.richfaces.log.Logger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.optimizer.ResourceLibraryExpander;
 import org.richfaces.resource.optimizer.ordering.IllegalPartialOrderingException;
 import org.richfaces.resource.optimizer.ordering.PartialOrderToCompleteOrder;
 import org.richfaces.resource.optimizer.resource.scan.ResourcesScanner;
-import org.richfaces.resource.optimizer.resource.scan.impl.reflections.ReflectionsExt;
+import org.richfaces.resource.optimizer.resource.scan.impl.reflections.ClassGraphScanner;
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
 import org.richfaces.resource.optimizer.vfs.VFSType;
 
@@ -94,14 +91,11 @@ public class ResourceOrderingScanner implements ResourcesScanner {
             urls.add(url);
         }
 
-        ConfigurationBuilder configurationBuilder = new ConfigurationBuilder().setUrls(urls);
-        configurationBuilder.setScanners(new SubTypesScanner(), new TypeAnnotationsScanner());
-
-        ReflectionsExt refl = new ReflectionsExt(configurationBuilder);
-
         Collection<Class<?>> allClasses = Sets.newHashSet();
-        addAnnotatedClasses(ResourceDependencies.class, refl, allClasses);
-        addAnnotatedClasses(ResourceDependency.class, refl, allClasses);
+        try (ClassGraphScanner scanner = new ClassGraphScanner(urls)) {
+            addAnnotatedClasses(ResourceDependencies.class, scanner, allClasses);
+            addAnnotatedClasses(ResourceDependency.class, scanner, allClasses);
+        }
 
         for (Class<?> annotatedClass : allClasses) {
             List<ResourceDependency> resourceDependencies = Lists.newLinkedList();
@@ -130,9 +124,9 @@ public class ResourceOrderingScanner implements ResourcesScanner {
         ordering.addPartialOrdering(resourceKeys);
     }
 
-    private void addAnnotatedClasses(Class<? extends Annotation> annotationClass, ReflectionsExt refl,
+    private void addAnnotatedClasses(Class<? extends Annotation> annotationClass, ClassGraphScanner scanner,
             Collection<Class<?>> allClasses) {
-        for (Class<?> annotatedClass : refl.getTypesAnnotatedWith(annotationClass)) {
+        for (Class<?> annotatedClass : scanner.getTypesAnnotatedWith(annotationClass)) {
             allClasses.add(annotatedClass);
         }
     }

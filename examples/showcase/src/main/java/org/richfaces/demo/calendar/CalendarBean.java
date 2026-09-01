@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.event.ValueChangeEvent;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.faces.event.ValueChangeEvent;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class CalendarBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Locale locale;
     private boolean popup;
     private String pattern;

@@ -31,19 +31,19 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.easymock.IAnswer;
-import org.easymock.classextension.EasyMock;
-import org.jboss.test.faces.AbstractFacesTest;
+import org.easymock.EasyMock;
 import org.jboss.test.faces.mock.FacesMock;
+import org.richfaces.AbstractCDIFacesTest;
 
 /**
  * @author Nick Belaevski
  * @since 4.0
  */
 @SuppressWarnings("deprecation")
-public class AbstractCacheableResourceTest extends AbstractFacesTest {
+public class AbstractCacheableResourceTest extends AbstractCDIFacesTest {
     private static final int MILLISECONDS_IN_HOUR = 60 * 60 * 1000;
     /* HTTP Date format required by the HTTP/1.1 RFC */
     private static final String RFC1123_DATE_PATTERN = "EEE, dd MMM yyyy HH:mm:ss zzz";
@@ -177,8 +177,11 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         BooleanAnswer tagMatches = new BooleanAnswer();
         BooleanAnswer lastModifiedMatches = new BooleanAnswer();
         BooleanAnswer cacheable = new BooleanAnswer();
-        AbstractCacheableResource resource = FacesMock.createControl().createMock(AbstractTestResource.class,
-                AbstractTestResource.class.getDeclaredMethods());
+        // easymock 5 removed IMocksControl.createMock(Class, Method[]); build the
+        // partial mock via partialMockBuilder and attach it to the FacesMock control.
+        AbstractCacheableResource resource = EasyMock.partialMockBuilder(AbstractTestResource.class)
+                .addMockedMethods(AbstractTestResource.class.getDeclaredMethods())
+                .createMock(FacesMock.createControl());
 
         EasyMock.expect(resource.isCacheable(facesContext)).andStubAnswer(cacheable);
 

@@ -25,12 +25,12 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -230,15 +230,8 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
         updateState();
     }
 
-    @SuppressWarnings("deprecation")
-    public void setValueBinding(String name, javax.faces.el.ValueBinding binding) {
-        super.setValueBinding(name, binding);
-
-        // TODO nick - clientFirst?
-        if ("clientRows".equals(name)) {
-            updateState();
-        }
-    }
+    // NOTE: setValueBinding(ValueBinding) was deprecated JSF 1.x API removed in
+    // Faces 4.0; the setValueExpression override below carries the same logic.
 
     public void setValueExpression(String name, ValueExpression binding) {
         super.setValueExpression(name, binding);

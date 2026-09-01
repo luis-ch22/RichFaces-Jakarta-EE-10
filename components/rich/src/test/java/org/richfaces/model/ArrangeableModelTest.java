@@ -26,18 +26,20 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.faces.context.FacesContext;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModelEvent;
-import javax.faces.model.DataModelListener;
+import jakarta.el.ELContext;
+import jakarta.el.ExpressionFactory;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.ArrayDataModel;
+import jakarta.faces.model.DataModelEvent;
+import jakarta.faces.model.DataModelListener;
 
 import org.junit.Assert;
 
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.experimental.categories.Category;
+import org.richfaces.test.ContainerRequired;
 import org.junit.Test;
 import org.richfaces.component.SortOrder;
 import org.ajax4jsf.model.DataVisitResult;
@@ -50,6 +52,7 @@ import org.ajax4jsf.model.SequenceRange;
  * @author Konstantin Mishin
  *
  */
+@Category(ContainerRequired.class)
 public class ArrangeableModelTest extends AbstractFacesTest {
     public class User {
         private String fname;
@@ -167,7 +170,7 @@ public class ArrangeableModelTest extends AbstractFacesTest {
 
     /**
      * Test method for
-     * {@link org.richfaces.model.ArrangeableModel#walk(javax.faces.context.FacesContext, org.richfaces.model.DataVisitor, org.richfaces.model.Range, java.lang.Object)}
+     * {@link org.richfaces.model.ArrangeableModel#walk(jakarta.faces.context.FacesContext, org.richfaces.model.DataVisitor, org.richfaces.model.Range, java.lang.Object)}
      * .
      */
     @Test
@@ -190,8 +193,8 @@ public class ArrangeableModelTest extends AbstractFacesTest {
     }
 
     /**
-     * Test method for {@link org.richfaces.model.ArrangeableModel#addDataModelListener(javax.faces.model.DataModelListener)}
-     * {@link org.richfaces.model.ArrangeableModel#removeDataModelListener(javax.faces.model.DataModelListener)} and
+     * Test method for {@link org.richfaces.model.ArrangeableModel#addDataModelListener(jakarta.faces.model.DataModelListener)}
+     * {@link org.richfaces.model.ArrangeableModel#removeDataModelListener(jakarta.faces.model.DataModelListener)} and
      * {@link org.richfaces.model.ArrangeableModel#getDataModelListeners()}.
      */
     @Test

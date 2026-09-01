@@ -21,20 +21,23 @@
  */
 package org.richfaces.demo.misc;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 /**
  * @author nick
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
-public class JQueryBean {
+public class JQueryBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<String> componentsDataList;
     private List<String> emphasizedElements;
 

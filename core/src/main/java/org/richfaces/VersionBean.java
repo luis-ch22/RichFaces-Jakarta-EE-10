@@ -35,6 +35,9 @@ import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
+
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -44,8 +47,15 @@ import org.richfaces.log.RichfacesLogger;
  *
  * @author asmirnov@exadel.com (latest modification by $Author$)
  * @version $Revision$ $Date$
+ *
+ * Exposed to EL as #{richfacesVersion}. JSF managed-beans were removed in Faces
+ * 4.0, so this is now a CDI bean (was an application-scoped managed-bean in
+ * core.faces-config.xml). 'final' was removed so CDI can proxy the normal-scoped
+ * bean.
  */
-public final class VersionBean {
+@Named("richfacesVersion")
+@ApplicationScoped
+public class VersionBean {
     public static final Version VERSION = new Version();
 
     /**

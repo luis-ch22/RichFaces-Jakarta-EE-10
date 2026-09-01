@@ -24,6 +24,9 @@ package org.richfaces;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.rules.MethodRule;
@@ -101,6 +104,17 @@ public class FacesRequestSetupRule implements MethodRule {
         for (Entry<String, String> paramEntry : getInitParameters(method).entrySet()) {
             environment.getServer().addInitParameter(paramEntry.getKey(), paramEntry.getValue());
         }
+
+        // Faces 4.0 requires a CDI BeanManager at startup. Register our listener
+        // before start() (Mojarra's ConfigureListener is added inside start()), so
+        // ours runs first (StagingServer fires listeners FIFO) and publishes the
+        // BeanManager as a ServletContext attribute that Mojarra reads first.
+        environment.getServer().addWebListener(new ServletContextListener() {
+            @Override
+            public void contextInitialized(ServletContextEvent sce) {
+                CDITestEnvironment.install(sce.getServletContext());
+            }
+        });
 
         environment.start();
     }

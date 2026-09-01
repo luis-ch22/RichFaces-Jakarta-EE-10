@@ -8,10 +8,10 @@ import static org.junit.Assert.assertTrue;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.el.ValueExpression;
-import javax.faces.validator.BeanValidator;
-import javax.faces.validator.Validator;
-import javax.validation.groups.Default;
+import jakarta.el.ValueExpression;
+import jakarta.faces.validator.BeanValidator;
+import jakarta.faces.validator.Validator;
+import jakarta.validation.groups.Default;
 
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;

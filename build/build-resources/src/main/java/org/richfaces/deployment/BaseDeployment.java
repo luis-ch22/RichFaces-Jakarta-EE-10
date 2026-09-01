@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.faces.webapp.FacesServlet;
+import jakarta.faces.webapp.FacesServlet;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -98,7 +98,7 @@ public class BaseDeployment {
             .welcomeFile("faces/index.xhtml")
             .up()
             .getOrCreateContextParam()
-            .paramName("javax.faces.PROJECT_STAGE")
+            .paramName("jakarta.faces.PROJECT_STAGE")
             .paramValue("Development")
             .up()
             .getOrCreateServlet()

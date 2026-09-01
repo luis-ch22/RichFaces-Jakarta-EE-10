@@ -21,12 +21,15 @@
  */
 package org.richfaces.demo.core;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
-@ManagedBean
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
+@Named
 @SessionScoped
-public class AttachQueueBean {
+public class AttachQueueBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     String name;
 
     public String getName() {

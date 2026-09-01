@@ -21,13 +21,14 @@
  */
 package org.richfaces.demo.input;
 
+
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.annotation.PostConstruct;
 
 import org.richfaces.model.UploadedFile;
 import org.richfaces.event.FileUploadEvent;
@@ -35,7 +36,7 @@ import org.richfaces.event.FileUploadEvent;
 /**
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  */
-@ManagedBean(name = "richFileUploadBean2")
+@Named("richFileUploadBean2")
 @ViewScoped
 public class RichFileUploadBean implements Serializable {
 

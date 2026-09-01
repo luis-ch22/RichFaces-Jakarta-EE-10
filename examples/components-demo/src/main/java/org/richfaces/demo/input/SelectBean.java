@@ -22,6 +22,9 @@
 
 package org.richfaces.demo.input;
 
+
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
@@ -30,16 +33,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
 
 import org.richfaces.demo.model.person.Person;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class SelectBean implements Serializable {
 

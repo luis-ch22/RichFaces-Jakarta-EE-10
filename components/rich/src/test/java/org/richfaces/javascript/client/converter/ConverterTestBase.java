@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
 
-import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
-import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
+import org.htmlunit.corejs.javascript.JavaScriptException;
+import org.htmlunit.corejs.javascript.NativeObject;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import org.richfaces.javascript.client.MockTestBase;
 import org.richfaces.javascript.client.RunParameters;
 import org.richfaces.validator.ConverterServiceImpl;
 
-import com.gargoylesoftware.htmlunit.ScriptException;
+import org.htmlunit.ScriptException;
 
 public abstract class ConverterTestBase extends MockTestBase {
     public ConverterTestBase(RunParameters criteria) {

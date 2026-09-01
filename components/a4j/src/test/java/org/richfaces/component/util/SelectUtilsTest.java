@@ -3,13 +3,15 @@ package org.richfaces.component.util;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.faces.component.UIParameter;
-import javax.faces.component.UISelectItem;
-import javax.faces.component.UISelectOne;
-import javax.faces.model.SelectItem;
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.component.UISelectItem;
+import jakarta.faces.component.UISelectOne;
+import jakarta.faces.model.SelectItem;
 
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.Assert;
+import org.junit.experimental.categories.Category;
+import org.richfaces.test.ContainerRequired;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
@@ -18,6 +20,7 @@ import com.google.common.collect.Lists;
  * @author Gleb Galkin
  * @since 27.01.11
  */
+@Category(ContainerRequired.class)
 public class SelectUtilsTest extends AbstractFacesTest {
     @Override
     public void setUp() throws Exception {

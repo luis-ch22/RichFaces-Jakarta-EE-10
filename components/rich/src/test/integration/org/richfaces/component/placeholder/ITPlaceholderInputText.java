@@ -52,7 +52,7 @@ public class ITPlaceholderInputText extends AbstractPlaceholderTest {
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor input) {
                 return input.getOrCreateContextParam()
-                    .paramName("javax.faces.PROJECT_STAGE")
+                    .paramName("jakarta.faces.PROJECT_STAGE")
                     .paramValue("SystemTest")
                     .up();
             }

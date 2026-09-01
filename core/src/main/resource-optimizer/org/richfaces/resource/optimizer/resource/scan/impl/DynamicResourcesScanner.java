@@ -27,15 +27,11 @@ import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.Collection;
 
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.scanners.TypeAnnotationsScanner;
-import org.reflections.util.ConfigurationBuilder;
 import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.ResourceFactory;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.optimizer.resource.scan.ResourcesScanner;
-import org.richfaces.resource.optimizer.resource.scan.impl.reflections.MarkerResourcesScanner;
-import org.richfaces.resource.optimizer.resource.scan.impl.reflections.ReflectionsExt;
+import org.richfaces.resource.optimizer.resource.scan.impl.reflections.ClassGraphScanner;
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
 import org.richfaces.resource.optimizer.vfs.VFSType;
 
@@ -91,14 +87,11 @@ public class DynamicResourcesScanner implements ResourcesScanner {
             urls.add(url);
         }
 
-        ConfigurationBuilder configurationBuilder = new ConfigurationBuilder().setUrls(urls);
-        configurationBuilder.setScanners(new SubTypesScanner(), new TypeAnnotationsScanner(), new MarkerResourcesScanner());
-
-        ReflectionsExt refl = new ReflectionsExt(configurationBuilder);
         Collection<Class<?>> allClasses = Sets.newHashSet();
-
-        addAnnotatedClasses(DynamicUserResource.class, refl, allClasses);
-        allClasses.addAll(refl.getMarkedClasses());
+        try (ClassGraphScanner scanner = new ClassGraphScanner(urls)) {
+            addAnnotatedClasses(DynamicUserResource.class, scanner, allClasses);
+            allClasses.addAll(scanner.getMarkedClasses());
+        }
 
         allClasses = Collections2.filter(allClasses, UNINSTANTIATABLE_CLASSES_PREDICATE);
 
@@ -106,12 +99,11 @@ public class DynamicResourcesScanner implements ResourcesScanner {
         resources.addAll(resourceFactory.getMappedDynamicResourceKeys());
     }
 
-    private void addAnnotatedClasses(Class<? extends Annotation> annotationClass, ReflectionsExt refl,
+    private void addAnnotatedClasses(Class<? extends Annotation> annotationClass, ClassGraphScanner scanner,
             Collection<Class<?>> allClasses) {
-        // TODO - reflections library doesn't handle @Inherited correctly
-        for (Class<?> annotatedClass : refl.getTypesAnnotatedWith(annotationClass)) {
+        for (Class<?> annotatedClass : scanner.getTypesAnnotatedWith(annotationClass)) {
             allClasses.add(annotatedClass);
-            allClasses.addAll(refl.getSubTypesOf(annotatedClass));
+            allClasses.addAll(scanner.getSubTypesOf(annotatedClass));
         }
     }
 

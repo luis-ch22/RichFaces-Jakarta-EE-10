@@ -25,8 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.component.UIForm;
-import javax.faces.component.html.HtmlForm;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.html.HtmlForm;
 
 import org.ajax4jsf.component.UIPush;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;

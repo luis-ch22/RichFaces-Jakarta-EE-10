@@ -20,8 +20,8 @@
  */
 package org.ajax4jsf.component;
 
-import javax.faces.component.UIForm;
-import javax.faces.component.html.HtmlForm;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.html.HtmlForm;
 
 public class IncludeComponentTest extends org.ajax4jsf.tests.AbstractAjax4JsfTestCase {
     private UIForm form = null;

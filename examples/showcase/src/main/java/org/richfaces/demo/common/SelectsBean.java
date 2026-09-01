@@ -3,15 +3,15 @@ package org.richfaces.demo.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.faces.model.SelectItem;
 
 /**
  * @author Ilya Shaikovsky
  */
-@ManagedBean(name = "selectsBean")
+@Named("selectsBean")
 @RequestScoped
 public class SelectsBean {
     private static final String[] FRUITS = { "", "Banana", "Cranberry", "Blueberry", "Orange" };

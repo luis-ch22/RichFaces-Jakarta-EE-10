@@ -47,26 +47,69 @@
 
     <properties>
         <version.richfaces>5.0.0</version.richfaces>
+        <!-- ClassGraph (resource-optimizer scanner). Pinned here because
+             richfaces-core's parent is richfaces-parent (root pom), which does
+             not manage classgraph; without an explicit version the installed
+             richfaces-core POM is invalid for external consumers (transitive
+             deps such as guava/cssparser would not resolve). -->
+        <version.classgraph>4.8.174</version.classgraph>
     </properties>
 
     <dependencies>
 
-        <!-- Java EE Web Profile -->
+        <!-- Jakarta EE 10 Web Profile APIs (provided by the container/impl).
+             Replaces jboss-javaee-6.0. Faces API comes from the jsf profiles
+             below (Mojarra). -->
         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <type>pom</type>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.spec.javax.faces</groupId>
-                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>xalan</artifactId>
-                    <groupId>xalan</groupId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- JMS (optional push transport) and Transaction (optional jbosscache)
+             APIs. In the javax model these came from jboss-javaee-6.0 full
+             profile; the Web Profile BOM does not pull them transitively. -->
+        <dependency>
+            <groupId>jakarta.jms</groupId>
+            <artifactId>jakarta.jms-api</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <!-- Jakarta Activation (JAF). javax.activation was removed from the JDK
+             in Java 11; the resource-optimizer uses MimetypesFileTypeMap. -->
+        <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.transaction</groupId>
+            <artifactId>jakarta.transaction-api</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         
         <dependency>
@@ -75,10 +118,11 @@
         	<version>1.2.17</version>
         </dependency>
 
-        <!-- CDK -->
+        <!-- CDK (jakarta, albfernandez) -->
         <dependency>
-            <groupId>org.richfaces.cdk</groupId>
+            <groupId>com.github.albfernandez.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
+            <version>10.0.1</version>
             <scope>provided</scope>
         </dependency>
 
@@ -156,13 +200,29 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.easymock</groupId>
-            <artifactId>easymockclassextension</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Weld SE: real CDI 4.0 BeanManager for the test JVM. Faces 4.0
+             (Mojarra 4) requires CDI at startup; the test-jsf StagingServer has
+             no container, so we boot Weld SE and expose its BeanManager to the
+             mock ServletContext (see CDITestEnvironment). -->
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <version>5.1.7.Final</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Jakarta EL implementation (GlassFish RI, provides
+             com.sun.el.ExpressionFactoryImpl). At runtime the container supplies
+             the EL impl; in tests Mojarra 4's startup needs it on the classpath,
+             otherwise jakarta.el.ELManager fails with "Provider
+             com.sun.el.ExpressionFactoryImpl not found". -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <version>4.0.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -180,14 +240,9 @@
 
         <!-- Resource Optimizer -->
         <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.collections</groupId>
-                    <artifactId>google-collections</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+            <version>${version.classgraph}</version>
             <scope>compile</scope>
             <optional>true</optional>
         </dependency>
@@ -321,7 +376,7 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.richfaces.cdk</groupId>
+                        <groupId>com.github.albfernandez.richfaces.cdk</groupId>
                         <artifactId>richfaces-cdk-maven-plugin</artifactId>
                         <executions>
                             <execution>
@@ -345,17 +400,13 @@
                             </templates>
                         </configuration>
                         <dependencies>
+                            <!-- Faces 4.0 (jakarta.faces) so the CDK sees the
+                                 jakarta Faces API while generating. Replaces
+                                 jboss-javaee-6.0. -->
                             <dependency>
-                                <groupId>org.jboss.spec</groupId>
-                                <artifactId>jboss-javaee-6.0</artifactId>
-                                <version>${version.jboss-javaee}</version>
-                                <type>pom</type>
-                                <exclusions>
-                                    <exclusion>
-                                        <artifactId>xalan</artifactId>
-                                        <groupId>xalan</groupId>
-                                    </exclusion>
-                                </exclusions>
+                                <groupId>org.glassfish</groupId>
+                                <artifactId>jakarta.faces</artifactId>
+                                <version>${version.mojarra}</version>
                             </dependency>
                             <dependency>
                                 <groupId>com.github.luisch22.richfaces</groupId>
@@ -376,9 +427,10 @@
                 </property>
             </activation>
             <dependencies>
+                <!-- Mojarra 4.0 (jakarta.faces) — Faces 4.0 reference impl -->
                 <dependency>
                     <groupId>org.glassfish</groupId>
-                    <artifactId>javax.faces</artifactId>
+                    <artifactId>jakarta.faces</artifactId>
                     <scope>compile</scope>
                     <optional>true</optional>
                 </dependency>

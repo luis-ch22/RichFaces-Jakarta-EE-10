@@ -23,13 +23,29 @@ package org.richfaces.request;
 
 import java.io.IOException;
 
-import javax.servlet.ServletInputStream;
+import jakarta.servlet.ServletInputStream;
 
 class ProgressServletInputStream extends ServletInputStream {
     private ServletInputStream wrappedStream;
 
     protected ProgressServletInputStream(ServletInputStream wrappedStream) {
         this.wrappedStream = wrappedStream;
+    }
+
+    // Servlet 3.1+ abstract methods on ServletInputStream; delegate to the wrapped stream.
+    @Override
+    public boolean isFinished() {
+        return wrappedStream.isFinished();
+    }
+
+    @Override
+    public boolean isReady() {
+        return wrappedStream.isReady();
+    }
+
+    @Override
+    public void setReadListener(jakarta.servlet.ReadListener readListener) {
+        wrappedStream.setReadListener(readListener);
     }
 
     @Override

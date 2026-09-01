@@ -22,17 +22,18 @@
 
 package org.richfaces.demo.dnd;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 
+
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
 
 @RequestScoped
-@ManagedBean
+@Named
 public class DropListenerBean implements DropListener {
-    @ManagedProperty(value = "#{dndBean}")
+    @Inject
     private DndBean dndBean;
 
     public void setDndBean(DndBean dndBean) {

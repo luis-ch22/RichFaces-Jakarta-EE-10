@@ -37,22 +37,51 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <!-- Jakarta EE 10 Web Profile APIs (provided). Replaces jboss-javaee-6.0.
+             Faces (jakarta.faces) comes from the jsf_ri profile in the components
+             parent pom. -->
         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <type>pom</type>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.spec.javax.faces</groupId>
-                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- JSTL API (jakarta) for ForEachLoop's LoopTagStatus. Provided by the
+             container at runtime. -->
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>3.0.2</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces-core</artifactId>
+        </dependency>
+        <!-- Core test-jar: provides shared test support such as the
+             org.richfaces.test.ContainerRequired JUnit category marker used to
+             exclude container-dependent tests from the unit run. -->
+        <dependency>
+            <groupId>com.github.luisch22.richfaces</groupId>
+            <artifactId>richfaces-core</artifactId>
+            <version>${project.version}</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -63,7 +92,7 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.richfaces.cdk</groupId>
+                <groupId>com.github.albfernandez.richfaces.cdk</groupId>
                 <artifactId>richfaces-cdk-maven-plugin</artifactId>
             </plugin>
             <plugin>

@@ -1,5 +1,5 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:ui="http://java.sun.com/jsf/facelets" 
-    xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"  xmlns:ui="jakarta.faces.facelets" 
+    xmlns:rich="http://richfaces.org/rich" xmlns:c="jakarta.tags.core">
     <rich:panelMenu activeItem="#{demoNavigator.currentDemo.id}">
         <c:forEach items="#{demoNavigator.groups}" var="gr">
             <rich:panelMenuGroup label="#{gr.name}" rightExpandedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}"

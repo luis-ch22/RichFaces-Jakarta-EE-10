@@ -21,12 +21,13 @@
  */
 package org.richfaces.demo.jpa;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -39,13 +40,14 @@ import com.google.common.collect.Lists;
  * @author Nick Belaevski
  *
  */
-@ManagedBean(name = "rf10888")
+@Named("rf10888")
 @SessionScoped
-public class RF10888 {
+public class RF10888 implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String name;
     private String surname;
     private String email;
-    @ManagedProperty(value = "#{persistenceService}")
+    @Inject
     private PersistenceService persistenceService;
 
     public String getName() {

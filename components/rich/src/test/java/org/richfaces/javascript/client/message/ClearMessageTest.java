@@ -26,7 +26,7 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlElement;
 
 /**
  * <p class="changed_added_4_0">
@@ -43,7 +43,7 @@ public class ClearMessageTest extends MessageTestBase {
         setUpMessage();
         sendMessage();
         HtmlElement htmlElement = getMessageContentElement();
-        String text = htmlElement.asText();
+        String text = htmlElement.asNormalizedText();
         assertFalse(text.contains(ERROR_MESSAGE));
     }
 

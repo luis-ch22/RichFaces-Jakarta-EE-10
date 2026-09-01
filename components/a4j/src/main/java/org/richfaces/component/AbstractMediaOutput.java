@@ -22,11 +22,11 @@ package org.richfaces.component;
 
 import java.util.Date;
 
-import javax.el.MethodExpression;
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.component.UIOutput;
-import javax.faces.convert.Converter;
+import jakarta.el.MethodExpression;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.convert.Converter;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;

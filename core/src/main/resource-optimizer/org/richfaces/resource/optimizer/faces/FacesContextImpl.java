@@ -25,15 +25,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.el.ELContext;
-import javax.faces.application.Application;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseStream;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.RenderKit;
+import jakarta.el.ELContext;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseStream;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.render.RenderKit;
 
 /**
  * @author Nick Belaevski
@@ -63,7 +63,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#getClientIdsWithMessages()
+     * @see jakarta.faces.context.FacesContext#getClientIdsWithMessages()
      */
     @Override
     public Iterator<String> getClientIdsWithMessages() {
@@ -74,7 +74,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#getExternalContext()
+     * @see jakarta.faces.context.FacesContext#getExternalContext()
      */
     @Override
     public ExternalContextImpl getExternalContext() {
@@ -85,7 +85,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#getMaximumSeverity()
+     * @see jakarta.faces.context.FacesContext#getMaximumSeverity()
      */
     @Override
     public Severity getMaximumSeverity() {
@@ -96,7 +96,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#getMessages()
+     * @see jakarta.faces.context.FacesContext#getMessages()
      */
     @Override
     public Iterator<FacesMessage> getMessages() {
@@ -107,7 +107,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#getMessages(java.lang.String)
+     * @see jakarta.faces.context.FacesContext#getMessages(java.lang.String)
      */
     @Override
     public Iterator<FacesMessage> getMessages(String clientId) {
@@ -118,7 +118,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#getRenderKit()
+     * @see jakarta.faces.context.FacesContext#getRenderKit()
      */
     @Override
     public RenderKit getRenderKit() {
@@ -129,7 +129,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#getRenderResponse()
+     * @see jakarta.faces.context.FacesContext#getRenderResponse()
      */
     @Override
     public boolean getRenderResponse() {
@@ -140,7 +140,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#getResponseComplete()
+     * @see jakarta.faces.context.FacesContext#getResponseComplete()
      */
     @Override
     public boolean getResponseComplete() {
@@ -151,7 +151,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#getResponseStream()
+     * @see jakarta.faces.context.FacesContext#getResponseStream()
      */
     @Override
     public ResponseStream getResponseStream() {
@@ -162,7 +162,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#setResponseStream(javax.faces.context.ResponseStream)
+     * @see jakarta.faces.context.FacesContext#setResponseStream(jakarta.faces.context.ResponseStream)
      */
     @Override
     public void setResponseStream(ResponseStream responseStream) {
@@ -173,7 +173,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#getResponseWriter()
+     * @see jakarta.faces.context.FacesContext#getResponseWriter()
      */
     @Override
     public ResponseWriter getResponseWriter() {
@@ -184,7 +184,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#setResponseWriter(javax.faces.context.ResponseWriter)
+     * @see jakarta.faces.context.FacesContext#setResponseWriter(jakarta.faces.context.ResponseWriter)
      */
     @Override
     public void setResponseWriter(ResponseWriter responseWriter) {
@@ -195,7 +195,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#getViewRoot()
+     * @see jakarta.faces.context.FacesContext#getViewRoot()
      */
     @Override
     public UIViewRoot getViewRoot() {
@@ -206,7 +206,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#setViewRoot(javax.faces.component.UIViewRoot)
+     * @see jakarta.faces.context.FacesContext#setViewRoot(jakarta.faces.component.UIViewRoot)
      */
     @Override
     public void setViewRoot(UIViewRoot root) {
@@ -217,7 +217,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#addMessage(java.lang.String, javax.faces.application.FacesMessage)
+     * @see jakarta.faces.context.FacesContext#addMessage(java.lang.String, jakarta.faces.application.FacesMessage)
      */
     @Override
     public void addMessage(String clientId, FacesMessage message) {
@@ -228,7 +228,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#release()
+     * @see jakarta.faces.context.FacesContext#release()
      */
     @Override
     public void release() {
@@ -240,7 +240,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#renderResponse()
+     * @see jakarta.faces.context.FacesContext#renderResponse()
      */
     @Override
     public void renderResponse() {
@@ -251,7 +251,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#responseComplete()
+     * @see jakarta.faces.context.FacesContext#responseComplete()
      */
     @Override
     public void responseComplete() {
@@ -262,7 +262,7 @@ public class FacesContextImpl extends FacesContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.context.FacesContext#getAttributes()
+     * @see jakarta.faces.context.FacesContext#getAttributes()
      */
     @Override
     public Map<Object, Object> getAttributes() {
@@ -272,5 +272,12 @@ public class FacesContextImpl extends FacesContext {
     @Override
     public ELContext getELContext() {
         return elContext;
+    }
+
+    // Faces 4.0 added FacesContext.getLifecycle() as abstract; no-op for this
+    // build-time mock.
+    @Override
+    public jakarta.faces.lifecycle.Lifecycle getLifecycle() {
+        return null;
     }
 }

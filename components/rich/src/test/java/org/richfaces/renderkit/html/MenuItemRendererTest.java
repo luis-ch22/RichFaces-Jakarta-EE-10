@@ -34,8 +34,8 @@ import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.component.DropDownMenuBean;
 import org.xml.sax.SAXException;
 
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlDivision;
+import org.htmlunit.html.HtmlPage;
 
 public class MenuItemRendererTest extends RendererTestBase {
     @Override

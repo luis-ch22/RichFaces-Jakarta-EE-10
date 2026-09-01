@@ -23,8 +23,8 @@ package org.richfaces.webapp;
 
 import java.util.Map;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
 
 import org.atmosphere.cpr.ApplicationConfig;
 import org.atmosphere.cpr.AtmosphereHandler;
@@ -59,7 +59,7 @@ public final class PushServlet extends AtmosphereServlet {
     /*
      * (non-Javadoc)
      *
-     * @see org.atmosphere.cpr.AtmosphereServlet#init(javax.servlet.ServletConfig)
+     * @see org.atmosphere.cpr.AtmosphereServlet#init(jakarta.servlet.ServletConfig)
      */
     @Override
     public void init(final ServletConfig sc) throws ServletException {

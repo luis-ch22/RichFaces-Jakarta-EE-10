@@ -21,18 +21,21 @@
  */
 package org.richfaces.demo.core;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 import org.richfaces.component.LogMode;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 /**
  * @author Nick Belaevski
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
-public class LogBean {
+public class LogBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private static final LogMode[] LOG_MODES = new LogMode[] { LogMode.inline, LogMode.popup };
     private LogMode mode = LogMode.inline;
     private Character hotkey = 'l';

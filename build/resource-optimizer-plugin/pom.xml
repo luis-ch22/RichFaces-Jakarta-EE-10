@@ -43,6 +43,12 @@
         <version.plexus-utils>3.0.21</version.plexus-utils>
         <version.plexus-velocity>1.1.8</version.plexus-velocity>
         <version.plugin.plugin>3.13.1</version.plugin.plugin>
+        <!-- ClassGraph replaces the legacy Reflections 0.9.8 scanner (see the
+             richfaces-core resource-optimizer sources). ClassGraph reads Java 21
+             bytecode natively, so no Javassist pinning is needed. Version defined
+             locally because this module's parent is richfaces-parent, not
+             build/pom.xml, so build/pom.xml's version.classgraph is not in scope. -->
+        <version.classgraph>4.8.174</version.classgraph>
     </properties>
 
     <dependencies>
@@ -103,31 +109,51 @@
             <version>${version.plexus-velocity}</version>
         </dependency>
 
+        <!-- ClassGraph: classpath scanner used by the RichFaces resource
+             optimizer (replaces Reflections 0.9.8 + Javassist). Reads Java 21
+             bytecode natively. Version pinned explicitly so the installed plugin
+             POM is self-contained and resolvable by external consumers. -->
         <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.collections</groupId>
-                    <artifactId>google-collections</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+            <version>${version.classgraph}</version>
         </dependency>
 
+        <!-- Faces 4.0 (Mojarra, jakarta.faces) + Servlet API. Replaces
+             jboss-javaee-6.0. The resource optimizer scans RichFaces resource
+             classes which reference the jakarta.faces API. -->
         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <type>pom</type>
-            <exclusions>
-                <exclusion>
-                    <artifactId>xalan</artifactId>
-                    <groupId>xalan</groupId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.faces</artifactId>
         </dependency>
+        <!-- Compile scope (NOT provided): this is a Maven plugin, so the servlet
+             API must be on its runtime classpath. richfaces-core (jakarta)
+             references jakarta.servlet.Servlet when the optimizer boots. -->
         <dependency>
-            <groupId>org.jboss.el</groupId>
-            <artifactId>jboss-el</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+        </dependency>
+        <!-- Jakarta EL API: richfaces-core (jakarta) references jakarta.el.ELContext
+             at runtime when the optimizer boots the Faces mock. -->
+        <dependency>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+        </dependency>
+        <!-- Jakarta EL implementation (RI). Replaces jboss-el, whose
+             ExpressionFactoryImpl implements the old javax.el.ExpressionFactory
+             and cannot be cast to jakarta.el.ExpressionFactory. -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <version>4.0.2</version>
+        </dependency>
+        <!-- Jakarta Activation implementation (Angus). The optimizer uses
+             MimetypesFileTypeMap; the jakarta.activation API needs a runtime
+             provider (jakarta.activation.spi.MimeTypeRegistryProvider). -->
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-activation</artifactId>
+            <version>2.0.2</version>
         </dependency>
 
         <dependency>

@@ -21,16 +21,19 @@
  */
 package org.richfaces.demo.output;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 /**
  * @author akolonitsky
  * @since Dec 9, 2010
  */
-@ManagedBean
+@Named
 @SessionScoped
-public class CollapsiblePanel {
+public class CollapsiblePanel implements Serializable {
+    private static final long serialVersionUID = 1L;
     public CollapsiblePanel() {
     }
 

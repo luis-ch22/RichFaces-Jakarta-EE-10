@@ -24,7 +24,7 @@ package org.richfaces.resource;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import javax.faces.FacesException;
+import jakarta.faces.FacesException;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

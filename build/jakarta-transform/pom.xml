@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Helper POM (NOT part of the reactor) used only during migration Phase C to run
+  the Eclipse Transformer CLI over the RichFaces source tree (javax.* ->
+  jakarta.*). It declares the transformer CLI so its full classpath can be
+  materialized with dependency:copy-dependencies, then the CLI is invoked with
+  `java -cp`. This POM can be deleted once Phase C is done.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.luisch22.richfaces.tools</groupId>
+    <artifactId>jakarta-transform-tool</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>Jakarta Transform Tool (migration Phase C only)</name>
+
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+        <version.transformer.cli>1.0.0</version.transformer.cli>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.transformer</groupId>
+            <artifactId>org.eclipse.transformer.cli</artifactId>
+            <version>${version.transformer.cli}</version>
+        </dependency>
+    </dependencies>
+</project>

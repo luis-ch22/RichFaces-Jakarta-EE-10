@@ -22,15 +22,18 @@
 
 package org.richfaces.demo.dnd;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
-@ManagedBean
+@Named
 @SessionScoped
-public class DndBean {
+public class DndBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<String> dropValues = new ArrayList<String>();
     private String dragValue1 = "dragValue 1";
     private String dragValue2 = "dragValue 2";

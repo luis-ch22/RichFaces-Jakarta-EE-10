@@ -21,16 +21,19 @@
  */
 package org.richfaces.demo.core;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 /**
  * @author Konstantin Mishin
  *
  */
-@ManagedBean
+@Named
 @SessionScoped
-public class QueueBean {
+public class QueueBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int counter;
 
     public void increment() throws InterruptedException {

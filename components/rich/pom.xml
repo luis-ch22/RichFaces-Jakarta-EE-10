@@ -41,21 +41,23 @@
     </properties>
 
     <dependencies>
+        <!-- Jakarta EE 10 Web Profile APIs (provided). Replaces jboss-javaee-6.0.
+             Faces (jakarta.faces) comes from the jsf_ri profile in the components
+             parent pom. -->
         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <type>pom</type>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.spec.javax.faces</groupId>
-                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.spec.javax.el</groupId>
-                    <artifactId>jboss-el-api_2.2_spec</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -66,35 +68,72 @@
             <groupId>com.github.luisch22.richfaces</groupId>
             <artifactId>richfaces-a4j</artifactId>
         </dependency>
-
+        <!-- Core test-jar: provides shared test support such as the
+             org.richfaces.test.ContainerRequired JUnit category marker used to
+             exclude container-dependent tests from the unit run. -->
         <dependency>
-            <groupId>org.jboss.spec.javax.el</groupId>
-            <artifactId>jboss-el-api_3.0_spec</artifactId>
-            <version>1.0.1.Final</version>
+            <groupId>com.github.luisch22.richfaces</groupId>
+            <artifactId>richfaces-core</artifactId>
+            <version>${project.version}</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
+        <!-- Jakarta EL implementation (GlassFish RI) for tests: ELTestBase and
+             its subclasses build ValueExpressions via ExpressionFactory.newInstance(),
+             which needs a concrete EL implementation on the classpath. -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <version>4.0.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Guava: richfaces-core exposes it only transitively/optionally, but
+             rich's own main code (e.g. ClientScriptServiceImpl) and several tests
+             (DataTableDataChildrenIterator extends AbstractIterator, UploadedFile25
+             uses Multimap) reference Guava types directly, so declare it here so
+             it is on both the compile and test classpaths. -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <!-- Hibernate Validator 8.0.x is the Jakarta Bean Validation 3.0 reference
+             implementation (Jakarta EE 10). The bean-validation tests build a
+             Validator via Validation.buildDefaultValidatorFactory(), which needs a
+             provider on the classpath. -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.5.Final</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Jakarta Expression Language 5.0 API (provided) -->
+        <dependency>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
+        <!-- Jakarta Bean Validation 3.0 API (provided, optional) -->
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
 
-        <!-- JAXB runtime. On JDK 11+ JAXB was removed from the JDK, so the
-             internal impl (com.sun.xml.internal.bind.v2.ContextFactory) no
-             longer exists. ClientServiceConfigParser uses javax.xml.bind.JAXB
-             to parse csv.xml; provide the standalone JAXB 2.3 API + runtime
-             (still the javax.xml.bind namespace). -->
+        <!-- Jakarta XML Binding (JAXB) 4.0 API + runtime. JAXB was removed from
+             the JDK in Java 11. ClientServiceConfigParser uses the JAXB facade
+             to parse csv.xml at init; on Jakarta EE 10 this is the
+             jakarta.xml.bind namespace (migrated from javax.xml.bind in Phase C).
+             Versions managed by the jakartaee-bom (api) and version.jaxb (runtime). -->
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>2.3.1</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -128,7 +167,7 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.richfaces.cdk</groupId>
+                <groupId>com.github.albfernandez.richfaces.cdk</groupId>
                 <artifactId>richfaces-cdk-maven-plugin</artifactId>
             </plugin>
 

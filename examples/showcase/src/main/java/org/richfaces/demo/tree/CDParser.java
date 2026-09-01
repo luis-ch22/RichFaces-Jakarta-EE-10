@@ -3,15 +3,15 @@ package org.richfaces.demo.tree;
 import java.net.URL;
 import java.util.List;
 
-import javax.faces.FacesException;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.faces.FacesException;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
-@ManagedBean(name = "cdsParser")
+@Named("cdsParser")
 @ApplicationScoped
 public class CDParser {
     private List<CDXmlDescriptor> cdsList;

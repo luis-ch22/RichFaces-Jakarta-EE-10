@@ -8,17 +8,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.el.BeanELResolver;
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.FunctionMapper;
-import javax.el.ListELResolver;
-import javax.el.MapELResolver;
-import javax.el.ValueExpression;
-import javax.el.VariableMapper;
-import javax.faces.context.FacesContext;
+import jakarta.el.BeanELResolver;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.FunctionMapper;
+import jakarta.el.ListELResolver;
+import jakarta.el.MapELResolver;
+import jakarta.el.ValueExpression;
+import jakarta.el.VariableMapper;
+import jakarta.el.ExpressionFactory;
+import jakarta.faces.context.FacesContext;
 
-import org.jboss.el.ExpressionFactoryImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.richfaces.el.model.Bean;
@@ -108,7 +108,7 @@ public class ELTestBase {
         }
     }
 
-    protected ExpressionFactoryImpl expressionFactory;
+    protected ExpressionFactory expressionFactory;
     protected Bean bean;
     protected ELResolver elResolver;
     protected ELContext elContext;
@@ -117,7 +117,7 @@ public class ELTestBase {
 
     @Before
     public void setUp() throws Exception {
-        expressionFactory = new ExpressionFactoryImpl();
+        expressionFactory = ExpressionFactory.newInstance();
         bean = new Bean();
         person = new Person();
         bean.setString("foo");

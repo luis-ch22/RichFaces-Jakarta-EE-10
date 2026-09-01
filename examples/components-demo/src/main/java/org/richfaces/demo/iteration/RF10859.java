@@ -22,14 +22,15 @@
 
 package org.richfaces.demo.iteration;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
-@ManagedBean(name = "rf10859")
+@Named("rf10859")
 @SessionScoped
 public class RF10859 implements Serializable {
 

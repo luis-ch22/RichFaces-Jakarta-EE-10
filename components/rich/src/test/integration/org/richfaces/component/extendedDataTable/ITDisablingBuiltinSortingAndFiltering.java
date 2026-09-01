@@ -3,7 +3,7 @@ package org.richfaces.component.extendedDataTable;
 import java.net.URL;
 import java.util.List;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;

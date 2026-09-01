@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
 
 import org.richfaces.demo.tables.model.capitals.Capital;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class AutocompleteBean {
     private String value;
     private List<String> autocompleteList;
-    @ManagedProperty(value = "#{capitalsParser.capitalsList}")
+    @Inject
     private List<Capital> capitals;
 
     public AutocompleteBean() {

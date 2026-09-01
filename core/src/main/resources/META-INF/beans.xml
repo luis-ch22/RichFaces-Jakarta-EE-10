@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CDI descriptor for the RichFaces core library.
+
+  JSF managed-beans were removed in Faces 4.0, so RichFaces' EL-exposed beans are
+  now CDI beans: SkinBean (#{a4jSkin}, used by the .ecss skinning templates) and
+  VersionBean (#{richfacesVersion}). Both are @Named @ApplicationScoped.
+
+  bean-discovery-mode="annotated" (CDI 4.0 default) discovers beans that carry a
+  bean-defining annotation (e.g. @ApplicationScoped), which is exactly what those
+  two beans use. Shipping this descriptor in the core jar makes the beans
+  discoverable in any CDI-enabled container.
+-->
+<beans xmlns="https://jakarta.ee/xml/ns/jakartaee"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_0.xsd"
+       version="4.0" bean-discovery-mode="annotated">
+</beans>

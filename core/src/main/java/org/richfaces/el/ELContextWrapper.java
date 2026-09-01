@@ -23,10 +23,10 @@ package org.richfaces.el;
 
 import java.util.Locale;
 
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.FunctionMapper;
-import javax.el.VariableMapper;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.FunctionMapper;
+import jakarta.el.VariableMapper;
 
 /**
  * @author asmirnov
@@ -47,7 +47,7 @@ public class ELContextWrapper extends ELContext {
     /*
      * (non-Javadoc)
      *
-     * @see javax.el.ELContext#getELResolver()
+     * @see jakarta.el.ELContext#getELResolver()
      */
     @Override
     public ELResolver getELResolver() {
@@ -56,7 +56,7 @@ public class ELContextWrapper extends ELContext {
 
     /**
      * @return
-     * @see javax.el.ELContext#getFunctionMapper()
+     * @see jakarta.el.ELContext#getFunctionMapper()
      */
     public FunctionMapper getFunctionMapper() {
         return parent.getFunctionMapper();
@@ -64,7 +64,7 @@ public class ELContextWrapper extends ELContext {
 
     /**
      * @return
-     * @see javax.el.ELContext#getVariableMapper()
+     * @see jakarta.el.ELContext#getVariableMapper()
      */
     public VariableMapper getVariableMapper() {
         return parent.getVariableMapper();
@@ -73,7 +73,7 @@ public class ELContextWrapper extends ELContext {
     /**
      * @param key
      * @return
-     * @see javax.el.ELContext#getContext(java.lang.Class)
+     * @see jakarta.el.ELContext#getContext(java.lang.Class)
      */
     public Object getContext(Class key) {
         return parent.getContext(key);
@@ -82,7 +82,7 @@ public class ELContextWrapper extends ELContext {
     /**
      * @param key
      * @param contextObject
-     * @see javax.el.ELContext#putContext(java.lang.Class, java.lang.Object)
+     * @see jakarta.el.ELContext#putContext(java.lang.Class, java.lang.Object)
      */
     public void putContext(Class key, Object contextObject) {
         parent.putContext(key, contextObject);

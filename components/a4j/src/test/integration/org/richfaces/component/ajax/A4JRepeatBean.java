@@ -21,11 +21,11 @@
  *******************************************************************************/
 package org.richfaces.component.ajax;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;

@@ -21,18 +21,21 @@
  */
 package org.richfaces.demo.input;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
 import org.richfaces.component.InputNumberSliderHandleType;
 import org.richfaces.component.InputNumberSliderInputPosition;
 
 import java.util.Date;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 
-@ManagedBean(name = "inputNumberSliderBean")
+@Named("inputNumberSliderBean")
 @SessionScoped
-public class InputNumberSliderBean {
+public class InputNumberSliderBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private double value;
     private String accesskey;
     private int delay = 200;

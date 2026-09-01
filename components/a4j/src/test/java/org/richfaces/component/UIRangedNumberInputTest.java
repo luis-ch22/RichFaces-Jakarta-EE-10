@@ -21,7 +21,10 @@
 package org.richfaces.component;
 
 import org.jboss.test.faces.AbstractFacesTest;
+import org.junit.experimental.categories.Category;
+import org.richfaces.test.ContainerRequired;
 
+@Category(ContainerRequired.class)
 public class UIRangedNumberInputTest extends AbstractFacesTest {
     private UIRangedNumberInput input;
 

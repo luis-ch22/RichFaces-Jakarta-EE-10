@@ -1,6 +1,28 @@
 How To Run Framework Tests
 ==========================
 
+> **Jakarta EE 10 / JDK 21 (current).** The modern integration test lives in the
+> standalone module **`integration-tests-jakarta/`** and runs on **WildFly 35**
+> (managed, Jakarta EE 10) with **Chrome headless driven by Selenium 4**
+> (Selenium Manager auto-provisions the driver — no PhantomJS, no Graphene):
+>
+> ```
+> mvn -f integration-tests-jakarta/pom.xml -Pit-wildfly verify
+> ```
+>
+> It deploys a minimal WAR with `<rich:panel>` + `<a4j:commandButton>` and
+> asserts render + Ajax in a real browser. The unit-test baseline runs with
+> `mvn -pl core,components/a4j,components/rich test` (container-dependent tests
+> are excluded via the `ContainerRequired` category). CI runs on GitHub Actions
+> with Temurin 21 (`.github/workflows/build.yml`).
+>
+> The section below documents the **legacy** Graphene/PhantomJS/Drone suite,
+> kept for reference/incremental port; it is not used by the current CI.
+
+---
+
+## Legacy framework tests (Graphene / PhantomJS — reference only)
+
 Framework tests allow you to run a set of Arquillian-based tests using the Graphene and Warp extensions on supported browsers and containers.
 
 The supported container matrix is:
@@ -17,12 +39,12 @@ The supported container matrix is:
 
 Note: for specific supported versions consult the pom.xml
 
-The supported browser matrix is:
+The supported browser matrix (legacy suite) was:
 
-* PhantomJS (default)
+* Chrome headless (Selenium 4) — the modern default, see the Jakarta note above
 * Chrome
 * Firefox
-* others (TBD)
+* ~~PhantomJS~~ (discontinued in 2018; removed — replaced by Chrome headless)
 
 TL;DR
 =====
@@ -144,7 +166,8 @@ To switch the browser used in test execution, you can use the following Maven pr
 
     -Dbrowser=chrome
 
-By default, tests will use headless browser `phantomjs`.
+By default, the modern `integration-tests-jakarta` suite uses headless `chrome`
+(Selenium 4). The legacy default `phantomjs` has been removed.
 
 
 Using reusable Selenium session

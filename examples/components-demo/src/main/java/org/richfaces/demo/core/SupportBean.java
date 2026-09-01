@@ -22,14 +22,15 @@
 
 package org.richfaces.demo.core;
 
+
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.event.AjaxBehaviorEvent;
+import jakarta.faces.event.AjaxBehaviorEvent;
 
 @SessionScoped
-@ManagedBean(name = "supportBean")
+@Named("supportBean")
 public class SupportBean implements Serializable {
     private static final long serialVersionUID = -110973149750159911L;
     private String text1;

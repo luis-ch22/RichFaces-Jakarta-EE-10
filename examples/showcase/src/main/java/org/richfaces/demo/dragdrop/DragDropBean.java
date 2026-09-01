@@ -8,8 +8,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 
 import org.richfaces.demo.dragdrop.Framework.Family;
 
@@ -17,7 +17,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 
-@ManagedBean
+@Named
 @ViewScoped
 public class DragDropBean implements Serializable {
     private static final long serialVersionUID = 1416925735640720492L;

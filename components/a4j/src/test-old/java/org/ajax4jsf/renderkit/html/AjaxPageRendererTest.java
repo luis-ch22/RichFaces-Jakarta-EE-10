@@ -25,10 +25,10 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.faces.component.UIOutput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;

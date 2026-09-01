@@ -42,16 +42,19 @@ import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.experimental.categories.Category;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
+import org.richfaces.test.ContainerRequired;
 import org.xml.sax.SAXException;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 
 /**
  * @author akolonitsky
  * @since Oct 22, 2010
  */
+@Category(ContainerRequired.class)
 public abstract class RendererTestBase {
     static {
         XMLUnit.setNormalizeWhitespace(true);

@@ -1,0 +1,37 @@
+name: build
+
+# CI for the Jakarta EE 10 / JDK 21 migration of RichFaces
+# (replaces the retired .travis.yml, which was pinned to JDK 8).
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build (Temurin 21)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      # Library reactor: BOM, build tooling, core and components (a4j, rich),
+      # dist. Tests are skipped here (the unit baseline and the
+      # integration-tests-jakarta module are run in dedicated jobs / on demand).
+      - name: Build library (skip tests)
+        run: mvn -B -ntp -Dmaven.test.skip=true -Dgpg.skip=true clean install
+
+      # Unit test baseline for core, a4j and rich (container-dependent tests are
+      # excluded via the ContainerRequired category / unit.test.excludedGroups).
+      - name: Unit tests (core, a4j, rich)
+        run: mvn -B -ntp -Dgpg.skip=true -pl core,components/a4j,components/rich test

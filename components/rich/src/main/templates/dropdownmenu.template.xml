@@ -16,7 +16,7 @@
         <cdk:object name="style" value="#{component.attributes['style']}" />
         <cdk:object name="styleClass" value="#{not empty component.attributes['styleClass'] ? component.attributes['styleClass']:''}" />
 
-        <cdk:object name="label" value="#{getLabelFacet(facesContext, component)}" type="javax.faces.component.UIComponent" />
+        <cdk:object name="label" value="#{getLabelFacet(facesContext, component)}" type="jakarta.faces.component.UIComponent" />
         <cdk:object name="isDisabled" type="boolean" value="#{isDisabled(facesContext, component)}" />
         <cdk:object name="menuGroups" value="#{getMenuGroups(facesContext, component)}" />
 
