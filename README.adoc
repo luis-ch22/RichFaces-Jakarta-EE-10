@@ -1,6 +1,6 @@
 image::https://raw.github.com/richfaces/docs/4.3.1.20130305-Final/Component_Reference/src/main/docbook/en-US/images/rf_logo.png[[RichFaces Project Logo]
 
-RichFaces 4.6 image:https://travis-ci.org/albfernandez/richfaces.png?branch=upgrade_to_jquery_3[alt="Build Status", link="https://travis-ci.org/albfernandez/richfaces"]
+RichFaces 5.0.0 (Java 21) image:https://github.com/luis-ch22/RichFaces_Java_21/actions/workflows/build.yml/badge.svg[alt="Build Status", link="https://github.com/luis-ch22/RichFaces_Java_21/actions/workflows/build.yml"]
 
 '''
 
@@ -33,9 +33,9 @@ Build System::  Maven
 
 * http://richfaces.org[Original Project Site]
 * http://docs.jboss.org/richfaces/[Documentation]
-* https://github.com/albfernandez/richfaces/issues[Issue Tracker]
+* https://github.com/luis-ch22/RichFaces_Java_21/issues[Issue Tracker]
 * https://developer.jboss.org/en/richfaces/content[User Forums]
-* https://travis-ci.org/albfernandez/richfaces/builds[Continuous Integration] image:https://travis-ci.org/albfernandez/richfaces.png?branch=upgrade_to_jquery_3[alt="Build Status", link="https://travis-ci.org/albfernandez/richfaces"]
+* https://github.com/luis-ch22/RichFaces_Java_21/actions/workflows/build.yml[Continuous Integration] image:https://github.com/luis-ch22/RichFaces_Java_21/actions/workflows/build.yml/badge.svg[alt="Build Status", link="https://github.com/luis-ch22/RichFaces_Java_21/actions/workflows/build.yml"]
 
 == Getting Started
 
@@ -52,7 +52,7 @@ To use the RichFaces framework in your JSF maven application, simply add the fol
 
 NOTE: Prior releases of RichFaces required using a BOM to manage the project dependencies.  With RichFaces 4.5 all required dependencies are managed transitively, simplifying your project setup.
 
-Alternatively, if you are not using maven, you can download the project ZIP distribution from the https://github.com/albfernandez/richfaces/releases[Download Page] and manually include the dependencies in your classpath.
+Alternatively, if you are not using maven, you can download the project ZIP distribution from the https://github.com/luis-ch22/RichFaces_Java_21/releases[Download Page] and manually include the dependencies in your classpath.
 
 Once you have included the RichFaces dependency in your application, you can start developing by adding a JSF page which includes the RichFaces taglib references:
 
@@ -74,7 +74,7 @@ For more information on how to get started with the project, see the http://docs
 
 === Clone the Project
 
-    $ git clone git@github.albfernandez/richfaces.git
+    $ git clone https://github.com/luis-ch22/RichFaces_Java_21.git
 
 === Prerequsities:
 
@@ -143,7 +143,7 @@ If you are using Eclipse, you should use `Import Existing Maven Project` option.
 
 RichFaces has extensive framework test suite which validates compatibility with various browsers and application servers.
 
-For more information on how to run and develop this test suite, see https://github.com/albfernandez/richfaces/blob/master/TESTS.md[Framework Tests] document.
+For more information on how to run and develop this test suite, see the link:TESTS.md[Framework Tests] document.
 
 === Running Smoke Tests
 

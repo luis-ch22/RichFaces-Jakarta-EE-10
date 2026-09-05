@@ -72,7 +72,7 @@
         change very rarely.
     </description>
 
-    <url>https://github.com/albfernandez/richfaces</url>
+    <url>https://github.com/luis-ch22/RichFaces_Java_21</url>
 
     <licenses>
         <license>
@@ -84,7 +84,26 @@
 
     <developers>
         <developer>
+            <id>luis-ch22</id>
+            <name>Luis (luis-ch22)</name>
+            <url>https://github.com/luis-ch22</url>
+            <roles>
+                <role>Maintainer of the Java 21 / Jakarta EE 10 fork (5.0.0)</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>albfernandez</id>
+            <name>Alberto Fernández</name>
+            <url>https://github.com/albfernandez</url>
+            <roles>
+                <role>Author of the upstream fork (4.6.x) and the Jakarta CDK</role>
+            </roles>
+        </developer>
+        <developer>
             <name>RichFaces committers</name>
+            <roles>
+                <role>Original JBoss RichFaces project</role>
+            </roles>
         </developer>
     </developers>
 
@@ -93,13 +112,13 @@
 
     <!-- SCM and distribution management -->
 	<scm>
-		<connection>scm:git:git@github.com:albfernandez/richfaces.git</connection>
-		<developerConnection>scm:git:git@github.com:albfernandez/richfaces.git</developerConnection>
-		<url>git@github.com:albfernandez/richfaces.git</url>
+		<connection>scm:git:git@github.com:luis-ch22/RichFaces_Java_21.git</connection>
+		<developerConnection>scm:git:git@github.com:luis-ch22/RichFaces_Java_21.git</developerConnection>
+		<url>https://github.com/luis-ch22/RichFaces_Java_21</url>
 	</scm>
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/albfernandez/richfaces/issues</url>
+		<url>https://github.com/luis-ch22/RichFaces_Java_21/issues</url>
 	</issueManagement>
 
     <properties>
