@@ -36,7 +36,7 @@
         RichFaces Framework users.
     </description>
 
-    <url>https://github.com/albfernandez/richfaces</url>
+    <url>https://github.com/luis-ch22/RichFaces-Jakarta-EE-10</url>
 
     <licenses>
         <license>
@@ -53,13 +53,13 @@
     </developers>
 
 	<scm>
-		<connection>scm:git:git@github.com:albfernandez/richfaces.git</connection>
-		<developerConnection>scm:git:git@github.com:albfernandez/richfaces.git</developerConnection>
-		<url>git@github.com:albfernandez/richfaces.git</url>
+		<connection>scm:git:git@github.com:luis-ch22/RichFaces-Jakarta-EE-10.git</connection>
+		<developerConnection>scm:git:git@github.com:luis-ch22/RichFaces-Jakarta-EE-10.git</developerConnection>
+		<url>git@github.com:luis-ch22/RichFaces-Jakarta-EE-10.git</url>
 	</scm>
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/albfernandez/richfaces/issues</url>
+		<url>https://github.com/luis-ch22/RichFaces-Jakarta-EE-10/issues</url>
 	</issueManagement>
 
     <properties>

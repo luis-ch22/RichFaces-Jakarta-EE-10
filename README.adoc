@@ -1,13 +1,13 @@
 image::https://raw.github.com/richfaces/docs/4.3.1.20130305-Final/Component_Reference/src/main/docbook/en-US/images/rf_logo.png[[RichFaces Project Logo]
 
-RichFaces 5.0.0 (Java 21) image:https://github.com/luis-ch22/RichFaces_Java_21/actions/workflows/build.yml/badge.svg[alt="Build Status", link="https://github.com/luis-ch22/RichFaces_Java_21/actions/workflows/build.yml"]
+RichFaces 5.0.0 (Java 21) image:https://github.com/luis-ch22/RichFaces-Jakarta-EE-10/actions/workflows/build.yml/badge.svg[alt="Build Status", link="https://github.com/luis-ch22/RichFaces-Jakarta-EE-10/actions/workflows/build.yml"]
 
 '''
 
 [NOTE]
 ====
 *RichFaces Java 21 edition (version 5.0.0)* — maintained at
-https://github.com/luis-ch22/RichFaces_Java_21[luis-ch22/RichFaces_Java_21].
+https://github.com/luis-ch22/RichFaces-Jakarta-EE-10[luis-ch22/RichFaces-Jakarta-EE-10].
 
 This is a fork of https://github.com/albfernandez/richfaces[albfernandez/richfaces]
 (itself a fork of the discontinued JBoss RichFaces 4.5), migrated to build and
@@ -33,9 +33,9 @@ Build System::  Maven
 
 * http://richfaces.org[Original Project Site]
 * http://docs.jboss.org/richfaces/[Documentation]
-* https://github.com/luis-ch22/RichFaces_Java_21/issues[Issue Tracker]
+* https://github.com/luis-ch22/RichFaces-Jakarta-EE-10/issues[Issue Tracker]
 * https://developer.jboss.org/en/richfaces/content[User Forums]
-* https://github.com/luis-ch22/RichFaces_Java_21/actions/workflows/build.yml[Continuous Integration] image:https://github.com/luis-ch22/RichFaces_Java_21/actions/workflows/build.yml/badge.svg[alt="Build Status", link="https://github.com/luis-ch22/RichFaces_Java_21/actions/workflows/build.yml"]
+* https://github.com/luis-ch22/RichFaces-Jakarta-EE-10/actions/workflows/build.yml[Continuous Integration] image:https://github.com/luis-ch22/RichFaces-Jakarta-EE-10/actions/workflows/build.yml/badge.svg[alt="Build Status", link="https://github.com/luis-ch22/RichFaces-Jakarta-EE-10/actions/workflows/build.yml"]
 
 == Getting Started
 
@@ -52,7 +52,7 @@ To use the RichFaces framework in your JSF maven application, simply add the fol
 
 NOTE: Prior releases of RichFaces required using a BOM to manage the project dependencies.  With RichFaces 4.5 all required dependencies are managed transitively, simplifying your project setup.
 
-Alternatively, if you are not using maven, you can download the project ZIP distribution from the https://github.com/luis-ch22/RichFaces_Java_21/releases[Download Page] and manually include the dependencies in your classpath.
+Alternatively, if you are not using maven, you can download the project ZIP distribution from the https://github.com/luis-ch22/RichFaces-Jakarta-EE-10/releases[Download Page] and manually include the dependencies in your classpath.
 
 Once you have included the RichFaces dependency in your application, you can start developing by adding a JSF page which includes the RichFaces taglib references:
 
@@ -74,7 +74,7 @@ For more information on how to get started with the project, see the http://docs
 
 === Clone the Project
 
-    $ git clone https://github.com/luis-ch22/RichFaces_Java_21.git
+    $ git clone https://github.com/luis-ch22/RichFaces-Jakarta-EE-10.git
 
 === Prerequsities:
 
