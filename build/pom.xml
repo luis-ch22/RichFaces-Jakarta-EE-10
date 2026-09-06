@@ -69,7 +69,7 @@
              Declared here too because richfaces-build does not inherit from the
              reactor root. -->
         <groupId.cdk>com.github.albfernandez.richfaces.cdk</groupId.cdk>
-        <version.cdk>10.0.1</version.cdk>
+        <version.cdk>10.0.2-SNAPSHOT</version.cdk>
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
         <!-- Jakarta EE 10 (Faces 4.0) - migration Phase B.

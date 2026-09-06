@@ -43,7 +43,15 @@
         <module>build/build-resources</module>
         <module>build/page-fragments</module>
         <module>build/push-depchain</module>
-        <module>build/push-native-depchain</module>
+        <!-- push-native-depchain DESHABILITADO: org.atmosphere:atmosphere-runtime-native:3.0.15
+             no existe en ningún repo configurado (ni JBoss Nexus ni Maven Central) -
+             solo hay marcadores .lastUpdated de resolución fallida en el .m2. Al ser
+             parte del reactor, cualquier invocación de Maven que necesite resolver
+             el grafo completo de dependencias (p.ej. sonar-maven-plugin:sonar sobre
+             todos los módulos) falla por esto, aunque "mvn install" normal solo lo
+             marca UNSTABLE porque el resto de módulos ya se instalaron antes de
+             llegar a este. Reactivar solo si se localiza una fuente real del jar. -->
+        <!-- <module>build/push-native-depchain</module> -->
         <module>build/resource-optimizer-plugin</module>
 
         <module>core</module>
@@ -134,7 +142,7 @@
         <!-- Jakarta CDK (albfernandez): generates jakarta.faces.* code. groupId
              changed from org.richfaces.cdk to com.github.albfernandez.richfaces.cdk. -->
         <groupId.cdk>com.github.albfernandez.richfaces.cdk</groupId.cdk>
-        <version.cdk>10.0.1</version.cdk>
+        <version.cdk>10.0.2-SNAPSHOT</version.cdk>
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
         <!-- Jakarta EE 10 (Faces 4.0) - migration Phase B -->
