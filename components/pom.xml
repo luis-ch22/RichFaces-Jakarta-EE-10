@@ -87,7 +87,7 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <groupId>com.github.albfernandez.richfaces.cdk</groupId>
+                    <groupId>com.github.luisch22.richfaces.cdk</groupId>
                     <artifactId>richfaces-cdk-maven-plugin</artifactId>
                     <executions>
                         <execution>
@@ -131,7 +131,7 @@
                         <requirePluginVersions>
                             <!-- During development SNAPSHOT versions of the CDK plugin are used.
                                  This setting ignores the no SNAPSHOT rule for the CDK  -->
-                            <unCheckedPluginList>com.github.albfernandez.richfaces.cdk:richfaces-cdk-maven-plugin, com.github.luisch22.richfaces:richfaces-resource-optimizer-maven-plugin</unCheckedPluginList>
+                            <unCheckedPluginList>com.github.luisch22.richfaces.cdk:richfaces-cdk-maven-plugin, com.github.luisch22.richfaces:richfaces-resource-optimizer-maven-plugin</unCheckedPluginList>
                         </requirePluginVersions>
                     </rules>
                 </configuration>
@@ -147,7 +147,7 @@
                  execution is inherited by the a4j and rich modules (which declare
                  the plugin in their own build/plugins). -->
             <plugin>
-                <groupId>com.github.albfernandez.richfaces.cdk</groupId>
+                <groupId>com.github.luisch22.richfaces.cdk</groupId>
                 <artifactId>richfaces-cdk-maven-plugin</artifactId>
                 <executions>
                     <execution>
@@ -171,7 +171,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.albfernandez.richfaces.cdk</groupId>
+            <groupId>com.github.luisch22.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
             <version>${version.cdk}</version>
             <scope>provided</scope>

@@ -167,7 +167,7 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>com.github.albfernandez.richfaces.cdk</groupId>
+                <groupId>com.github.luisch22.richfaces.cdk</groupId>
                 <artifactId>richfaces-cdk-maven-plugin</artifactId>
             </plugin>
 
