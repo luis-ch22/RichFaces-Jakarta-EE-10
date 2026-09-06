@@ -53,9 +53,9 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         DEL: 46
     };
 
-    if (window.jsf) {
-        var jsfAjaxRequest = jsf.ajax.request;
-        var jsfAjaxResponse = jsf.ajax.response;
+    if (window.faces) {
+        var jsfAjaxRequest = faces.ajax.request;
+        var jsfAjaxResponse = faces.ajax.response;
     }
 
     // get DOM element by id or DOM element or jQuery object
@@ -606,7 +606,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
         var form = getFormElement(sourceElement);
         if (window.mojarra && form && form.enctype == "multipart/form-data"
-            && jsf.specversion > 20000) {
+            && faces.specversion > 20000) {
             var input, name, value;
                 rf.requestParams = [];
             // RF-13828: when inside multipart/form-data create hidden inputs for request parameters
@@ -634,7 +634,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             }
         }
 
-        // propagates some options to process it in jsf.ajax.request
+        // propagates some options to process it in faces.ajax.request
         parameters.rfExt = {};
         parameters.rfExt.status = options.status;
         for (var eventName in AJAX_EVENTS) {
@@ -643,11 +643,11 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             }
         }
 
-        jsf.ajax.request(source, event, parameters);
+        faces.ajax.request(source, event, parameters);
     };
 
-    if (window.jsf) {
-        jsf.ajax.request = function request(source, event, options) {
+    if (window.faces) {
+        faces.ajax.request = function request(source, event, options) {
 
             // build parameters, taking options.rfExt into consideration
             var parameters = $.extend({}, options);
@@ -716,7 +716,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             return jsfAjaxRequest(source, event, parameters);
         };
 
-        jsf.ajax.response = function(request, context) {
+        faces.ajax.response = function(request, context) {
             // for all RichFaces.ajax requests
             if (context.render == '@component') {
                 // get list of IDs updated on the server - replaces @render option which is normally available on client
@@ -771,8 +771,8 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             return false;
         }
 
-        if (jsf.separatorchar) { // only in JSF 2.2+
-            return id[prefix.length] == jsf.separatorchar;
+        if (faces.separatorchar) { // only in JSF 2.2+
+            return id[prefix.length] == faces.separatorchar;
         } else { 
             // only alphanumeric characters (and '-' and '_') are allowed in id
             // a character not matching those is probably the separator
@@ -796,7 +796,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         } else if (typeof source === 'object') {
             return source;
         } else {
-            throw new Error("jsf.request: source must be object or string");
+            throw new Error("faces.ajax.request: source must be object or string");
         }
     };
 
@@ -839,8 +839,8 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
     var attachAjaxDOMCleaner = function() {
         // move this code to somewhere
-        if (typeof jsf != 'undefined' && jsf.ajax) {
-            jsf.ajax.addOnEvent(ajaxOnComplete);
+        if (typeof faces != 'undefined' && faces.ajax) {
+            faces.ajax.addOnEvent(ajaxOnComplete);
 
             return true;
         }

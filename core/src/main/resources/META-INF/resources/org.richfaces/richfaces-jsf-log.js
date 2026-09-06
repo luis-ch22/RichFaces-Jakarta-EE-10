@@ -20,8 +20,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-if (typeof jsf != 'undefined') {
-    (function($, rf, jsf) {
+if (typeof faces != 'undefined') {
+    (function($, rf, faces) {
 
         //JSF log adapter
         var identifyElement = function(elt) {
@@ -118,9 +118,9 @@ if (typeof jsf != 'undefined') {
                 error: jsfAjaxLogAdapter
             });
 
-        jsf.ajax.addOnEvent(eventsListener);
-        jsf.ajax.addOnError(eventsListener);
+        faces.ajax.addOnEvent(eventsListener);
+        faces.ajax.addOnError(eventsListener);
         //
-    }(RichFaces.jQuery, RichFaces, jsf));
+    }(RichFaces.jQuery, RichFaces, faces));
 }
 ;

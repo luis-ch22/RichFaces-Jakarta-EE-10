@@ -97,9 +97,9 @@
                     }
                 });
 
-            jsf.ajax.addOnEvent(jsfEventsListener);
+            faces.ajax.addOnEvent(jsfEventsListener);
             //TODO blocks default alert error handler
-            jsf.ajax.addOnError(jsfEventsListener);
+            faces.ajax.addOnError(jsfEventsListener);
         }
     };
 

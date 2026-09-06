@@ -279,8 +279,8 @@
     var $super = rf.HtmlLog.$super;
 
     $(document).ready(function() {
-        if (typeof jsf != 'undefined') {
-            (function($, rf, jsf) {
+        if (typeof faces != 'undefined') {
+            (function($, rf, faces) {
 
                 //JSF log adapter
                 var identifyElement = function(elt) {
@@ -386,10 +386,10 @@
                         error: jsfAjaxLogAdapter
                     });
 
-                jsf.ajax.addOnEvent(eventsListener);
-                jsf.ajax.addOnError(eventsListener);
+                faces.ajax.addOnEvent(eventsListener);
+                faces.ajax.addOnError(eventsListener);
                 //
-            }($, rf, jsf));
+            }($, rf, faces));
         }
     });
 

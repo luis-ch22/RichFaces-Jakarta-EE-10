@@ -24,7 +24,7 @@
  * @author Pavel Yaschenko
  */
 
-(function($, rf, jsf) {
+(function($, rf, faces) {
 
     /**
      * RichFaces Ajax container
@@ -40,35 +40,35 @@
     }
 
     /**
-     * JSF 2.0 original method that sends an asynchronous ajax request to the server
-     * see jsf.ajax.request method for parameter's description
+     * Jakarta Faces original method that sends an asynchronous ajax request to the server
+     * see faces.ajax.request method for parameter's description
      * @function
      * @name RichFaces.ajaxContainer.jsfRequest
      *
      * */
-    rf.ajaxContainer.jsfRequest = jsf.ajax.request;
+    rf.ajaxContainer.jsfRequest = faces.ajax.request;
 
     /**
-     * RichFaces wrapper function of JSF 2.0 original method jsf.ajax.request
+     * RichFaces wrapper function of Jakarta Faces original method faces.ajax.request
      * @function
-     * @name jsf.ajax.request
+     * @name faces.ajax.request
      *
      * @param {string|DOMElement} source - The DOM element or an id that triggered this ajax request
      * @param {object} [event] - The DOM event that triggered this ajax request
      * @param {object} [options] - The set name/value pairs that can be sent as request parameters to control client and/or server side request processing
      * */
-    jsf.ajax.request = function(source, event, options) {
+    faces.ajax.request = function(source, event, options) {
         rf.queue.push(source, event, options);
     };
 
-    rf.ajaxContainer.jsfResponse = jsf.ajax.response;
+    rf.ajaxContainer.jsfResponse = faces.ajax.response;
 
     rf.ajaxContainer.isIgnoreResponse = function() {
         return rf.queue.isIgnoreResponse();
     };
 
 
-    jsf.ajax.response = function(request, context) {
+    faces.ajax.response = function(request, context) {
         rf.queue.response(request, context);
     };
 
@@ -312,8 +312,8 @@
             }
         };
 
-        jsf.ajax.addOnEvent(onComplete);
-        jsf.ajax.addOnError(onError);
+        faces.ajax.addOnEvent(onComplete);
+        faces.ajax.addOnError(onError);
 
         var submitFirstEntry = function() {
             if (QUEUE_MODE == QUEUE_MODE_PULL && lastRequestedEntry) {
@@ -529,4 +529,4 @@
             }
         }
     }());
-}(RichFaces.jQuery, RichFaces, jsf));
+}(RichFaces.jQuery, RichFaces, faces));

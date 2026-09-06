@@ -1,4 +1,4 @@
-(function($, rf, jsf) {
+(function($, rf, faces) {
 
 
   /**
@@ -365,8 +365,8 @@
     rf.push.updateConnection();
   });
 
-  jsf.ajax.addOnEvent(jsfErrorHandler);
-  jsf.ajax.addOnError(jsfErrorHandler);
+  faces.ajax.addOnEvent(jsfErrorHandler);
+  faces.ajax.addOnError(jsfErrorHandler);
 
 
   /* PRIVATE FUNCTIONS */
@@ -391,4 +391,4 @@
     return result;
   }
 
-}(RichFaces.jQuery, RichFaces, jsf));
+}(RichFaces.jQuery, RichFaces, faces));
