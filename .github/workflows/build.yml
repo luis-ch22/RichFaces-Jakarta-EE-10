@@ -1,7 +1,8 @@
 name: build
 
-# CI for the Jakarta EE 10 / JDK 21 migration of RichFaces
-# (replaces the retired .travis.yml, which was pinned to JDK 8).
+# CI for the Jakarta EE 10 / JDK 21 migration of RichFaces.
+# The CDK is built and installed first because the runtime consumes its
+# SNAPSHOT Maven plugin and generator artifacts.
 
 on:
   push:
@@ -14,9 +15,24 @@ jobs:
   build:
     name: Build (Temurin 21)
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      MAVEN_REPO_LOCAL: ${{ runner.temp }}/m2
+
     steps:
-      - name: Checkout
+      - name: Checkout runtime
         uses: actions/checkout@v4
+
+      # The upstream origin/jakarta branch still contains the old
+      # com.github.albfernandez coordinates. The fork's main branch contains
+      # the Jakarta EE 10 CDK consumed by this runtime.
+      - name: Checkout Jakarta CDK
+        uses: actions/checkout@v4
+        with:
+          repository: luis-ch22/RichFaces-CDK-Jakarta-EE-10
+          ref: main
+          path: cdk
 
       - name: Set up JDK 21 (Temurin)
         uses: actions/setup-java@v4
@@ -25,13 +41,16 @@ jobs:
           java-version: '21'
           cache: maven
 
-      # Library reactor: BOM, build tooling, core and components (a4j, rich),
-      # dist. Tests are skipped here (the unit baseline and the
-      # integration-tests-jakarta module are run in dedicated jobs / on demand).
-      - name: Build library (skip tests)
-        run: mvn -B -ntp -Dmaven.test.skip=true -Dgpg.skip=true clean install
+      - name: Build and install CDK
+        working-directory: cdk
+        run: mvn -B -ntp -Dmaven.test.skip=true -Dgpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.repo.local="$MAVEN_REPO_LOCAL" clean install
 
-      # Unit test baseline for core, a4j and rich (container-dependent tests are
-      # excluded via the ContainerRequired category / unit.test.excludedGroups).
+      # Library reactor: BOM, build tooling, core and components (a4j, rich),
+      # dist. Tests are skipped here; the unit baseline is run below.
+      - name: Build library (skip tests)
+        run: mvn -B -ntp -Dmaven.test.skip=true -Dgpg.skip=true -Dmaven.repo.local="$MAVEN_REPO_LOCAL" clean install
+
+      # Unit test baseline for core, a4j and rich (container-dependent tests
+      # are excluded via the ContainerRequired category).
       - name: Unit tests (core, a4j, rich)
-        run: mvn -B -ntp -Dgpg.skip=true -pl core,components/a4j,components/rich test
+        run: mvn -B -ntp -Dgpg.skip=true -Dmaven.repo.local="$MAVEN_REPO_LOCAL" -pl core,components/a4j,components/rich test
