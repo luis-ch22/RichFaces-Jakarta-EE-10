@@ -12,14 +12,12 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import com.opera.core.systems.OperaDriver;
 
 public enum Browser {
 
     FIREFOX(FirefoxDriver.class, BrowserType.FIREFOX),
     INTERNET_EXPLORER(InternetExplorerDriver.class),
     CHROME(ChromeDriver.class, BrowserType.CHROME),
-    OPERA(OperaDriver.class),
     HTML_UNIT(HtmlUnitDriver.class);
 
     private final Class<?> clazz;
