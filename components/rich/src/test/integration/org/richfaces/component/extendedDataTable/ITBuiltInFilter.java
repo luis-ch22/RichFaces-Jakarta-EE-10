@@ -103,7 +103,7 @@ public class ITBuiltInFilter {
 
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("fn", "http://java.sun.com/jsp/jstl/functions");
+        p.xmlns("fn", "jakarta.tags.functions");
 
         p.body("<script type='text/javascript'>");
         p.body("function filterEdt(filterValue) {");
