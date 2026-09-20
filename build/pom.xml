@@ -438,6 +438,10 @@
                 <version>${version.jsf-test}</version>
                 <exclusions>
                     <exclusion>
+                        <groupId>org.apache.myfaces.core</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>jakarta.servlet</groupId>
                         <artifactId>jakarta.servlet-api</artifactId>
                     </exclusion>
@@ -447,21 +451,57 @@
                 <groupId>com.github.albfernandez.test-jsf</groupId>
                 <artifactId>jsf-test-stage</artifactId>
                 <version>${version.jsf-test}</version>
+                <exclusions>
+                    <!-- El pom padre de test-jsf arrastra MyFaces 4 como
+                         implementacion. RichFaces usa Mojarra; tener las dos en el
+                         classpath de test rompe los tests que mockean el contexto. -->
+                    <exclusion>
+                        <groupId>org.apache.myfaces.core</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.github.albfernandez.test-jsf</groupId>
                 <artifactId>jsf-mock</artifactId>
                 <version>${version.jsf-test}</version>
+                <exclusions>
+                    <!-- El pom padre de test-jsf arrastra MyFaces 4 como
+                         implementacion. RichFaces usa Mojarra; tener las dos en el
+                         classpath de test rompe los tests que mockean el contexto. -->
+                    <exclusion>
+                        <groupId>org.apache.myfaces.core</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.github.albfernandez.test-jsf</groupId>
                 <artifactId>jsf-mockito</artifactId>
                 <version>${version.jsf-test}</version>
+                <exclusions>
+                    <!-- El pom padre de test-jsf arrastra MyFaces 4 como
+                         implementacion. RichFaces usa Mojarra; tener las dos en el
+                         classpath de test rompe los tests que mockean el contexto. -->
+                    <exclusion>
+                        <groupId>org.apache.myfaces.core</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.github.albfernandez.test-jsf</groupId>
                 <artifactId>jsf-test-scriptunit</artifactId>
                 <version>${version.jsf-test}</version>
+                <exclusions>
+                    <!-- El pom padre de test-jsf arrastra MyFaces 4 como
+                         implementacion. RichFaces usa Mojarra; tener las dos en el
+                         classpath de test rompe los tests que mockean el contexto. -->
+                    <exclusion>
+                        <groupId>org.apache.myfaces.core</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.easymock</groupId>

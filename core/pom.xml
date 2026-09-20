@@ -56,6 +56,16 @@
     </properties>
 
     <dependencies>
+        <!-- Implementacion de Jakarta Faces 4: Mojarra. Se declara de forma
+             explicita en lugar de dentro de un perfil activado por negacion,
+             para que el classpath no dependa de que una propiedad este sin
+             definir. Ver la propiedad jsf_profile en el pom raiz. -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.faces</artifactId>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
 
         <!-- Jakarta EE 10 Web Profile APIs (provided by the container/impl).
              Replaces jboss-javaee-6.0. Faces API comes from the jsf profiles
@@ -423,23 +433,6 @@
             </build>
         </profile>
 
-        <profile>
-            <id>jsf_ri</id>
-            <activation>
-                <property>
-                    <name>!jsf_profile</name>
-                </property>
-            </activation>
-            <dependencies>
-                <!-- Mojarra 4.0 (jakarta.faces) — Faces 4.0 reference impl -->
-                <dependency>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>jakarta.faces</artifactId>
-                    <scope>compile</scope>
-                    <optional>true</optional>
-                </dependency>
-            </dependencies>
-        </profile>
 
         <!-- Release -->
         <profile>

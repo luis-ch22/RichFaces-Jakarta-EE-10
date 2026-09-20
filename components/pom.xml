@@ -164,6 +164,16 @@
     </build>
 
     <dependencies>
+        <!-- Implementacion de Jakarta Faces 4: Mojarra. Se declara de forma
+             explicita en lugar de dentro de un perfil activado por negacion,
+             para que el classpath no dependa de que una propiedad este sin
+             definir. Ver la propiedad jsf_profile en el pom raiz. -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.faces</artifactId>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
         <!-- runtime -->
         <dependency>
             <groupId>com.github.luisch22.richfaces</groupId>
@@ -252,23 +262,6 @@
     </dependencyManagement>
 
     <profiles>
-        <profile>
-            <id>jsf_ri</id>
-            <activation>
-                <property>
-                    <name>!jsf_profile</name>
-                </property>
-            </activation>
-            <dependencies>
-                <!-- Mojarra 4.0 (jakarta.faces) — Faces 4.0 reference impl -->
-                <dependency>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>jakarta.faces</artifactId>
-                    <scope>compile</scope>
-                    <optional>true</optional>
-                </dependency>
-            </dependencies>
-        </profile>
 
         <profile>
             <id>release</id>
