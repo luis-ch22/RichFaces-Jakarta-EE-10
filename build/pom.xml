@@ -65,7 +65,7 @@
     <properties>
         <!-- Base Dependencies Versions -->
         <version.richfaces>5.0.0</version.richfaces>
-        <!-- Jakarta CDK (albfernandez). groupId changed from org.richfaces.cdk.
+        <!-- Jakarta CDK. groupId changed from org.richfaces.cdk.
              Declared here too because richfaces-build does not inherit from the
              reactor root. -->
         <groupId.cdk>com.github.luisch22.richfaces.cdk</groupId.cdk>

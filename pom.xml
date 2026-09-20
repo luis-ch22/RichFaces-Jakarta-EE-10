@@ -100,14 +100,6 @@
             </roles>
         </developer>
         <developer>
-            <id>albfernandez</id>
-            <name>Alberto Fernández</name>
-            <url>https://github.com/albfernandez</url>
-            <roles>
-                <role>Author of the upstream fork (4.6.x) and the Jakarta CDK</role>
-            </roles>
-        </developer>
-        <developer>
             <name>RichFaces committers</name>
             <roles>
                 <role>Original JBoss RichFaces project</role>
