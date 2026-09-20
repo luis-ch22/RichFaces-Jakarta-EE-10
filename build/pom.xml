@@ -146,13 +146,11 @@
         <version.shrinkwrap>1.2.3</version.shrinkwrap>
         <version.shrinkwrap.resolver>2.2.2</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-9</version.shrinkwrap.descriptors>
-        <version.arquillian.tomcat>1.0.0.CR6</version.arquillian.tomcat>
         <version.arquillian.suite.extension>1.1.2</version.arquillian.suite.extension>
         <version.httpclient>4.3.3</version.httpclient>
 
         <!-- Container Versions -->
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
-        <version.wildfly8>8.2.1.Final</version.wildfly8>
 
 
         <maven.min.version>3.9.0</maven.min.version>
@@ -315,38 +313,6 @@
                 <version>${version.arquillian.core}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- Container versions -->
-            <dependency>
-                <groupId>org.jboss.as</groupId>
-                <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                <version>${version.jboss-as7}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.as</groupId>
-                <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                <version>${version.jboss-as7}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-arquillian-container-managed</artifactId>
-                <version>${version.wildfly8}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-arquillian-container-remote</artifactId>
-                <version>${version.wildfly8}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.container</groupId>
-                <artifactId>arquillian-tomcat-remote-7</artifactId>
-                <version>${version.arquillian.tomcat}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.container</groupId>
-                <artifactId>arquillian-tomcat-managed-7</artifactId>
-                <version>${version.arquillian.tomcat}</version>
             </dependency>
 
             <!-- JSF Implementations Versions -->
