@@ -80,7 +80,7 @@
         change very rarely.
     </description>
 
-    <url>https://github.com/luis-ch22/RichFaces_Java_21</url>
+    <url>https://github.com/luis-ch22/RichFaces-Jakarta-EE-10</url>
 
     <licenses>
         <license>
@@ -120,13 +120,13 @@
 
     <!-- SCM and distribution management -->
 	<scm>
-		<connection>scm:git:git@github.com:luis-ch22/RichFaces_Java_21.git</connection>
-		<developerConnection>scm:git:git@github.com:luis-ch22/RichFaces_Java_21.git</developerConnection>
-		<url>https://github.com/luis-ch22/RichFaces_Java_21</url>
+		<connection>scm:git:git@github.com:luis-ch22/RichFaces-Jakarta-EE-10.git</connection>
+		<developerConnection>scm:git:git@github.com:luis-ch22/RichFaces-Jakarta-EE-10.git</developerConnection>
+		<url>https://github.com/luis-ch22/RichFaces-Jakarta-EE-10</url>
 	</scm>
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/luis-ch22/RichFaces_Java_21/issues</url>
+		<url>https://github.com/luis-ch22/RichFaces-Jakarta-EE-10/issues</url>
 	</issueManagement>
 
     <properties>
