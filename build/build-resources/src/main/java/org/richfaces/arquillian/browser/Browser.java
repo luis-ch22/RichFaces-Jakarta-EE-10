@@ -9,7 +9,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -21,8 +20,7 @@ public enum Browser {
     INTERNET_EXPLORER(InternetExplorerDriver.class),
     CHROME(ChromeDriver.class, BrowserType.CHROME),
     OPERA(OperaDriver.class),
-    HTML_UNIT(HtmlUnitDriver.class),
-    PHANTOMJS(PhantomJSDriver.class, BrowserType.PHANTOMJS);
+    HTML_UNIT(HtmlUnitDriver.class);
 
     private final Class<?> clazz;
     private final Set<String> browserNames;

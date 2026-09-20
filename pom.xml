@@ -517,7 +517,7 @@
 
                 <!-- Arquillian Configuration -->
                 <arquillian.debug>false</arquillian.debug>
-                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
+            <arquillian.drone.browser>chrome</arquillian.drone.browser>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
                 <arquillian.richfaces.version />
                 <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
@@ -543,7 +543,7 @@
                 <testCategory.included.default>NOT category.None</testCategory.included.default>
                 <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
                 <testCategory.excluded.container />
-                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
+                <testCategory.excluded.browser />
                 <testCategory.excluded.jsf />
             </properties>
             <dependencies>
@@ -703,19 +703,6 @@
         </profile>
 
         <!-- Browsers -->
-        <profile>
-            <id>browser-phantomjs</id>
-            <activation>
-                <property>
-                    <name>browser</name>
-                    <value>phantomjs</value>
-                </property>
-            </activation>
-            <properties>
-                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
-                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
-            </properties>
-        </profile>
         <profile>
             <id>browser-chrome</id>
             <activation>
