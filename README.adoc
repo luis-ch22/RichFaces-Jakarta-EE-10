@@ -9,9 +9,8 @@ RichFaces 5.0.0 (Java 21) image:https://github.com/luis-ch22/RichFaces-Jakarta-E
 *RichFaces Java 21 edition (version 5.0.0)* — maintained at
 https://github.com/luis-ch22/RichFaces-Jakarta-EE-10[luis-ch22/RichFaces-Jakarta-EE-10].
 
-This is a fork of https://github.com/albfernandez/richfaces[albfernandez/richfaces]
-(itself a fork of the discontinued JBoss RichFaces 4.5), migrated to build and
-run on *Java 21*. Group id changed to `com.github.luisch22.richfaces`. See
+This is based on RichFaces 4.6.x (itself derived from the discontinued
+JBoss RichFaces 4.5), migrated to build and run on *Java 21*. Group id changed to `com.github.luisch22.richfaces`. See
 `MIGRATION_JAVA21.md` for the full migration log. Distributed under the same
 license (LGPL v2.1); original copyright notices are preserved.
 ====

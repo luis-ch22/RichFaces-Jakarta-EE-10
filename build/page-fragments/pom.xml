@@ -45,17 +45,19 @@
             <groupId>org.jboss.arquillian.graphene</groupId>
             <artifactId>graphene-webdriver</artifactId>
             <type>pom</type>
+            <exclusions>
+                <!-- PhantomJS esta abandonado desde 2018 y ya no se usa en el codigo. -->
+                <exclusion>
+                    <groupId>org.jboss.arquillian.extension</groupId>
+                    <artifactId>arquillian-phantom-driver</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         
-        <dependency>
-            <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-phantom-driver</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
-            <version>2.46.0</version>
         </dependency>
 
         <!-- Testing dependencies -->

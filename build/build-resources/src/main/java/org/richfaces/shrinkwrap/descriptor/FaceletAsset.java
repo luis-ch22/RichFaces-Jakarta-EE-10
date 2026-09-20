@@ -53,10 +53,12 @@ public class FaceletAsset implements Asset {
     }
 
     public FaceletAsset() {
-        this.xmlns("ui", "http://java.sun.com/jsf/facelets");
-        this.xmlns("h", "http://java.sun.com/jsf/html");
-        this.xmlns("f", "http://java.sun.com/jsf/core");
-        this.xmlns("c", "http://java.sun.com/jsp/jstl/core");
+        // Namespaces de Jakarta Faces 4. Los antiguos http://java.sun.com/jsf/*
+        // no quedaron obsoletos: se eliminaron de la especificacion.
+        this.xmlns("ui", "jakarta.faces.facelets");
+        this.xmlns("h", "jakarta.faces.html");
+        this.xmlns("f", "jakarta.faces.core");
+        this.xmlns("c", "jakarta.tags.core");
         this.xmlns("a4j", "http://richfaces.org/a4j");
         this.xmlns("rich", "http://richfaces.org/rich");
         this.xmlns("s", "http://richfaces.org/sandbox/prototyping");

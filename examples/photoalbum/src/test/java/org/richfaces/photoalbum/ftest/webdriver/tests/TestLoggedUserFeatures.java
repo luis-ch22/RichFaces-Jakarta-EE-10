@@ -36,7 +36,6 @@ import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView.AlbumHe
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView;
 
-import category.FailingOnPhantomJS;
 
 
 /**
@@ -59,7 +58,6 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void testEditAlbumName() {
         login();
 
@@ -82,7 +80,6 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void testEditPhotoName() {
         login();
 
@@ -100,7 +97,6 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void testEditAlbumGroupName() {
         login();
 

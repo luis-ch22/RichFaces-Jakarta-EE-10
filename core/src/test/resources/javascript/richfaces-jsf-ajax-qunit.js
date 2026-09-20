@@ -20,24 +20,24 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-window.jsf = {};
-jsf.ajax = (function() {
+window.faces = {};
+faces.ajax = (function() {
     return {
         eventHandlers:[],
         errorHandlers:[],
         eventHandlerCounter:0,
         errorHandlerCounter:0,
         request:function (source, event, options) {
-            for (var i = 0; i < jsf.ajax.eventHandlers.length; i++) {
-                jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
+            for (var i = 0; i < faces.ajax.eventHandlers.length; i++) {
+                faces.ajax.eventHandlers[i]({type:"event", status:"success"});
             }
         },
         addOnEvent: function (handler) {
-            jsf.ajax.eventHandlers.push(handler);
+            faces.ajax.eventHandlers.push(handler);
             this.eventHandlerCounter++;
         },
         addOnError: function (handler) {
-            jsf.ajax.errorHandlers.push(handler);
+            faces.ajax.errorHandlers.push(handler);
             this.errorHandlerCounter++;
         }
     }
