@@ -31,7 +31,7 @@
 <script type="text/javascript" src="../../classes/META-INF/resources/org.richfaces/richfaces.js"></script>
 <script type="text/javascript" src="qunit/qunit.js"></script>
 <script type="text/javascript">
-        var jsf = {};
+        var faces = {};
         jQuery(document).ready(function() {
             /* does not work in HtmlUnit
             test("RichFaces.submitForm test", function() {
@@ -137,7 +137,7 @@
             var ajaxSource = "source";
             var ajaxEvent = "event";
             var ajaxOptions = {parameters: {'param': 'value'}};
-            jsf.ajax = {
+            faces.ajax = {
                 request : function(source, event, options) {
                     ok(!options['source']);
                 }
@@ -151,7 +151,7 @@
             var ajaxSource = "source";
             var ajaxEvent = "event";
             var ajaxOptions = {parameters: {'param': 'value'}, sourceId: 'someId'};
-            jsf.ajax = {
+            faces.ajax = {
                 request : function(source, event, options) {
                     equal(source, ajaxSource);
                     equal(options['org.richfaces.ajax.component'], 'someId');
@@ -165,7 +165,7 @@
             var ajaxSource = "source";
             var ajaxEvent = "event";
             var ajaxOptions = {parameters: {'param': 'value'}, incId: 1};
-            jsf.ajax = {
+            faces.ajax = {
                 request : function(source, event, options) {
                     equal(source, ajaxSource);
                     equal(event, ajaxEvent);
@@ -184,7 +184,7 @@
             var ajaxSource = "source";
             var ajaxEvent = "event";
             var ajaxOptions = {clientParameters: {'param': 'value'}, incId: 1};
-            jsf.ajax = {
+            faces.ajax = {
                 request : function(source, event, options) {
                     equal(source, ajaxSource);
                     equal(event, ajaxEvent);
