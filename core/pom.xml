@@ -116,6 +116,10 @@
         	<groupId>log4j</groupId>
         	<artifactId>log4j</artifactId>
         	<version>1.2.17</version>
+        	<!-- Optional: LogFactory detecta log4j con Class.forName y cae a
+        	     JavaLogger si no esta. No se propaga a los consumidores porque
+        	     log4j 1.x esta fuera de soporte desde 2015. -->
+        	<optional>true</optional>
         </dependency>
 
         <!-- CDK (jakarta) -->
