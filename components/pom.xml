@@ -269,54 +269,6 @@
                 </dependency>
             </dependencies>
         </profile>
-        <profile>
-            <id>jsf_jboss</id>
-            <activation>
-                <property>
-                    <name>jsf_profile</name>
-                    <value>jboss</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.spec.javax.faces</groupId>
-                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
-                    <scope>compile</scope>
-                    <optional>true</optional>
-                </dependency>
-                <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-impl</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>myfaces</id>
-            <activation>
-                <property>
-                    <name>jsf_profile</name>
-                    <value>myfaces</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.richfaces.jsfProvider>myfaces</arquillian.richfaces.jsfProvider>
-                <arquillian.richfaces.jsfImplementation>org.apache.myfaces.core:myfaces-impl</arquillian.richfaces.jsfImplementation>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.myfaces.core</groupId>
-                    <artifactId>myfaces-api</artifactId>
-                    <scope>compile</scope>
-                    <optional>true</optional>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.myfaces.core</groupId>
-                    <artifactId>myfaces-impl</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
 
         <profile>
             <id>release</id>
